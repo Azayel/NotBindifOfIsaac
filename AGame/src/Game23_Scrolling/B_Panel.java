@@ -49,19 +49,24 @@ class B_Panel extends JPanel implements A_GraphicSystem
   
   
   public final void draw(A_GameObject dot)
-  {	  
-	int x = (int)(dot.x-dot.radius-world.worldPartX);
-	int y = (int)(dot.y-dot.radius-world.worldPartY);
-	int d = (int)(dot.radius*2);
-
-    if( dot.hasTexture){
-        graphics.drawImage(dot.texture, x,y,d,d,null);
-    }else {
-        graphics.setColor(dot.color);
-        graphics.fillOval(x, y, d, d);
-        graphics.setColor(Color.DARK_GRAY);
-        graphics.drawOval(x, y, d, d);
-    }
+  {
+      // Draw textured object
+      if (dot.hasTexture && dot.texture != null) {
+          int x = (int)(dot.x  - world.worldPartX);
+          int y = (int)(dot.y  - world.worldPartY);
+          graphics.drawImage(dot.texture, x, y, null);
+          System.out.println(x+" "+y);
+      }
+      // Draw non-textured object (circle)
+      else {
+          int x = (int)(dot.x - dot.radius - world.worldPartX);
+          int y = (int)(dot.y - dot.radius - world.worldPartY);
+          int d = (int)(dot.radius * 2);
+          graphics.setColor(dot.color);
+          graphics.fillOval(x, y, d, d); // Filled circle
+          graphics.setColor(Color.DARK_GRAY);
+          graphics.drawOval(x, y, d, d); // Border
+      }
   }
   
   public final void draw(A_TextObject text)

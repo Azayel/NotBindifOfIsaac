@@ -4,6 +4,6 @@ import javax.swing.*;
 import java.awt.*;
 
 public final class AvatarTexture {
-    public static Image avatarDefault= new ImageIcon("src/Textures/Player/Wizard.png").getImage();
+    public static Image avatarDefault= new ImageIcon("AGame/src/Textures/Player/Wizard.png").getImage();
 
 }

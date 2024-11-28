@@ -1,0 +1,137 @@
+package Game23_Scrolling;
+
+public class WorldMainMap extends A_World{
+
+    private double timePassed = 0;
+    private double timeSinceLastShot = 0;
+
+    // for grenades
+    private int grenades = 500;
+    private Gam20_CounterGrenades counterG;
+    private Gam20_Counter         counterZ;
+    private Gam20_HelpText        helpText;
+    private double spawnGrenade = 0;
+
+    private double lifeHelpText = 10.0;
+
+    protected void init()
+    {
+        // add the Avatar
+        avatar = new Player_Avatar(500,500);
+        gameObjects.add(new BackgroundImage(1,1));
+        gameObjects.add(avatar);
+
+
+        // set WorldPart position
+        worldPartX = 1500;
+        worldPartY = 1500;
+
+        // add a little forrest
+
+
+
+
+
+        // add one zombie
+
+
+
+        counterZ = new Gam20_Counter(20,40);
+        counterG = new Gam20_CounterGrenades(770,40);
+        helpText = new Gam20_HelpText(100,400);
+
+        counterG.setNumber(grenades);
+        textObjects.add(counterZ);
+        textObjects.add(counterG);
+        textObjects.add(helpText);
+
+    }
+
+    protected void processUserInput(A_UserInput userInput, double diffSeconds)
+    {
+        // distinguish if Avatar shall move or shoots
+        int button = userInput.mouseButton;
+
+        //
+        // Mouse events
+        //
+        if(userInput.isMouseEvent)
+        {
+            // move
+            if(button==1)
+            { avatar.setDestination(userInput.mousePressedX+worldPartX,
+                    userInput.mousePressedY+worldPartY);
+            }
+        }
+
+        //
+        // Mouse still pressed?
+        //
+        if(userInput.isMousePressed && button==3)
+        {
+            // only 1 shot every ... seconds:
+            timeSinceLastShot += diffSeconds;
+            if(timeSinceLastShot > 0.2)
+            {
+                timeSinceLastShot = 0;
+
+                Gam20_Shot shot = new Gam20_Shot(
+                        avatar.x,avatar.y,userInput.mouseMovedX+worldPartX,userInput.mouseMovedY+worldPartY);
+                this.gameObjects.add(shot);
+            }
+        }
+
+        //
+        // Keyboard events
+        //
+        if(userInput.isKeyEvent)
+        {
+            if(userInput.keyPressed==' ')
+            { throwGrenade(userInput.mouseMovedX+worldPartX,userInput.mouseMovedY+worldPartY);
+            }
+            else if(userInput.keyPressed==(char)27)
+            { System.exit(0);
+            }
+        }
+    }
+
+
+    private void throwGrenade(double x, double y)
+    {
+        if(grenades<=0) return;
+
+        // throw grenade
+        for(int i=0; i<2000; i++)
+        {
+            double alfa = Math.random()*Math.PI*2;
+            double speed = 50+Math.random()*200;
+            double time  = 0.2+Math.random()*0.4;
+            Gam20_Shot shot = new Gam20_Shot(x,y,alfa,speed,time);
+            this.gameObjects.add(shot);
+        }
+
+        // inform counter
+        grenades--;
+        counterG.setNumber(grenades);
+    }
+
+
+
+    protected void createNewObjects(double diffSeconds)
+    {
+        //createZombie(diffSeconds);
+        //createGrenade(diffSeconds);
+
+        // delete HelpText after ... seconds
+        if(helpText!=null)
+        {
+            lifeHelpText -= diffSeconds;
+            if(lifeHelpText < 0)
+            {
+                textObjects.remove(helpText);
+                helpText = null;
+            }
+        }
+    }
+
+}

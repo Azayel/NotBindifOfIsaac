@@ -16,9 +16,9 @@ class B_Frame extends JFrame implements A_Frame
 	this.setSize(A_Const.WORLDPART_WIDTH+2,A_Const.WORLDPART_HEIGHT+2);
 	
 	this.setAlwaysOnTop(true);
-	this.setUndecorated(true);
+	this.setUndecorated(false);
 	
-	this.setResizable(false);
+	this.setResizable(true);
 	
 	panel = new B_Panel();
 	
