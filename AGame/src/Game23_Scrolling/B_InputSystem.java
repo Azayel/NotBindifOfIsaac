@@ -41,13 +41,42 @@ class B_InputSystem
   public void keyPressed(KeyEvent evt)
   { userInput.isKeyEvent = true;
     userInput.keyPressed = evt.getKeyChar();
+    switch (userInput.keyPressed) {
+      case 'w':
+        userInput.wIsPressed = true;
+        break;
+      case 'a':
+        userInput.aIsPressed = true;
+        break;
+      case 's':
+        userInput.sIsPressed = true;
+        break;
+      case 'd':
+        userInput.dIsPressed = true;
+        break;
+    }
   }	
 	
   
   public void mouseEntered(MouseEvent evt){}
   public void mouseExited(MouseEvent evt){}
   public void mouseClicked(MouseEvent evt){}
-  public void keyReleased(KeyEvent evt){}
+  public void keyReleased(KeyEvent evt){
+    switch (evt.getKeyChar()) {
+      case 'w':
+        userInput.wIsPressed = false;
+        break;
+      case 'a':
+        userInput.aIsPressed = false;
+        break;
+      case 's':
+        userInput.sIsPressed = false;
+        break;
+      case 'd':
+        userInput.dIsPressed = false;
+        break;
+    }
+  }
   public void keyTyped(KeyEvent evt){}	
   
   

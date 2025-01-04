@@ -56,15 +56,6 @@ abstract class A_GameObject
         hasTexture = true;
     }
 
-    public A_GameObject(double x_, double y_
-                        , Image texture_)
-    {
-        x=x_;    y=y_;
-        xOld=x;  yOld=y;
-        texture=texture_;
-        hasTexture = true;
-    }
-
   
   
   // move one step to direction <alfa>

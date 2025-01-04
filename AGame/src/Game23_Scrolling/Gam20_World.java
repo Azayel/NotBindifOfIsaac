@@ -6,7 +6,7 @@ class Gam20_World extends A_World
 {
   private double timePassed = 0;
   private double timeSinceLastShot = 0;
-
+  
   // for grenades
   private int grenades = 500;
   private Gam20_CounterGrenades counterG;
@@ -19,23 +19,33 @@ class Gam20_World extends A_World
   protected void init()
   {
     // add the Avatar
-	avatar = new Player_Avatar(500,500);
-    gameObjects.add(new BackgroundImage(1,1));
+	avatar = new Player_Avatar(2500,2000);
 	gameObjects.add(avatar);
-
-
+	
 	// set WorldPart position
 	worldPartX = 1500;
 	worldPartY = 1500;
 	
 	// add a little forrest
 	
+	for(int x=0; x<5000; x+=1000)
+	{
 
+	  for(int y=0; y<4000; y+=800)
+	  {
+        gameObjects.add(new Gam20_Tree(x+300,y+200,80));
+        gameObjects.add(new Gam20_Tree(x+600,y+370,50));
+        gameObjects.add(new Gam20_Tree(x+200,y+600,50));
+        gameObjects.add(new Gam20_Tree(x+500,y+800,40));
+        gameObjects.add(new Gam20_Tree(x+900,y+500,100));
+        gameObjects.add(new Gam20_Tree(x+760,y+160,40));
+	  }
+	}
     
 
 
     // add one zombie
-
+    gameObjects.add(new Gam20_ZombieAI(100,100));
     
     
     counterZ = new Gam20_Counter(20,40);
@@ -46,7 +56,6 @@ class Gam20_World extends A_World
     textObjects.add(counterZ);
     textObjects.add(counterG);
     textObjects.add(helpText);
-
   }
 	
   protected void processUserInput(A_UserInput userInput, double diffSeconds)
@@ -86,15 +95,27 @@ class Gam20_World extends A_World
 	//
 	// Keyboard events
 	//
-	if(userInput.isKeyEvent)
-	{
-	  if(userInput.keyPressed==' ')
-	  { throwGrenade(userInput.mouseMovedX+worldPartX,userInput.mouseMovedY+worldPartY);
-	  }
-	  else if(userInput.keyPressed==(char)27)
-	  { System.exit(0);
-	  }
-	}
+//	if(userInput.isKeyEvent)
+//	{
+//	  if(userInput.keyPressed==' ')
+//	  { throwGrenade(userInput.mouseMovedX+worldPartX,userInput.mouseMovedY+worldPartY);
+//	  }
+//	  else if(userInput.keyPressed==(char)27)
+//	  { System.exit(0);
+//	  }
+//	}
+    if(userInput.wIsPressed) {
+        avatar.y -= 5;
+    }
+      if(userInput.sIsPressed) {
+          avatar.y += 5;
+      }
+      if(userInput.aIsPressed) {
+          avatar.x -= 5;
+      }
+      if(userInput.dIsPressed) {
+          avatar.x += 5;
+      }
   }
   
    
@@ -121,7 +142,7 @@ class Gam20_World extends A_World
   
   protected void createNewObjects(double diffSeconds)
   {
-    //createZombie(diffSeconds);
+    createZombie(diffSeconds);
     createGrenade(diffSeconds);
     
     // delete HelpText after ... seconds

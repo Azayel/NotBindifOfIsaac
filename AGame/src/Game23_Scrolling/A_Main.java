@@ -10,7 +10,7 @@ final class A_Main
 	A_Frame frame = new B_Frame();
     frame.displayOnScreen();
     
-    world = new WorldMainMap();
+    world = new Gam20_World();
     
     world.setGraphicSystem(frame.getGraphicSystem());
     world.setInputSystem(frame.getInputSystem());
@@ -23,7 +23,7 @@ final class A_Main
     world.run();
   }
 	
-  public static void main(String[] args)
-  { new A_Main();
+  public static void main(String[] args) {
+    new A_Main();
   }
 }
