@@ -1,6 +1,6 @@
 package Game;
 
-import Game.NotBinding.AvatarTexture;
+import Game.AvatarTexture;
 
 class Isaac_Avatar extends GameObject
 {
