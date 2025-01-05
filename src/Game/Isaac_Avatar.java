@@ -1,11 +1,6 @@
 package Game;
 
-import Game.Const;
-import Game.GameObject;
-import Game.GameObjectList;
-import Game.Isaac_World;
-
-import java.awt.Color;
+import Game.NotBinding.AvatarTexture;
 
 class Isaac_Avatar extends GameObject
 {
