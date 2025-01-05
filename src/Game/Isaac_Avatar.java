@@ -11,7 +11,7 @@ class Isaac_Avatar extends GameObject
 {
 
     public Isaac_Avatar(double x, double y)
-    { super(x,y,0,200,15, new Color(96,96,255));
+    { super(x,y,0,200,15, AvatarTexture.avatarDefault);
         this.isMoving = false;
     }
 

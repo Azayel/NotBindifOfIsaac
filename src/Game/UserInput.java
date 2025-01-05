@@ -6,21 +6,25 @@ final class UserInput
     int mousePressedX, mousePressedY,
             mouseMovedX,   mouseMovedY, mouseButton;
 
-    char keyPressed;
+    NKeyList keys = new NKeyList();
+
+    // private PrintThread thread;
+
+    // char keyPressed;
 
     // if Mouse was clicked, Key was pressed or Mouse is still hold down
     boolean isMouseEvent, isKeyEvent, isMousePressed;
-    public boolean wIsPressed = false;
-    public boolean aIsPressed = false;
-    public boolean sIsPressed = false;
-    public boolean dIsPressed = false;
 
     // ... is returned as a data set
-    UserInput()
-    { this.clear();
+    UserInput() {
+
+        // thread = new PrintThread(keys);
+        // thread.start();
+        this.clear();
     }
 
-    final void clear()
-    { isMouseEvent=false; isKeyEvent=false;
+    final void clear() {
+        isMouseEvent=false;
+        isKeyEvent=false;
     }
 }

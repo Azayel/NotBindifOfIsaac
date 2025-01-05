@@ -19,7 +19,7 @@ class Isaac_World extends World
     protected void init()
     {
         // add the Avatar
-        avatar = new Player_Avatar(2500,2000);
+        avatar = new Isaac_Avatar(2500,2000);
         gameObjects.add(avatar);
 
         // set WorldPart position
@@ -104,16 +104,16 @@ class Isaac_World extends World
 //	  { System.exit(0);
 //	  }
 //	}
-        if(userInput.wIsPressed) {
+        if(userInput.keys.isIn('w')) {
             avatar.y -= 5;
         }
-        if(userInput.sIsPressed) {
+        if(userInput.keys.isIn('s')) {
             avatar.y += 5;
         }
-        if(userInput.aIsPressed) {
+        if(userInput.keys.isIn('a')) {
             avatar.x -= 5;
         }
-        if(userInput.dIsPressed) {
+        if(userInput.keys.isIn('d')) {
             avatar.x += 5;
         }
     }

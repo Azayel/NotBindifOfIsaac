@@ -3,6 +3,8 @@ package Game;
 import Game.*;
 
 import javax.swing.*;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 
 class Frame extends JFrame
 {
@@ -11,9 +13,11 @@ class Frame extends JFrame
 
     private Panel panel = null;
 
-    public Frame()
-    { this.setDefaultCloseOperation(EXIT_ON_CLOSE);
+    public Frame() {
+        this.setDefaultCloseOperation(EXIT_ON_CLOSE);
         this.setSize(Const.WORLDPART_WIDTH+2,Const.WORLDPART_HEIGHT+2);
+
+        this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 
         this.setAlwaysOnTop(false);
         this.setUndecorated(false);
@@ -33,4 +37,5 @@ class Frame extends JFrame
 
     public GraphicSystem getGraphicSystem() { return panel; }
     public InputSystem getInputSystem()   { return panel.getInputSystem(); }
+
 }
