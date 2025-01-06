@@ -6,6 +6,10 @@ import java.util.List;
 
 public class Isaac_Room {
 
+    //to Not spawn in Walls
+    public static int xMinSpawnSize = 50;
+    public static int yMinSpawnSize = 50;
+
     public int maxXRoomSize;
     public int maxYRoomSize;
     public BufferedImage backgroundRoomImage;
@@ -46,8 +50,10 @@ public class Isaac_Room {
                 zombieY = (int) (Math.random() * maxYRoomSize);
                 double distance = Math.sqrt(Math.pow(zombieX - playerStartX, 2) + Math.pow(zombieY - playerStartY, 2));
 
-                // Check if the zombie's position is at least minDistanceAwayFromPlayer away from the player
-                if (distance >= minDistanceAwayFromPlayer) {
+                // Validate position: far enough from player and away from walls
+                if (distance >= minDistanceAwayFromPlayer &&
+                        zombieX >= xMinSpawnSize && zombieX <= maxXRoomSize - xMinSpawnSize &&
+                        zombieY >= yMinSpawnSize && zombieY <= maxYRoomSize - yMinSpawnSize) {
                     validPosition = true;
                 }
             }
