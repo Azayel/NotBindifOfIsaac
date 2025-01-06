@@ -2,6 +2,8 @@ package Game;
 
 import Game.*;
 
+import java.awt.image.BufferedImage;
+
 class Isaac_World extends World
 {
     private double timePassed = 0;
@@ -16,6 +18,13 @@ class Isaac_World extends World
 
     private double lifeHelpText = 10.0;
 
+    protected void init()
+    {
+        CreateRoom(new Isaac_Room(RoomTexture.mapDefault,1920,1080) );
+    }
+
+    //ToDo Old stuff
+    /*
     protected void init()
     {
         // add the Avatar
@@ -57,6 +66,24 @@ class Isaac_World extends World
         textObjects.add(counterG);
         textObjects.add(helpText);
     }
+    */
+    //Create a Room
+    public void CreateRoom(Isaac_Room room){
+        //Clear gameObjects
+        gameObjects.clear();
+
+        //Set Background Image
+        //ToDo
+        background = new RoomBackgroundGameObject(room.backgroundRoomImage);
+        gameObjects.add(background);
+        //Set Avatar
+        avatar = new Isaac_Avatar(room.playerStartX,room.playerStartY);
+        gameObjects.add(avatar);
+        //add all Enemys
+        gameObjects.addAll(room.gameObjectsEnemyList);
+        //add all Enviorment stuff
+        //ToDo
+    }
 
     protected void processUserInput(UserInput userInput, double diffSeconds)
     {
@@ -69,15 +96,19 @@ class Isaac_World extends World
         if(userInput.isMouseEvent)
         {
             // move
+            /*
             if(button==1)
             { avatar.setDestination(userInput.mousePressedX+worldPartX,
                     userInput.mousePressedY+worldPartY);
             }
+
+             */
         }
 
         //
         // Mouse still pressed?
         //
+
         if(userInput.isMousePressed && button==3)
         {
             // only 1 shot every ... seconds:

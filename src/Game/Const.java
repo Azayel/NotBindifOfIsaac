@@ -3,8 +3,8 @@ package Game;
 final class Const
 {
     // size of the world
-    static final int WORLD_WIDTH      = 1920*2;
-    static final int WORLD_HEIGHT     = 1080*2;
+    static final int WORLD_WIDTH      = 1920;
+    static final int WORLD_HEIGHT     = 1080;
 
     // size of the displayed part of the world
     static final int WORLDPART_WIDTH  = 1920;

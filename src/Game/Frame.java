@@ -15,22 +15,24 @@ class Frame extends JFrame
 
     public Frame() {
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
-        this.setSize(Const.WORLDPART_WIDTH+2,Const.WORLDPART_HEIGHT+2);
 
-        this.setDefaultCloseOperation(EXIT_ON_CLOSE);
-
-        this.setAlwaysOnTop(false);
-        this.setUndecorated(false);
-
+        // Ensure exact size for the content pane (game panel)
         this.setResizable(false);
 
+        // Create the panel
         panel = new Panel();
+        panel.setPreferredSize(new java.awt.Dimension(Const.WORLDPART_WIDTH, Const.WORLDPART_HEIGHT));
 
-        // needed for Keyboard input !!!
+        // Add the panel and pack the frame to match its size
+        this.setContentPane(panel);
+        this.pack();
+
+        // Center the frame on the screen
+        this.setLocationRelativeTo(null);
+
+        // Needed for keyboard input
         panel.setFocusable(true);
         panel.requestFocusInWindow();
-
-        this.setContentPane(panel);
     }
 
     public void displayOnScreen() { validate(); setVisible(true); }

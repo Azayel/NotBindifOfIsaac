@@ -24,6 +24,7 @@ abstract class World
     // all objects in the game, including the Avatar
     GameObjectList gameObjects = new GameObjectList();
     GameObject            avatar;
+    GameObject            background;
     ArrayList<TextObject> textObjects = new ArrayList<TextObject>();
 
 
@@ -90,7 +91,7 @@ abstract class World
 
 
             // adjust displayed pane of the world
-            this.adjustWorldPart();
+            //this.adjustWorldPart();
 
             // draw all Objects
             graphicSystem.clear();
@@ -108,7 +109,7 @@ abstract class World
             graphicSystem.redraw();
 
             // create new objects if needed
-            createNewObjects(millisDiff/1000.0);
+            //createNewObjects(millisDiff/1000.0);
         }
     }
 

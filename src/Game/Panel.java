@@ -59,7 +59,13 @@ class Panel extends JPanel implements GraphicSystem
         int d = (int)(dot.radius*2);
 
         if( dot.hasTexture){
-            graphics.drawImage(dot.texture, x,y,d,d,null);
+            if (dot.isbackgroundImage){
+                int xAdjustment=0;
+                int yAdjustment=0;
+                graphics.drawImage(dot.texture, -xAdjustment, -yAdjustment, dot.texture.getWidth(null)-xAdjustment,dot.texture.getHeight(null)-yAdjustment,null);
+            }else {
+                graphics.drawImage(dot.texture, x,y,d,d,null);
+            }
         }else {
             graphics.setColor(dot.color);
             graphics.fillOval(x, y, d, d);

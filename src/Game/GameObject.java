@@ -16,6 +16,7 @@ abstract class GameObject
     protected Color   color;
     protected Image texture;
     protected boolean hasTexture = false;
+    protected boolean isbackgroundImage = false;
 
     // if the object is existing, moving etc
     protected boolean isLiving = true;
@@ -56,6 +57,16 @@ abstract class GameObject
         texture=texture_;
         hasTexture = true;
     }
+    public GameObject(Image texture_){
+        x=0;    y=0;
+        xOld=x;  yOld=y;
+        alfa=0; speed=0;
+        radius = 0;
+        texture=texture_;
+        hasTexture = true;
+        isbackgroundImage=true;
+    }
+
 
 
 
