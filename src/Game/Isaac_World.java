@@ -164,16 +164,20 @@ class Isaac_World extends World
 //	  }
 //	}
         if(userInput.keys.isIn('w')) {
-            avatar.y -= 5;
+           double y =avatar.y-5;
+            avatar.y = Math.clamp(y,50, currentRoom.maxYRoomSize - 50);
         }
         if(userInput.keys.isIn('s')) {
-            avatar.y += 5;
+            double y =avatar.y+5;
+            avatar.y = Math.clamp(y,50, currentRoom.maxYRoomSize - 50);
         }
         if(userInput.keys.isIn('a')) {
-            avatar.x -= 5;
+            double x = avatar.x -5;
+            avatar.x = Math.clamp(x, 50 , currentRoom.maxXRoomSize - 50);
         }
         if(userInput.keys.isIn('d')) {
-            avatar.x += 5;
+            double x =avatar.x+5;
+            avatar.x = Math.clamp(x,50, currentRoom.maxXRoomSize - 50);
         }
 
     }
