@@ -16,26 +16,63 @@ public class Isaac_Room {
     public int playerStartX;
     public int playerStartY;
 
+    public String backgroundMusic;
+
+    //all connected Rooms
+    public Isaac_Room leftRoom = null;
+    public Isaac_Room rightRoom = null;
+    public Isaac_Room topRoom = null;
+    public Isaac_Room bottomRoom = null;
+    public Isaac_RoomType isaacRoomType = null;
+
+    //Enemy List
     List<GameObject> gameObjectsEnemyList = new ArrayList<GameObject>();
 
-    public Isaac_Room(BufferedImage backgroundRoomImage, int maxXRoomSize, int maxYRoomSize) {
+    //Doors List
+    List<GameObject> doorList=new ArrayList<GameObject>();
+
+    public Isaac_Room(BufferedImage backgroundRoomImage, int maxXRoomSize, int maxYRoomSize,String backgroundMusic, Isaac_RoomType isaccRoomType) {
         this.maxXRoomSize = maxXRoomSize;
         this.maxYRoomSize = maxYRoomSize;
         this.backgroundRoomImage = backgroundRoomImage;
         this.playerStartX = maxXRoomSize/2;
         this.playerStartY = maxYRoomSize/2;
+        this.backgroundMusic = backgroundMusic;
+        this.isaacRoomType = isaccRoomType;
+        setRoomToRoomType(isaccRoomType);
 
-        creategameObjectsEnemyList(5,100);
     }
 
-    public Isaac_Room(BufferedImage backgroundRoomImage, int maxXRoomSize, int maxYRoomSize, int playerStartX, int playerStartY) {
+    public Isaac_Room(BufferedImage backgroundRoomImage, int maxXRoomSize, int maxYRoomSize, int playerStartX, int playerStartY, String backgroundMusic, Isaac_RoomType isaccRoomType) {
         this.maxXRoomSize = maxXRoomSize;
         this.maxYRoomSize = maxYRoomSize;
         this.backgroundRoomImage = backgroundRoomImage;
         this.playerStartX = playerStartX;
         this.playerStartY = playerStartY;
+        this.backgroundMusic = backgroundMusic;
+        this.isaacRoomType = isaccRoomType;
+        setRoomToRoomType(isaccRoomType);
 
-        creategameObjectsEnemyList(5,100);
+    }
+
+    private void setRoomToRoomType(Isaac_RoomType roomType) {
+        switch (roomType) {
+            case BOSS:
+                //ToDo
+                creategameObjectsEnemyList(10, 150);
+                break;
+            case TREASURE:
+                //ToDo Add treasure chest or rewards
+                break;
+            case SHOP:
+                //ToDo Add shopkeeper or items
+                break;
+            case START:
+
+                break;
+            default:
+                creategameObjectsEnemyList(5, 100);
+        }
     }
 
     private void creategameObjectsEnemyList(int enemysCount, int minDistanceAwayFromPlayer) {
@@ -62,5 +99,22 @@ public class Isaac_Room {
             gameObjectsEnemyList.add(new Isaac_ZombieAI(zombieX, zombieY));
         }
 
+    }
+
+    public void CreateDoors(){
+        List<GameObject> newDoorList=new ArrayList<>();
+        if(topRoom != null){
+            newDoorList.add(new Isaac_Door( maxXRoomSize/2-32,100,32));
+        }
+        if(rightRoom != null){
+            newDoorList.add(new Isaac_Door( maxXRoomSize-100,maxYRoomSize/2-32,32));
+        }
+        if(bottomRoom != null){
+            newDoorList.add(new Isaac_Door( maxXRoomSize/2-32,maxYRoomSize-100,32));
+        }
+        if(leftRoom != null){
+            newDoorList.add(new Isaac_Door( 100,maxYRoomSize/2-32,32));
+        }
+        doorList=newDoorList;
     }
 }

@@ -23,6 +23,7 @@ final class Const
     static final int TYPE_ZOMBIE  = 4;
     static final int TYPE_SHOT    = 5;
     static final int TYPE_GRENADE = 6;
+    static final int TYPE_DOOR = 7;
 
 
 }

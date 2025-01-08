@@ -17,6 +17,7 @@ abstract class GameObject
     protected Image texture;
     protected boolean hasTexture = false;
     protected boolean isbackgroundImage = false;
+    protected boolean isUseable = false;
 
     // if the object is existing, moving etc
     protected boolean isLiving = true;
@@ -57,6 +58,20 @@ abstract class GameObject
         texture=texture_;
         hasTexture = true;
     }
+    public GameObject(double x_, double y_,
+                      double a_, double s_,
+                      int radius_, Image texture_,
+                      boolean isUseable_)
+    {
+        x=x_;    y=y_;
+        xOld=x;  yOld=y;
+        alfa=a_; speed=s_;
+        radius=radius_;
+        texture=texture_;
+        hasTexture = true;
+        this.isUseable = isUseable_;
+    }
+
     public GameObject(Image texture_){
         x=0;    y=0;
         xOld=x;  yOld=y;

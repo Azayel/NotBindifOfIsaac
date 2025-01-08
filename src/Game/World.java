@@ -10,6 +10,7 @@ abstract class World
     private PhysicsSystem physicsSystem;
     private InputSystem inputSystem;
     private UserInput userInput;
+    private SoundEngine soundEngine;
 
     // top left corner of the displayed pane of the world
     double worldPartX = 0;
@@ -110,6 +111,8 @@ abstract class World
 
             // create new objects if needed
             //createNewObjects(millisDiff/1000.0);
+
+
         }
     }
 
@@ -161,6 +164,7 @@ abstract class World
     }
 
 
+    protected void setSoundEngine(SoundEngine soundEngine) {this.soundEngine = soundEngine;}
     protected void setGraphicSystem(GraphicSystem p) { graphicSystem = p; }
     protected void setInputSystem(InputSystem p)     { inputSystem   = p; }
 

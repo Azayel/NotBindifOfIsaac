@@ -1,12 +1,10 @@
 package Game;
 
-import Game.AvatarTexture;
-
 class Isaac_Avatar extends GameObject
 {
 
     public Isaac_Avatar(double x, double y)
-    { super(x,y,0,200,15, AvatarTexture.avatarDefault);
+    { super(x,y,0,200,15, Isaac_TextureAvatar.avatarDefault);
         this.isMoving = false;
     }
 
