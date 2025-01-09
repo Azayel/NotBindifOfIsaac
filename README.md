@@ -1,2 +1,2 @@
 # NotBindifOfIsaac
-Game Programming Lecture
+game Programming Lecture
