@@ -68,10 +68,10 @@ public class Isaac_ZombieAI extends AbstractGameObject
                 int type = obj.type();
 
                 // if object is avatar, game over
-                if(type== Const.TYPE_AVATAR)
-                { this.moveBack();
-                    world.gameOver=true;
-                }
+                //if(type== Const.TYPE_AVATAR)
+                //{ this.moveBack();
+                //    world.gameOver=true;
+                //}
 
                 // if object is zombie, step back
                 if(type==Const.TYPE_ZOMBIE)

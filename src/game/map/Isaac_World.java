@@ -7,6 +7,7 @@ import game.engine.world.AbstractWorld;
 import game.objects.RoomBackgroundGameObject;
 import game.engine.sound.SoundEngine;
 import game.objects.*;
+import game.objects.items.Heart;
 import game.objects.player.Isaac_Avatar;
 import game.sound.Isaac_Sounds;
 import game.utils.Const;
@@ -123,6 +124,9 @@ public class Isaac_World extends AbstractWorld
 
         //Sound System
         SoundEngine.instance.playMusic(room.backgroundMusic,true);
+
+        //TODO this is only for testing here
+        gameObjects.add(new Heart(100, 100));
     }
 
     public void processUserInput(UserInput userInput, double diffSeconds)
