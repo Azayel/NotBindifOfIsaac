@@ -4,3 +4,6 @@ https://pixabay.com/music/search/genre/video%20games/
 https://pixabay.com/music/search/genre/video%20games/
 -> Dead-By-Daylight
 -> Video Game Boss Fiight
+
+https://pixabay.com/sound-effects/search/spell/
+-> Magic Spell Impact Sound Effect

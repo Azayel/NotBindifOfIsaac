@@ -143,6 +143,7 @@ class Isaac_World extends World
             timeSinceLastShot += diffSeconds;
             if(timeSinceLastShot > 0.2)
             {
+                SoundEngine.instance.playSound(Isaac_Sounds.MagicCast);
                 timeSinceLastShot = 0;
 
                 Isaac_Shot shot = new Isaac_Shot(

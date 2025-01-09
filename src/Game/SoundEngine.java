@@ -67,6 +67,7 @@ public class SoundEngine {
     public void playSound(String filePath) {
         new Thread(() -> {
             try {
+                System.out.println("Playing sound: " + filePath);
                 File audioFile = new File(filePath);
                 AudioInputStream audioStream = AudioSystem.getAudioInputStream(audioFile);
                 Clip soundClip = AudioSystem.getClip();
