@@ -27,7 +27,7 @@ public class Isaac_Avatar extends AbstractGameObject {
             AbstractGameObject obj = collisions.get(i);
 
             // if Object is a tree, move back one step
-            if(obj.type()== Const.TYPE_TREE)
+            if(obj.type()== Const.TYPE_WALL)
             { this.moveBack(); }
 
             // pick up Grenades

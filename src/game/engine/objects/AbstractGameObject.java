@@ -2,6 +2,7 @@ package game.engine.objects;
 
 
 import game.engine.world.AbstractWorld;
+import game.utils.BoundingBox;
 import game.utils.Const;
 
 import java.awt.*;
@@ -30,6 +31,8 @@ public abstract class AbstractGameObject
     private boolean hasDestination = false;
     private double  xOld,  yOld;
 
+    private BoundingBox boundingBox;
+
 
     // GameObjects sometimes call physics methods
     public static AbstractWorld world;
@@ -46,6 +49,7 @@ public abstract class AbstractGameObject
         radius=radius_;
         color = color_;
         hasTexture = false;
+        boundingBox = new BoundingBox(x, y, radius*2.0, radius*2.0);
     }
 
     public AbstractGameObject(double x_, double y_,
@@ -58,6 +62,7 @@ public abstract class AbstractGameObject
         radius=radius_;
         texture=texture_;
         hasTexture = true;
+        boundingBox = new BoundingBox(x, y, radius*2.0, radius*2.0);
     }
     public AbstractGameObject(double x_, double y_,
                               double a_, double s_,
@@ -71,6 +76,8 @@ public abstract class AbstractGameObject
         texture=texture_;
         hasTexture = true;
         this.isUseable = isUseable_;
+        boundingBox = new BoundingBox(x, y, radius*2.0, radius*2.0);
+        System.out.println("Bounding Box Created for door : " + boundingBox.x + " " + boundingBox.y + " " + boundingBox.width + " " + boundingBox.height);
     }
 
     public AbstractGameObject(Image texture_){
@@ -81,6 +88,7 @@ public abstract class AbstractGameObject
         texture=texture_;
         hasTexture = true;
         isbackgroundImage=true;
+        boundingBox = new BoundingBox(-10.0, -10.0, 0, 0);
     }
 
 
@@ -107,8 +115,11 @@ public abstract class AbstractGameObject
         xOld=x; yOld=y;
 
         // move one step
-        x += Math.cos(alfa)*speed*diffSeconds;
-        y += Math.sin(alfa)*speed*diffSeconds;
+        double step_x = Math.cos(alfa)*speed*diffSeconds;
+        double step_y = Math.sin(alfa)*speed*diffSeconds;
+        x += step_x;
+        y += step_y;
+        this.boundingBox.move(step_x, step_y);
     }
 
 
@@ -161,5 +172,6 @@ public abstract class AbstractGameObject
 
     public abstract int type();
     public static void setWorld(AbstractWorld w) {world=w;}
+    public BoundingBox getBoundingBox() {return boundingBox;}
 
 }

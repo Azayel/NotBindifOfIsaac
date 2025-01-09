@@ -24,6 +24,7 @@ public final class Const
     public static final int TYPE_SHOT    = 5;
     public static final int TYPE_GRENADE = 6;
     public static final int TYPE_DOOR = 7;
+    public static final int TYPE_WALL = 8;
 
 
 }

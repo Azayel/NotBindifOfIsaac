@@ -43,7 +43,7 @@ public class Isaac_World extends AbstractWorld
     //Create a Level
     public void CreateLevel(int maxRooms,int level){
         //Init Starting Room and add to list
-        startingRoom = new Isaac_Room(Isaac_TextureRoom.mapDefault,1920,1080, Isaac_Sounds.StartingLevelMusic, Isaac_RoomType.START);
+        startingRoom = new Isaac_Room(Isaac_TextureRoom.mapDefault,1920,1080, Isaac_Sounds.StartingLevelMusic, Isaac_RoomType.NORMAL);
         rooms.add(startingRoom);
 
         while (rooms.size() < maxRooms-1)
@@ -176,16 +176,20 @@ public class Isaac_World extends AbstractWorld
 //	  }
 //	}
         if(userInput.keys.isIn('w')) {
-            avatar.y -= 5;
+            //avatar.y -= 5;
+            avatar.setDestination(avatar.x,avatar.y-5);
         }
         if(userInput.keys.isIn('s')) {
-            avatar.y += 5;
+            //avatar.y += 5;
+            avatar.setDestination(avatar.x,avatar.y+5);
         }
         if(userInput.keys.isIn('a')) {
-            avatar.x -= 5;
+            //avatar.x -= 5;
+            avatar.setDestination(avatar.x-5,avatar.y);
         }
         if(userInput.keys.isIn('d')) {
-            avatar.x += 5;
+            //avatar.x += 5;
+            avatar.setDestination(avatar.x+5,avatar.y);
         }
 
     }
