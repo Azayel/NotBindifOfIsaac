@@ -4,6 +4,7 @@ package game.map;
 import game.engine.input.UserInput;
 import game.engine.objects.GameObjectList;
 import game.engine.world.AbstractWorld;
+import game.level.Isaac_Level;
 import game.objects.RoomBackgroundGameObject;
 import game.engine.sound.SoundEngine;
 import game.objects.*;
@@ -30,77 +31,22 @@ public class Isaac_World extends AbstractWorld
 
     private double lifeHelpText = 10.0;
 
+    public Isaac_Level level;
+
     public Isaac_Room startingRoom;
     public List<Isaac_Room> rooms = new ArrayList<Isaac_Room>();
     public Isaac_Room currentRoom;
 
     public void init()
     {
-        CreateLevel(5,1);
+        level = new Isaac_Level(this);
+        Isaac_Level.instance.CreateLevel(5,1);
+        CreateRoom(Isaac_Level.instance.getCurrentRoom());
         //CreateRoom(new Isaac_Room(RoomTexture.mapDefault,1920,1080,Sounds.MainMusic,Isacc_RoomType.NORMAL) );
     }
 
 
-    //Create a Level
-    public void CreateLevel(int maxRooms,int level){
-        //Init Starting Room and add to list
-        startingRoom = new Isaac_Room(Isaac_TextureRoom.mapDefault,1920,1080, Isaac_Sounds.StartingLevelMusic, Isaac_RoomType.NORMAL);
-        rooms.add(startingRoom);
 
-        while (rooms.size() < maxRooms-1)
-        {
-            //Take Random Room and add new Room to it if not already exists
-            int randomRoomIndex = (int) (Math.random() * rooms.size());
-            Isaac_Room currentRoom = rooms.get(randomRoomIndex);
-
-            int randomDirection = (int) (Math.random() * 4);
-
-            //Direction
-            if (randomDirection == 0 && currentRoom.topRoom == null) {
-                Isaac_Room newRoom = new Isaac_Room(Isaac_TextureRoom.mapDefault, 1920, 1080, Isaac_Sounds.MainMusic, Isaac_RoomType.NORMAL);
-                currentRoom.topRoom = newRoom;
-                newRoom.bottomRoom = currentRoom;
-                rooms.add(newRoom);
-            } else if (randomDirection == 1 && currentRoom.rightRoom == null) {
-                Isaac_Room newRoom = new Isaac_Room(Isaac_TextureRoom.mapDefault, 1920, 1080, Isaac_Sounds.MainMusic, Isaac_RoomType.NORMAL);
-                currentRoom.rightRoom = newRoom;
-                newRoom.leftRoom = currentRoom;
-                rooms.add(newRoom);
-            } else if (randomDirection == 2 && currentRoom.bottomRoom == null) {
-                Isaac_Room newRoom = new Isaac_Room(Isaac_TextureRoom.mapDefault, 1920, 1080, Isaac_Sounds.MainMusic, Isaac_RoomType.NORMAL);
-                currentRoom.bottomRoom = newRoom;
-                newRoom.topRoom = currentRoom;
-                rooms.add(newRoom);
-            } else if (randomDirection == 3 && currentRoom.leftRoom == null) {
-                Isaac_Room newRoom = new Isaac_Room(Isaac_TextureRoom.mapDefault, 1920, 1080, Isaac_Sounds.MainMusic, Isaac_RoomType.NORMAL);
-                currentRoom.leftRoom = newRoom;
-                newRoom.rightRoom = currentRoom;
-                rooms.add(newRoom);
-            }
-        }
-
-        // Place the boss room
-        Isaac_Room lastRoom = rooms.get(rooms.size() - 1);
-        Isaac_Room bossRoom = new Isaac_Room(Isaac_TextureRoom.mapBoss, 1920, 1080, Isaac_Sounds.BossMusic, Isaac_RoomType.BOSS);
-        if (lastRoom.topRoom == null) {
-            lastRoom.topRoom = bossRoom;
-            bossRoom.bottomRoom = lastRoom;
-        } else if (lastRoom.rightRoom == null) {
-            lastRoom.rightRoom = bossRoom;
-            bossRoom.leftRoom = lastRoom;
-        } else if (lastRoom.bottomRoom == null) {
-            lastRoom.bottomRoom = bossRoom;
-            bossRoom.topRoom = lastRoom;
-        } else if (lastRoom.leftRoom == null) {
-            lastRoom.leftRoom = bossRoom;
-            bossRoom.rightRoom = lastRoom;
-        }
-        rooms.add(bossRoom);
-
-        // Start with the starting room
-        CreateRoom(startingRoom);
-        currentRoom=startingRoom;
-    }
 
 
 
@@ -112,15 +58,16 @@ public class Isaac_World extends AbstractWorld
         //Set Background Image
         background = new RoomBackgroundGameObject(room.backgroundRoomImage);
         gameObjects.add(background);
+        //CreateDoors
+        room.CreateDoors();
+        gameObjects.addAll(room.doorList);
         //Set Avatar
         avatar = new Isaac_Avatar(room.playerStartX,room.playerStartY);
         gameObjects.add(avatar);
         //add all Enemys
         gameObjects.addAll(room.gameObjectsEnemyList);
         //add all Enviorment stuff
-        //ToDo
-        room.CreateDoors();
-        gameObjects.addAll(room.doorList);
+
 
         //Sound System
         SoundEngine.instance.playMusic(room.backgroundMusic,true);
@@ -128,6 +75,7 @@ public class Isaac_World extends AbstractWorld
         //TODO this is only for testing here
         gameObjects.add(new Heart(100, 100));
     }
+
 
     public void processUserInput(UserInput userInput, double diffSeconds)
     {

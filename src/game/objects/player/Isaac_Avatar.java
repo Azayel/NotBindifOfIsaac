@@ -2,6 +2,7 @@ package game.objects.player;
 
 import game.engine.objects.AbstractGameObject;
 import game.engine.objects.GameObjectList;
+import game.level.Isaac_Level;
 import game.map.Isaac_World;
 import game.utils.Const;
 import game.utils.Isaac_TextureAvatar;
@@ -62,6 +63,12 @@ public class Isaac_Avatar extends AbstractGameObject {
                     world.gameOver=true;
                 }
 
+            } else if(obj.type()==Const.TYPE_DOOR && Isaac_Level.instance.getCurrentRoom().isCleared())
+            {
+                //ToDo Marci Step into Door...
+                System.out.println(obj.getDoorDirection());
+                Isaac_Level.instance.goThroughRoom(obj.getDoorDirection());
+                Isaac_Level.instance.getIsaacWorld().LoadNewRoom=true;
             }
         }
     }

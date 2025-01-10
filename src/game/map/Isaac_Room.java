@@ -34,6 +34,8 @@ public class Isaac_Room {
     //Doors List
     GameObjectList doorList=new GameObjectList();
 
+    private boolean clearedRoom = false;
+
     public Isaac_Room(BufferedImage backgroundRoomImage, int maxXRoomSize, int maxYRoomSize,String backgroundMusic, Isaac_RoomType isaccRoomType) {
         this.maxXRoomSize = maxXRoomSize;
         this.maxYRoomSize = maxYRoomSize;
@@ -104,20 +106,32 @@ public class Isaac_Room {
 
     }
 
+    public boolean isCleared(){
+        return clearedRoom;
+    }
+
     public void CreateDoors(){
         GameObjectList newDoorList=new GameObjectList();
         if(topRoom != null){
-            newDoorList.add(new Isaac_Door( maxXRoomSize/2-32,100,32));
+            newDoorList.add(new Isaac_Door( maxXRoomSize/2-32,100,32,DoorDirection.TOP));
         }
         if(rightRoom != null){
-            newDoorList.add(new Isaac_Door( maxXRoomSize-100,maxYRoomSize/2-32,32));
+            newDoorList.add(new Isaac_Door( maxXRoomSize-100,maxYRoomSize/2-32,32,DoorDirection.RIGHT));
         }
         if(bottomRoom != null){
-            newDoorList.add(new Isaac_Door( maxXRoomSize/2-32,maxYRoomSize-100,32));
+            newDoorList.add(new Isaac_Door( maxXRoomSize/2-32,maxYRoomSize-100,32,DoorDirection.BOTTOM));
         }
         if(leftRoom != null){
-            newDoorList.add(new Isaac_Door( 100,maxYRoomSize/2-32,32));
+            newDoorList.add(new Isaac_Door( 100,maxYRoomSize/2-32,32,DoorDirection.LEFT));
         }
         doorList=newDoorList;
+    }
+
+    public void setCleared() {
+        clearedRoom = true;
+    }
+
+    public void setCleared(boolean isCleared) {
+        clearedRoom=isCleared;
     }
 }

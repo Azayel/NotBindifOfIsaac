@@ -9,6 +9,7 @@ import game.engine.objects.GameObjectList;
 import game.engine.physics.AbstractPhysicsSystem;
 import game.engine.physics.PhysicsSystem;
 import game.engine.sound.SoundEngine;
+import game.level.Isaac_Level;
 import game.utils.Const;
 
 import java.util.ArrayList;
@@ -27,6 +28,7 @@ public abstract class AbstractWorld
 
     // defines maximum frame rate
     private static final int FRAME_MINIMUM_MILLIS = 10;
+    public boolean LoadNewRoom=false;
 
     // if game is over
     public boolean gameOver = false;
@@ -37,6 +39,8 @@ public abstract class AbstractWorld
     public AbstractGameObject background;
     public ArrayList<AbstractTextObject> textObjects = new ArrayList<AbstractTextObject>();
 
+    //Counter of Enemys
+    int currentEnemys=0;
 
     public AbstractWorld() {
         physicsSystem = new PhysicsSystem(this);
@@ -103,6 +107,11 @@ public abstract class AbstractWorld
             // adjust displayed pane of the world
             //this.adjustWorldPart();
 
+
+
+
+
+
             // draw all Objects
             graphicSystem.clear();
             for(int i=0; i<gameSize; i++)
@@ -121,7 +130,28 @@ public abstract class AbstractWorld
             // create new objects if needed
             //createNewObjects(millisDiff/1000.0);
 
+            //ToDo Check if Doors Needs tho be added?
+            currentEnemys = 0;
+            for(AbstractGameObject obj : gameObjects){
+                if(obj.type()==Const.TYPE_ZOMBIE){
+                    currentEnemys++;
+                }
+            }
+            //System.out.println("Enemys: "+currentEnemys);
+            if(currentEnemys<=0){
+                if (!Isaac_Level.instance.getCurrentRoom().isCleared()) {
+                    System.out.println("Changed to Clear: " + currentEnemys);
+                    Isaac_Level.instance.getCurrentRoom().setCleared();
+                }
+            }
+            else {
+                Isaac_Level.instance.getCurrentRoom().setCleared(false);
+            }
 
+            if(LoadNewRoom){
+                Isaac_Level.instance.LoadRoom();
+                LoadNewRoom=false;
+            }
         }
     }
 

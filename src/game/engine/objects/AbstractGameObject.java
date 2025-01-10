@@ -2,6 +2,7 @@ package game.engine.objects;
 
 
 import game.engine.world.AbstractWorld;
+import game.map.DoorDirection;
 import game.utils.BoundingBox;
 import game.utils.Const;
 
@@ -38,6 +39,10 @@ public abstract class AbstractGameObject
     public static AbstractWorld world;
 
 
+    //Doors
+    private DoorDirection doorDirection;
+
+
     // construct GameObject
     public AbstractGameObject(double x_, double y_,
                               double a_, double s_,
@@ -67,7 +72,7 @@ public abstract class AbstractGameObject
     public AbstractGameObject(double x_, double y_,
                               double a_, double s_,
                               int radius_, Image texture_,
-                              boolean isUseable_)
+                              DoorDirection doorDirection)
     {
         x=x_;    y=y_;
         xOld=x;  yOld=y;
@@ -75,7 +80,7 @@ public abstract class AbstractGameObject
         radius=radius_;
         texture=texture_;
         hasTexture = true;
-        this.isUseable = isUseable_;
+        this.doorDirection = doorDirection;
         boundingBox = new BoundingBox(x, y, radius*2.0, radius*2.0);
         System.out.println("Bounding Box Created for door : " + boundingBox.x + " " + boundingBox.y + " " + boundingBox.width + " " + boundingBox.height);
     }
@@ -173,5 +178,7 @@ public abstract class AbstractGameObject
     public abstract int type();
     public static void setWorld(AbstractWorld w) {world=w;}
     public BoundingBox getBoundingBox() {return boundingBox;}
+
+    public DoorDirection getDoorDirection() {return doorDirection;}
 
 }
