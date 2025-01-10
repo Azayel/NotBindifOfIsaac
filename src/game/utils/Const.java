@@ -17,6 +17,7 @@ public final class Const
     public static final double SPAWN_GRENADE  = 10.0;
     public static final double LIFE_GRENADE   = 15.0;
     public static final double INVINCIBILITY_AFTER_HIT   = 1.5;
+    public static final int INITIAL_HEALTH = 100;
 
     public static final int TYPE_AVATAR  = 1;
     public static final int TYPE_TEXT    = 2;

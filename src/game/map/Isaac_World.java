@@ -61,8 +61,11 @@ public class Isaac_World extends AbstractWorld
         //CreateDoors
         room.CreateDoors();
         gameObjects.addAll(room.doorList);
-        //Set Avatar
-        avatar = new Isaac_Avatar(room.playerStartX,room.playerStartY);
+        //Set Avatar only if it never existed before
+        if(avatar==null)
+            avatar = new Isaac_Avatar(0,0);
+        avatar.setX(room.playerStartX);
+        avatar.setY(room.playerStartY);
         gameObjects.add(avatar);
         //add all Enemys
         gameObjects.addAll(room.gameObjectsEnemyList);

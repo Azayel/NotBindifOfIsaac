@@ -120,8 +120,8 @@ public abstract class AbstractWorld
 
 
             // draw all TextObjects
-            for(int i=0; i<textObjects.size(); i++)
-            { graphicSystem.draw(textObjects.get(i));
+            for (AbstractTextObject textObject : textObjects) {
+                graphicSystem.draw(textObject);
             }
 
             // redraw everything
@@ -131,6 +131,9 @@ public abstract class AbstractWorld
             //createNewObjects(millisDiff/1000.0);
 
             //ToDo Check if Doors Needs tho be added?
+            //TODO this should go in the Isaac world, here is the wrong place for that
+            //One could add an abstract tick(double diffSeconds) method to this class implement that in the Isaac world and call it here with:
+            //tick(millisDiff / 1000.0);
             currentEnemys = 0;
             for(AbstractGameObject obj : gameObjects){
                 if(obj.type()==Const.TYPE_ZOMBIE){
@@ -152,6 +155,8 @@ public abstract class AbstractWorld
                 Isaac_Level.instance.LoadRoom();
                 LoadNewRoom=false;
             }
+
+            //End of wrong code
         }
     }
 

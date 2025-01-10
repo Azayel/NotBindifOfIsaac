@@ -1,20 +1,32 @@
 package game.objects.player;
 
 import game.engine.objects.AbstractGameObject;
+import game.engine.objects.AbstractTextObject;
 import game.engine.objects.GameObjectList;
 import game.level.Isaac_Level;
 import game.map.Isaac_World;
 import game.utils.Const;
 import game.utils.Isaac_TextureAvatar;
 
+import java.awt.*;
+
 public class Isaac_Avatar extends AbstractGameObject {
 
-    int lives = 100;
+    int lives = Const.INITIAL_HEALTH;
     double invincibletime=0;
 
     public Isaac_Avatar(double x, double y)
-    { super(x,y,0,200,15, Isaac_TextureAvatar.avatarDefault);
+    {
+        super(x,y,0,200,15, Isaac_TextureAvatar.avatarDefault);
         this.isMoving = false;
+
+        var liveDisplay = new AbstractTextObject(50, 50, Color.GRAY) {
+            @Override
+            public String toString() {
+                return "Lives: " + lives;
+            }
+        };
+        world.textObjects.add(liveDisplay);
     }
 
     void debugPrintLive(){

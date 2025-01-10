@@ -69,6 +69,8 @@ public abstract class AbstractGameObject
         hasTexture = true;
         boundingBox = new BoundingBox(x, y, radius*2.0, radius*2.0);
     }
+
+    //TODO this should not exist here, why should this abstract object know what doors are???
     public AbstractGameObject(double x_, double y_,
                               double a_, double s_,
                               int radius_, Image texture_,
@@ -174,6 +176,17 @@ public abstract class AbstractGameObject
     // move back to the position BEFORE the move Method was called
     public void moveBack() { x=xOld; y=yOld; }
 
+    public void setX(double x) {
+        this.x = x;
+        this.xOld = x;
+        this.boundingBox.x = x;
+    }
+
+    public void setY(double y) {
+        this.y = y;
+        this.yOld = y;
+        this.boundingBox.y = y;
+    }
 
     public abstract int type();
     public static void setWorld(AbstractWorld w) {world=w;}
