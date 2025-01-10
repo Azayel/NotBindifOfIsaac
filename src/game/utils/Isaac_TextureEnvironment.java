@@ -12,7 +12,7 @@ public class Isaac_TextureEnvironment {
     static {
         try {
             // Load the images
-            door = read(new File("src/assets/Environment/door.png"));
+            door = read(new File("src/assets/Environment/teleporter.png"));
 
         } catch (IOException e) {
             e.printStackTrace();
