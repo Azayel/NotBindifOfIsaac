@@ -1,6 +1,7 @@
 package game.objects;
 
 import game.engine.objects.AbstractGameObject;
+import game.utils.Const;
 
 import java.awt.*;
 
@@ -13,6 +14,6 @@ public class RoomBackgroundGameObject extends AbstractGameObject {
 
     @Override
     public int type() {
-        return 0;
+        return Const.TYPE_WORLD_BORDER;
     }
 }

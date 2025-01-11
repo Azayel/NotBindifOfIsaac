@@ -83,7 +83,7 @@ public abstract class AbstractGameObject
         texture=texture_;
         hasTexture = true;
         this.doorDirection = doorDirection;
-        boundingBox = new BoundingBox(x, y, radius*2.0, radius*2.0);
+        boundingBox = new BoundingBox(x, y, radius, radius);
         System.out.println("Bounding Box Created for door : " + boundingBox.x + " " + boundingBox.y + " " + boundingBox.width + " " + boundingBox.height);
     }
 
@@ -95,7 +95,7 @@ public abstract class AbstractGameObject
         texture=texture_;
         hasTexture = true;
         isbackgroundImage=true;
-        boundingBox = new BoundingBox(-10.0, -10.0, 0, 0);
+        boundingBox = new BoundingBox(-99999, -99999, Const.WORLDPART_WIDTH, Const.WORLDPART_HEIGHT);
     }
 
 

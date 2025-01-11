@@ -45,6 +45,7 @@ public class Isaac_Avatar extends AbstractGameObject {
 
         // calculate all collisions with other Objects
         GameObjectList collisions = world.getPhysicsSystem().getCollisions(this);
+        boolean inWorld = false;
         for(int i=0; i<collisions.size(); i++)
         {
             AbstractGameObject obj = collisions.get(i);
@@ -82,7 +83,11 @@ public class Isaac_Avatar extends AbstractGameObject {
                 Isaac_Level.instance.goThroughRoom(obj.getDoorDirection());
                 Isaac_Level.instance.getIsaacWorld().LoadNewRoom=true;
             }
+            
+            
         }
+
+     
     }
 
 

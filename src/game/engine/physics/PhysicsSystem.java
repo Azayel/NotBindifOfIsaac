@@ -39,6 +39,7 @@ public class PhysicsSystem extends AbstractPhysicsSystem
             if(object.getBoundingBox().intersects(obj2.getBoundingBox())){
                 result.add(obj2);
                 System.out.println(object.getClass().getSimpleName() + " detected collission with object: " + obj2.getClass().getSimpleName());
+                System.out.println("a");
             }
         }
 

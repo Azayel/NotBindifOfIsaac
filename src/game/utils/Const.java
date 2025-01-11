@@ -28,6 +28,7 @@ public final class Const
     public static final int TYPE_DOOR = 7;
     public static final int TYPE_WALL = 8;
     public static final int TYPE_HEART = 9;
+    public static final int TYPE_WORLD_BORDER = 10;
 
 
 
