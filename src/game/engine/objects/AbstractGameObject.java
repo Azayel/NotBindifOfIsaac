@@ -28,15 +28,13 @@ public abstract class AbstractGameObject
 
     // destination the object shall move to,
     // old position etc
-    private double  destX, destY;
-    private boolean hasDestination = false;
-    private double  xOld,  yOld;
+    protected double  destX, destY;
+    protected boolean hasDestination = false;
+    protected double  xOld,  yOld;
 
-    private double inertX = 0.0, inertY = 0.0;
-    private double maxInertX = 3.0, maxInertY = 3.0;
-    private double slipperiness = 1.7;  // shows how slippery GameObject would move
 
-    private BoundingBox boundingBox;
+
+    protected BoundingBox boundingBox;
 
 
     // GameObjects sometimes call physics methods
@@ -106,56 +104,37 @@ public abstract class AbstractGameObject
 
 
     // move one step to direction <alfa>
-    public void move(double diffSeconds)
-    {
-        if(!isMoving) return;
+//    public void move(double diffSeconds)
+//    {
+//        if(!isMoving) return;
+//
+//        // move if object has a destination
+//        if(hasDestination)
+//        {
+//            // stop if destination is reached
+//            double diffX = Math.abs(x-destX);
+//            double diffY = Math.abs(y-destY);
+//            if(diffX<3 && diffY<3)
+//            { isMoving = false;
+//                return;
+//            }
+//        }
+//
+//        // remember old position
+//        xOld=x; yOld=y;
+//
+//        // move one step
+//        double step_x = Math.cos(alfa)*speed*diffSeconds;
+//        double step_y = Math.sin(alfa)*speed*diffSeconds;
+//        x += step_x;
+//        y += step_y;
+//        this.boundingBox.move(step_x, step_y);
+//    }
 
-        // move if object has a destination
-        if(hasDestination)
-        {
-            // stop if destination is reached
-            double diffX = Math.abs(x-destX);
-            double diffY = Math.abs(y-destY);
-            if(diffX<3 && diffY<3)
-            { isMoving = false;
-                return;
-            }
-        }
 
-        // remember old position
-        xOld=x; yOld=y;
+    abstract public void process(double diffSeconds);
 
-        // move one step
-        double step_x = Math.cos(alfa)*speed*diffSeconds;
-        double step_y = Math.sin(alfa)*speed*diffSeconds;
-        x += step_x;
-        y += step_y;
-        this.boundingBox.move(step_x, step_y);
-    }
-
-    public void processMovement(double diffSeconds)
-    {
-        double step_x = speed*diffSeconds*inertX;
-
-        double step_y = speed*diffSeconds*inertY;
-
-        inertX /= slipperiness;
-        inertY /= slipperiness;
-        x += step_x;
-        y += step_y;
-
-        this.boundingBox.setPosition(x, y);
-    }
-
-    public void move(double dx, double dy) {
-        if(Math.abs(inertX) < maxInertX) {
-            inertX += dx;
-        }
-
-        if(Math.abs(inertY) < maxInertY) {
-            inertY += dy;
-        }
-    }
+   // public void move(double dx, double dy);
 
 
     // test and reflect on Window Borders
