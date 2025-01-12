@@ -83,10 +83,16 @@ public abstract class AbstractWorld
 
             // move all Objects, maybe collide them etc...
             int gameSize = gameObjects.size();
+//            for(int i=0; i<gameSize; i++)
+//            {
+//                AbstractGameObject obj = gameObjects.get(i);
+//                if(obj.isLiving)  obj.move(millisDiff/1000.0);
+//            }
+
             for(int i=0; i<gameSize; i++)
             {
                 AbstractGameObject obj = gameObjects.get(i);
-                if(obj.isLiving)  obj.move(millisDiff/1000.0);
+                if(obj.isLiving)  obj.processMovement(millisDiff/1000.0);
             }
 
 

@@ -135,24 +135,29 @@ public class Isaac_World extends AbstractWorld
             double borderLocation = avatar.y - 45;
             if(borderLocation > 0)
                 avatar.setDestination(avatar.x,avatar.y-5);
+            avatar.move(0.0, -1.0);
         }
         if(userInput.keys.isIn('s')) {
             //avatar.y += 5;
-            double borderLocation = avatar.y + 45;
-            if(borderLocation < Const.WORLD_HEIGHT)
-                avatar.setDestination(avatar.x,avatar.y+5);
+//            double borderLocation = avatar.y + 45;
+//            if(borderLocation < Const.WORLD_HEIGHT)
+//                avatar.setDestination(avatar.x,avatar.y+5);
+            avatar.move(0.0, 1.0);
         }
         if(userInput.keys.isIn('a')) {
             //avatar.x -= 5;
-            double borderLocation = avatar.x - 45;
-            if(borderLocation > 0)
-                avatar.setDestination(avatar.x-5,avatar.y);
+//            double borderLocation = avatar.x - 45;
+//            if(borderLocation > 0)
+//                avatar.setDestination(avatar.x-5,avatar.y);
+            avatar.move(-1.0, 0.0);
+
         }
         if(userInput.keys.isIn('d')) {
             //avatar.x += 5;
-            double borderLocation = avatar.x + 45;
-            if(borderLocation < Const.WORLD_WIDTH)
-                avatar.setDestination(avatar.x+5,avatar.y);
+//            double borderLocation = avatar.x + 45;
+//            if(borderLocation < Const.WORLD_WIDTH)
+//                avatar.setDestination(avatar.x+5,avatar.y);
+            avatar.move(1.0, 0.0);
         }
 
     }

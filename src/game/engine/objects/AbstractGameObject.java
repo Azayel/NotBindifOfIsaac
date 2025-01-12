@@ -32,6 +32,9 @@ public abstract class AbstractGameObject
     private boolean hasDestination = false;
     private double  xOld,  yOld;
 
+    private double inertX = 0.0, inertY = 0.0;
+    private double maxInertX = 3.0, maxInertY = 3.0;
+
     private BoundingBox boundingBox;
 
 
@@ -127,6 +130,36 @@ public abstract class AbstractGameObject
         x += step_x;
         y += step_y;
         this.boundingBox.move(step_x, step_y);
+    }
+
+    public void processMovement(double diffSeconds)
+    {
+        double step_x = speed*diffSeconds*inertX;
+
+        double step_y = speed*diffSeconds*inertY;
+
+//        if(inertX > 0) {
+//            inertX -= 0.5;
+//        }
+//        if(inertY > 0) {
+//            inertY -= 0.5;
+//        }
+        inertX /= 2;
+        inertY /= 2;
+        x += step_x;
+        y += step_y;
+
+        this.boundingBox.setPosition(x, y);
+    }
+
+    public void move(double dx, double dy) {
+        if(Math.abs(inertX) < maxInertX) {
+            inertX += dx;
+        }
+
+        if(Math.abs(inertY) < maxInertY) {
+            inertY += dy;
+        }
     }
 
 
