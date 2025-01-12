@@ -14,7 +14,11 @@ public class Isaac_Door extends AbstractGameObject {
     }
 
 
-
+    @Override
+    public void process(double diffSeconds) {
+        // ToDo:
+        // IMPLEMENT
+    }
 
     @Override
     public int type() {

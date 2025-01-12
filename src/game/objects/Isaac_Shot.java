@@ -23,7 +23,7 @@ public class Isaac_Shot extends AbstractGameObject
     }
 
 
-    public void move(double diffSeconds)
+    public void process(double diffSeconds)
     {
         lifeTime -= diffSeconds;
         if(lifeTime<=0)
@@ -53,7 +53,48 @@ public class Isaac_Shot extends AbstractGameObject
             }
         }
 
-        super.move(diffSeconds);
+        this.processMovement(diffSeconds);
+    }
+
+    public void processMovement(double diffSeconds) {
+        if(!isMoving) return;
+
+        // move if object has a destination
+        if(hasDestination)
+        {
+            // stop if destination is reached
+            double diffX = Math.abs(x-destX);
+            double diffY = Math.abs(y-destY);
+            if(diffX<3 && diffY<3)
+            { isMoving = false;
+                return;
+            }
+        }
+
+        // remember old position
+        xOld=x; yOld=y;
+
+        // move one step
+        double step_x = Math.cos(alfa)*speed*diffSeconds;
+        double step_y = Math.sin(alfa)*speed*diffSeconds;
+        x += step_x;
+        y += step_y;
+        this.boundingBox.move(step_x, step_y);
+//        double step_x = speed*diffSeconds*inertX;
+//
+//        double step_y = speed*diffSeconds*inertY;
+//
+//        inertX /= slipperiness;
+//        inertY /= slipperiness;
+//
+//        System.out.println(x);
+//
+//        if(x + step_x + 45 < Const.WORLD_WIDTH && x + step_x - 45 > 0)
+//            x += step_x;
+//        if(y + step_y + 45 < Const.WORLD_HEIGHT && y + step_y - 45 > 0) // calculate world borders
+//            y += step_y;
+//
+//        this.boundingBox.setPosition(x, y);
     }
 
     public final int type() { return Const.TYPE_SHOT;}

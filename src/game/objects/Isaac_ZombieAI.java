@@ -35,7 +35,7 @@ public class Isaac_ZombieAI extends AbstractGameObject
     }
 
 
-    public void move(double diffSeconds)
+    public void process(double diffSeconds)
     {
         // if avatar is too far away: stop
         double dist = world.getPhysicsSystem()
@@ -57,7 +57,7 @@ public class Isaac_ZombieAI extends AbstractGameObject
         {
             this.setDestination(world.avatar);
 
-            super.move(diffSeconds);
+            this.processMovement(diffSeconds);
 
             // handle collisions of the zombie
             GameObjectList collisions = world.getPhysicsSystem().getCollisions(this);
@@ -120,7 +120,7 @@ public class Isaac_ZombieAI extends AbstractGameObject
 
 
             // try step in this direction
-            super.move(diffSeconds);
+            this.processMovement(diffSeconds);
 
             // check if path was unblocked
             GameObjectList collisions = world.getPhysicsSystem().getCollisions(this);
@@ -134,8 +134,34 @@ public class Isaac_ZombieAI extends AbstractGameObject
             }
 
         }
+
     }
 
+    public void processMovement(double diffSeconds) {
+        if(!isMoving) return;
+
+        // move if object has a destination
+        if(hasDestination)
+        {
+            // stop if destination is reached
+            double diffX = Math.abs(x-destX);
+            double diffY = Math.abs(y-destY);
+            if(diffX<3 && diffY<3)
+            { isMoving = false;
+                return;
+            }
+        }
+
+        // remember old position
+        xOld=x; yOld=y;
+
+        // move one step
+        double step_x = Math.cos(alfa)*speed*diffSeconds;
+        double step_y = Math.sin(alfa)*speed*diffSeconds;
+        x += step_x;
+        y += step_y;
+        this.boundingBox.move(step_x, step_y);
+    }
 
     // inform zombie it is hit
     public void hasBeenShot()

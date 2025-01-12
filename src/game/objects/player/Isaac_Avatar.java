@@ -14,6 +14,8 @@ public class Isaac_Avatar extends AbstractGameObject {
 
     int lives = Const.INITIAL_HEALTH;
     double invincibletime=0;
+    private double inertX = 0.0, inertY = 0.0;
+    private double slipperiness = 1.6;  // shows how slippery GameObject would move, should be value between ]1.0. 2.0[
 
     public Isaac_Avatar(double x, double y)
     {
@@ -33,10 +35,9 @@ public class Isaac_Avatar extends AbstractGameObject {
         System.out.println("Current lives: " + lives);
     }
 
-    public void move(double diffSeconds)
+    public void process(double diffSeconds)
     {
-        // move Avatar one step forward
-        super.move(diffSeconds);
+
 
         if(invincibletime > 0)
             invincibletime -= diffSeconds;
@@ -87,7 +88,38 @@ public class Isaac_Avatar extends AbstractGameObject {
             
         }
 
-     
+        // move Avatar one step forward
+        this.processMovement(diffSeconds);
+    }
+
+    public void move(double dx, double dy) {
+        double maxInert = 2.0;  // determines the maximal speed GameObject can achieve
+        if(Math.abs(inertX) < maxInert) {
+            inertX += dx;
+        }
+
+        if(Math.abs(inertY) < maxInert) {
+            inertY += dy;
+        }
+    }
+
+    public void processMovement(double diffSeconds)
+    {
+        double step_x = speed*diffSeconds*inertX;
+
+        double step_y = speed*diffSeconds*inertY;
+
+        inertX /= slipperiness;
+        inertY /= slipperiness;
+
+        System.out.println(x);
+
+        if(x + step_x + 45 < Const.WORLD_WIDTH && x + step_x - 45 > 0)
+            x += step_x;
+        if(y + step_y + 45 < Const.WORLD_HEIGHT && y + step_y - 45 > 0) // calculate world borders
+            y += step_y;
+
+        this.boundingBox.setPosition(x, y);
     }
 
 
