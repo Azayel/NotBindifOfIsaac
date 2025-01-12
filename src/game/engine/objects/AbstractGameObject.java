@@ -34,6 +34,7 @@ public abstract class AbstractGameObject
 
     private double inertX = 0.0, inertY = 0.0;
     private double maxInertX = 3.0, maxInertY = 3.0;
+    private double slipperiness = 1.7;  // shows how slippery GameObject would move
 
     private BoundingBox boundingBox;
 
@@ -138,14 +139,8 @@ public abstract class AbstractGameObject
 
         double step_y = speed*diffSeconds*inertY;
 
-//        if(inertX > 0) {
-//            inertX -= 0.5;
-//        }
-//        if(inertY > 0) {
-//            inertY -= 0.5;
-//        }
-        inertX /= 2;
-        inertY /= 2;
+        inertX /= slipperiness;
+        inertY /= slipperiness;
         x += step_x;
         y += step_y;
 
