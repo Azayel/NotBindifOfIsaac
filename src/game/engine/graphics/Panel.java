@@ -57,19 +57,15 @@ class Panel extends JPanel implements IGraphicSystem
 
     public final void draw(AbstractGameObject dot)
     {
-        int x = (int)(dot.x-dot.radius-world.worldPartX);
-        int y = (int)(dot.y-dot.radius-world.worldPartY);
-        int d = (int)(dot.radius*2);
-
         if( dot.hasTexture){
-            if (dot.isbackgroundImage){
-                int xAdjustment=0;
-                int yAdjustment=0;
-                graphics.drawImage(dot.texture, -xAdjustment, -yAdjustment, dot.texture.getWidth(null)-xAdjustment,dot.texture.getHeight(null)-yAdjustment,null);
-            }else {
-                graphics.drawImage(dot.texture, x,y,(int) dot.getBoundingBox().width, (int) dot.getBoundingBox().height,null);
-            }
+            int x = (int)(dot.x-dot.getBoundingBox().width/2-world.worldPartX);
+            int y = (int)(dot.y-dot.getBoundingBox().height/2-world.worldPartY);
+            int d = (int)(dot.radius*2);
+            graphics.drawImage(dot.texture, x,y,(int) dot.getBoundingBox().width, (int) dot.getBoundingBox().height,null);
         }else {
+            int x = (int)(dot.x-dot.radius-world.worldPartX);
+            int y = (int)(dot.y-dot.radius-world.worldPartY);
+            int d = (int)(dot.radius*2);
             graphics.setColor(dot.color);
             graphics.fillOval(x, y, d, d);
             graphics.setColor(Color.DARK_GRAY);
