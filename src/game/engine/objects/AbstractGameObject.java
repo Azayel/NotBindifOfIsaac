@@ -158,8 +158,6 @@ public abstract class AbstractGameObject
         this.yOld = y;
         this.boundingBox.y = y;
     }
-
-    public abstract int type();
     public static void setWorld(AbstractWorld w) {world=w;}
     public BoundingBox getBoundingBox() {return boundingBox;}
 

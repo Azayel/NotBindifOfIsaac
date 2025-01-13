@@ -2,7 +2,7 @@ package game.map;
 
 import game.engine.objects.GameObjectList;
 import game.level.Isaac_Level;
-import game.objects.Isaac_SpiderAI;
+import game.objects.enemy.Isaac_SpiderAI;
 import game.objects.Isaac_Teleporter;
 import game.objects.items.Isaac_Chest;
 import game.utils.Const;

@@ -1,15 +1,15 @@
-package game.objects;
+package game.objects.enemy;
 
 import game.engine.objects.AbstractGameObject;
 import game.engine.objects.GameObjectList;
 import game.map.Isaac_World;
-import game.utils.Const;
+import game.objects.items.Heart;
 
 import java.awt.Color;
 import java.awt.image.BufferedImage;
 
 
-public class Isaac_SpiderAI extends AbstractGameObject
+public class Isaac_SpiderAI extends AbstractGameObject implements IEnemy
 {
     private static final int HUNTING  = 1;
     private static final int STUCK    = 2;
@@ -20,7 +20,7 @@ public class Isaac_SpiderAI extends AbstractGameObject
     private double secondsClear;
 
     // life of a zombie
-    private double life = 1.0;
+    private int life = 20;
 
     public Isaac_SpiderAI(double x, double y,int radius,int speed, BufferedImage image)
     {
@@ -78,9 +78,6 @@ public class Isaac_SpiderAI extends AbstractGameObject
             for(int i=0; i<collisions.size(); i++)
             {
                 AbstractGameObject obj = collisions.get(i);
-
-                int type = obj.type();
-
                 // if object is avatar, game over
                 //if(type== Const.TYPE_AVATAR)
                 //{ this.moveBack();
@@ -88,15 +85,7 @@ public class Isaac_SpiderAI extends AbstractGameObject
                 //}
 
                 // if object is zombie, step back
-                if(type==Const.TYPE_ZOMBIE)
-                {
-                    moveBack();
-                    state = STUCK;
-                    return;
-                }
-
-                // if Object is a tree, move back one step
-                if(obj.type()==Const.TYPE_TREE)
+                if(obj instanceof IEnemy)
                 {
                     moveBack();
                     state = STUCK;
@@ -177,21 +166,24 @@ public class Isaac_SpiderAI extends AbstractGameObject
         this.boundingBox.move(step_x, step_y);
     }
 
-    // inform zombie it is hit
-    public void hasBeenShot()
-    {
+    @Override
+    public int getDamage() {
+        return 10;
+    }
+
+    @Override
+    public void hit(int damageAmount) {
         // every shot decreases life
-        life -= 0.21;
+        life -= damageAmount;
 
         // if Zombie is dead (haha), delete it
         if(life<=0)
         {
             ((Isaac_World)world).addScore(10);
             this.isLiving=false;
+            if(Math.random()<=0.15)
+                world.gameObjects.add(new Heart(x,y));
             return;
         }
     }
-
-
-    public int type() { return Const.TYPE_ZOMBIE; }
 }

@@ -25,5 +25,4 @@ public class Isaac_Grenade extends AbstractGameObject
         }
     }
 
-    public int type() { return Const.TYPE_GRENADE; }
 }

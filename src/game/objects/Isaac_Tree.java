@@ -12,6 +12,4 @@ class Isaac_Tree extends AbstractGameObject
         super(x,y,0,0,r,new Color(64,160,64));
         this.isMoving = false;
     }
-
-    public int type() { return Const.TYPE_TREE; }
 }

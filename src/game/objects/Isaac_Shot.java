@@ -3,19 +3,20 @@ package game.objects;
 import game.engine.objects.AbstractAnimatedGameObject;
 import game.engine.objects.AbstractGameObject;
 import game.engine.objects.GameObjectList;
-import game.utils.Const;
+import game.objects.enemy.IEnemy;
 
-import java.awt.Color;
 import java.awt.image.BufferedImage;
 
 public class Isaac_Shot extends AbstractAnimatedGameObject
 {
     private double lifeTime = 2.4;
+    private int damage;
 
-    public Isaac_Shot(double x, double y, double xDest, double yDest, int speed ,BufferedImage[] textures)
+    public Isaac_Shot(double x, double y, double xDest, double yDest, int speed, BufferedImage[] textures, int damage)
     {
         super(x,y,Math.atan2(yDest-y, xDest-x),speed, textures);
         this.isMoving = true;
+        this.damage=damage;
     }
 
 
@@ -35,17 +36,11 @@ public class Isaac_Shot extends AbstractAnimatedGameObject
         {
             AbstractGameObject obj = collisions.get(i);
 
-            int type = obj.type();
-
-            // tree: shot is deleted
-            if(type== Const.TYPE_TREE)
-            { this.isLiving=false;
-            }
             // Zombie: inform Zombie it is hit
-            else if(type==Const.TYPE_ZOMBIE && obj.isLiving)
+            if(obj instanceof IEnemy && obj.isLiving)
             {
-                var zombie = (Isaac_SpiderAI)obj;
-                zombie.hasBeenShot();
+                var enemy = (IEnemy)obj;
+                enemy.hit(damage);
                 this.isLiving=false;
             }
         }
@@ -93,6 +88,4 @@ public class Isaac_Shot extends AbstractAnimatedGameObject
 //
 //        this.boundingBox.setPosition(x, y);
     }
-
-    public final int type() { return Const.TYPE_SHOT;}
 }

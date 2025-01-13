@@ -5,11 +5,13 @@ import game.engine.input.UserInput;
 import game.engine.objects.AbstractGameObject;
 import game.engine.objects.AbstractTextObject;
 import game.engine.objects.GameObjectList;
+import game.objects.enemy.IEnemy;
 import game.engine.world.AbstractWorld;
 import game.level.Isaac_Level;
 import game.objects.RoomBackgroundGameObject;
 import game.engine.sound.SoundEngine;
 import game.objects.*;
+import game.objects.enemy.Isaac_SpiderAI;
 import game.objects.items.Heart;
 import game.objects.player.Isaac_Avatar;
 import game.utils.Const;
@@ -69,7 +71,7 @@ public class Isaac_World extends AbstractWorld
     public void tick(double timediff) {
         var currentEnemys = 0;
         for(AbstractGameObject obj : gameObjects){
-            if(obj.type()==Const.TYPE_ZOMBIE){
+            if(obj instanceof IEnemy){
                 currentEnemys++;
             }
         }
@@ -118,9 +120,6 @@ public class Isaac_World extends AbstractWorld
 
         //Sound System
         SoundEngine.instance.playMusic(room.backgroundMusic,true);
-
-        //TODO this is only for testing here
-        gameObjects.add(new Heart(100, 100));
     }
 
 
@@ -157,7 +156,7 @@ public class Isaac_World extends AbstractWorld
                 timeSinceLastShot = 0;
 
                 Isaac_Shot shot = new Isaac_Shot(
-                        avatar.x,avatar.y,userInput.mouseMovedX+worldPartX,userInput.mouseMovedY+worldPartY,750, Isaac_TextureSpells.waterSpell);
+                        avatar.x,avatar.y,userInput.mouseMovedX+worldPartX,userInput.mouseMovedY+worldPartY,750, Isaac_TextureSpells.waterSpell, 5);
                 this.gameObjects.add(shot);
             }
         }

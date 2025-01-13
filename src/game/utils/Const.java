@@ -19,17 +19,6 @@ public final class Const
     public static final double INVINCIBILITY_AFTER_HIT   = 1.5;
     public static final int INITIAL_HEALTH = 100;
 
-    public static final int TYPE_AVATAR  = 1;
-    public static final int TYPE_TEXT    = 2;
-    public static final int TYPE_TREE    = 3;
-    public static final int TYPE_ZOMBIE  = 4;
-    public static final int TYPE_SHOT    = 5;
-    public static final int TYPE_GRENADE = 6;
-    public static final int TYPE_DOOR = 7;
-    public static final int TYPE_WALL = 8;
-    public static final int TYPE_HEART = 9;
-    public static final int TYPE_WORLD_BORDER = 10;
-
     //Level Room
     public static final int STARTING_ROOMS = 5;
     public static final double DIFFICULTY_FACTOR = 1.5;

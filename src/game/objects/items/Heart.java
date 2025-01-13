@@ -18,9 +18,4 @@ public class Heart extends AbstractGameObject implements IInteractable {
             isLiving=false;
         }
     }
-
-    @Override
-    public int type() {
-        return Const.TYPE_HEART;
-    }
 }

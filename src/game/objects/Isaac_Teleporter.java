@@ -16,12 +16,6 @@ public class Isaac_Teleporter extends AbstractGameObject  implements IInteractab
         this.dest=dest;
     }
 
-
-    @Override
-    public int type() {
-        return Const.TYPE_DOOR;
-    }
-
     @Override
     public void interact(AbstractGameObject avatar) {
         System.out.println(dest);

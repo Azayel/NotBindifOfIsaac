@@ -3,8 +3,7 @@ package game.objects.player;
 import game.engine.objects.AbstractGameObject;
 import game.engine.objects.AbstractTextObject;
 import game.engine.objects.GameObjectList;
-import game.level.Isaac_Level;
-import game.map.Isaac_World;
+import game.objects.enemy.IEnemy;
 import game.utils.Const;
 import game.utils.Isaac_TextureAvatar;
 
@@ -54,18 +53,8 @@ public class Isaac_Avatar extends AbstractGameObject {
         for(int i=0; i<collisions.size(); i++)
         {
             AbstractGameObject obj = collisions.get(i);
-
-            // if Object is a tree, move back one step
-            if(obj.type()== Const.TYPE_WALL)
-            { this.moveBack(); }
-
-            // pick up Grenades
-            else if(obj.type()==Const.TYPE_GRENADE)
-            { ((Isaac_World)world).addGrenade();
-                obj.isLiving=false;
-            }
             // collode with zombies
-            else if(obj.type()==Const.TYPE_ZOMBIE && invincibletime == 0)
+            if(obj instanceof IEnemy && invincibletime == 0)
             {
                 health-=10;
                 invincibletime=Const.INVINCIBILITY_AFTER_HIT;
@@ -110,7 +99,4 @@ public class Isaac_Avatar extends AbstractGameObject {
 
         this.boundingBox.setPosition(x, y);
     }
-
-
-    public int type() { return Const.TYPE_AVATAR; }
 }

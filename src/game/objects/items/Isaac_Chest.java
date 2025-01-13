@@ -22,9 +22,4 @@ public class Isaac_Chest extends AbstractAnimatedGameObject implements IInteract
             Isaac_Level.instance.getIsaacWorld().LoadNewRoom=true;
         }
     }
-
-    @Override
-    public int type() {
-        return 0;
-    }
 }
