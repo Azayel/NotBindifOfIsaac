@@ -2,6 +2,7 @@ package game.objects;
 
 import game.engine.objects.AbstractGameObject;
 import game.engine.objects.GameObjectList;
+import game.map.Isaac_World;
 import game.utils.Const;
 
 import java.awt.Color;
@@ -185,6 +186,7 @@ public class Isaac_ZombieAI extends AbstractGameObject
         // if Zombie is dead (haha), delete it
         if(life<=0)
         {
+            ((Isaac_World)world).addScore(10);
             this.isLiving=false;
             return;
         }

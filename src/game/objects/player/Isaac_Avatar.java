@@ -12,7 +12,7 @@ import java.awt.*;
 
 public class Isaac_Avatar extends AbstractGameObject {
 
-    int lives = Const.INITIAL_HEALTH;
+    int health = Const.INITIAL_HEALTH;
     double invincibletime=0;
     private double inertX = 0.0, inertY = 0.0;
     private double slipperiness = 1.6;  // shows how slippery GameObject would move, should be value between ]1.0. 2.0[
@@ -25,14 +25,14 @@ public class Isaac_Avatar extends AbstractGameObject {
         var liveDisplay = new AbstractTextObject(50, 50, Color.GRAY) {
             @Override
             public String toString() {
-                return "Lives: " + lives;
+                return "Health: " + health;
             }
         };
         world.textObjects.add(liveDisplay);
     }
 
     void debugPrintLive(){
-        System.out.println("Current lives: " + lives);
+        System.out.println("Current lives: " + health);
     }
 
     public void process(double diffSeconds)
@@ -63,17 +63,17 @@ public class Isaac_Avatar extends AbstractGameObject {
             // pick up Hearts
             else if(obj.type()==Const.TYPE_HEART)
             {
-                lives++;
+                health++;
                 debugPrintLive();
                 obj.isLiving=false;
             }
             // collode with zombies
             else if(obj.type()==Const.TYPE_ZOMBIE && invincibletime == 0)
             {
-                lives--;
+                health--;
                 invincibletime=Const.INVINCIBILITY_AFTER_HIT;
                 debugPrintLive();
-                if(lives <= 0){
+                if(health <= 0){
                     world.gameOver=true;
                 }
 

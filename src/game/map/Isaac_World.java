@@ -2,6 +2,7 @@ package game.map;
 
 
 import game.engine.input.UserInput;
+import game.engine.objects.AbstractTextObject;
 import game.engine.objects.GameObjectList;
 import game.engine.world.AbstractWorld;
 import game.level.Isaac_Level;
@@ -15,6 +16,7 @@ import game.utils.Const;
 import game.utils.Isaac_TextureRoom;
 import game.utils.Isaac_TextureSpells;
 
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,6 +35,7 @@ public class Isaac_World extends AbstractWorld
     private double lifeHelpText = 10.0;
 
     public Isaac_Level level;
+    public int score = 0;
 
     public Isaac_Room startingRoom;
     public List<Isaac_Room> rooms = new ArrayList<Isaac_Room>();
@@ -44,6 +47,13 @@ public class Isaac_World extends AbstractWorld
         Isaac_Level.instance.CreateLevel(5,1);
         CreateRoom(Isaac_Level.instance.getCurrentRoom());
         //CreateRoom(new Isaac_Room(RoomTexture.mapDefault,1920,1080,Sounds.MainMusic,Isacc_RoomType.NORMAL) );
+        var liveDisplay = new AbstractTextObject(50, 80, Color.GRAY) {
+            @Override
+            public String toString() {
+                return "Score: " + score;
+            }
+        };
+        this.textObjects.add(liveDisplay);
     }
 
 
@@ -155,6 +165,9 @@ public class Isaac_World extends AbstractWorld
 
     }
 
+    public void addScore(int addedScore){
+        score+=addedScore;
+    }
 
     private void throwGrenade(double x, double y)
     {
