@@ -35,7 +35,11 @@ public class Isaac_Avatar extends AbstractGameObject {
         System.out.println("Current lives: " + health);
     }
 
-    public void process(double diffSeconds)
+    public void addHealth(int health){
+        this.health += health;
+    }
+
+    public void tick(double diffSeconds)
     {
 
 
@@ -60,17 +64,10 @@ public class Isaac_Avatar extends AbstractGameObject {
             { ((Isaac_World)world).addGrenade();
                 obj.isLiving=false;
             }
-            // pick up Hearts
-            else if(obj.type()==Const.TYPE_HEART)
-            {
-                health++;
-                debugPrintLive();
-                obj.isLiving=false;
-            }
             // collode with zombies
             else if(obj.type()==Const.TYPE_ZOMBIE && invincibletime == 0)
             {
-                health--;
+                health-=10;
                 invincibletime=Const.INVINCIBILITY_AFTER_HIT;
                 debugPrintLive();
                 if(health <= 0){

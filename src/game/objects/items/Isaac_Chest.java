@@ -1,12 +1,13 @@
 package game.objects.items;
 
 import game.engine.objects.AbstractGameObject;
+import game.engine.objects.AbstractInteractableObject;
 import game.map.DoorDirection;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
-public class Isaac_Chest extends AbstractGameObject {
+public class Isaac_Chest extends AbstractInteractableObject {
 
 
 
@@ -23,7 +24,7 @@ public class Isaac_Chest extends AbstractGameObject {
     }
 
     @Override
-    public void process(double diffSeconds) {
+    public void interact(AbstractGameObject avatar) {
 
     }
 

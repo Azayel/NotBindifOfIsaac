@@ -13,8 +13,5 @@ class Isaac_Tree extends AbstractGameObject
         this.isMoving = false;
     }
 
-    @Override
-    public void process(double diffSeconds) {}
-
     public int type() { return Const.TYPE_TREE; }
 }

@@ -36,7 +36,7 @@ public class Isaac_Shot extends AbstractGameObject
     }
 
 
-    public void process(double diffSeconds)
+    public void tick(double diffSeconds)
     {
         lifeTime -= diffSeconds;
         if(lifeTime<=0)

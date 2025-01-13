@@ -4,6 +4,7 @@ package game.engine.world;
 import game.engine.input.*;
 import game.engine.graphics.IGraphicSystem;
 import game.engine.objects.AbstractGameObject;
+import game.engine.objects.AbstractInteractableObject;
 import game.engine.objects.AbstractTextObject;
 import game.engine.objects.GameObjectList;
 import game.engine.physics.AbstractPhysicsSystem;
@@ -92,7 +93,7 @@ public abstract class AbstractWorld
             for(int i=0; i<gameSize; i++)
             {
                 AbstractGameObject obj = gameObjects.get(i);
-                if(obj.isLiving)  obj.process(millisDiff/1000.0);
+                if(obj.isLiving)  obj.tick(millisDiff/1000.0);
             }
 
 
@@ -163,6 +164,13 @@ public abstract class AbstractWorld
             }
 
             //End of wrong code
+
+            //check for interactable Items
+            for(var obj : physicsSystem.getCollisions(avatar)){
+                if(obj instanceof AbstractInteractableObject interactableObject){
+                    interactableObject.interact(avatar);
+                }
+            }
         }
     }
 

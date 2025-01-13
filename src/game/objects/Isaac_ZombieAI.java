@@ -49,7 +49,7 @@ public class Isaac_ZombieAI extends AbstractGameObject
     }
 
 
-    public void process(double diffSeconds)
+    public void tick(double diffSeconds)
     {
         // if avatar is too far away: stop
         double dist = world.getPhysicsSystem()

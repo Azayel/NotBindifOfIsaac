@@ -13,12 +13,6 @@ public class RoomBackgroundGameObject extends AbstractGameObject {
     }
 
     @Override
-    public void process(double diffSeconds) {
-        // ToDo:
-        // IMPLEMENT
-    }
-
-    @Override
     public int type() {
         return Const.TYPE_WORLD_BORDER;
     }

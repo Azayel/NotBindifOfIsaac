@@ -15,7 +15,7 @@ public class Isaac_Grenade extends AbstractGameObject
     }
 
     @Override
-    public void process(double diffSeconds) {
+    public void tick(double diffSeconds) {
         // ToDo:
         // IMPLEMENT
         life -= diffSeconds;

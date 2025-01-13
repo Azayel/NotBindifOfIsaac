@@ -146,7 +146,7 @@ public abstract class AbstractGameObject
 //    }
 
 
-    abstract public void process(double diffSeconds);
+    public void tick(double diffSeconds){};
 
    // public void move(double dx, double dy);
 
