@@ -5,10 +5,14 @@ import game.map.Isaac_Room;
 import game.map.Isaac_RoomType;
 import game.map.Isaac_World;
 import game.sound.Isaac_Sounds;
+import game.utils.Const;
 import game.utils.Isaac_TextureRoom;
+import jdk.jshell.execution.Util;
 
 import java.util.ArrayList;
 import java.util.List;
+
+
 
 public class Isaac_Level {
 
@@ -17,6 +21,8 @@ public class Isaac_Level {
     private Isaac_Room startingRoom;
     List<Isaac_Room> rooms = new ArrayList<Isaac_Room>();
     private Isaac_World isaacWorld;
+    private int level=0;
+
 
     public Isaac_Level(Isaac_World isaacWorld) {
         if (instance == null) {
@@ -27,7 +33,8 @@ public class Isaac_Level {
 
 
     //Create a Level
-    public void CreateLevel(int maxRooms, int level) {
+    public void CreateLevel() {
+        int maxRooms = Const.STARTING_ROOMS + (int)(level*Const.DIFFICULTY_FACTOR);
         //Init Starting Room and add to list
         startingRoom = new Isaac_Room(Isaac_TextureRoom.mapDefault, 1920, 1080, Isaac_Sounds.StartingLevelMusic, Isaac_RoomType.START);
         rooms.add(startingRoom);
@@ -83,6 +90,7 @@ public class Isaac_Level {
 
         // Start with the starting room
         currentRoom = startingRoom;
+        level++;
     }
 
     public void goThroughRoom(TeleporterDestination direction) {
@@ -124,6 +132,9 @@ public class Isaac_Level {
     }
 
 
+    public int getLevel() {
+        return level;
+    }
 
     public Isaac_World getIsaacWorld() {
         return isaacWorld;

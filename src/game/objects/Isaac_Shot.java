@@ -1,5 +1,6 @@
 package game.objects;
 
+import game.engine.objects.AbstractAnimatedGameObject;
 import game.engine.objects.AbstractGameObject;
 import game.engine.objects.GameObjectList;
 import game.utils.Const;
@@ -7,37 +8,20 @@ import game.utils.Const;
 import java.awt.Color;
 import java.awt.image.BufferedImage;
 
-public class Isaac_Shot extends AbstractGameObject
+public class Isaac_Shot extends AbstractAnimatedGameObject
 {
-    private double lifeTime = 1.2;
+    private double lifeTime = 2.4;
 
-    public Isaac_Shot(double x, double y, double xDest, double yDest, int speed ,BufferedImage image)
+    public Isaac_Shot(double x, double y, double xDest, double yDest, int speed ,BufferedImage[] textures)
     {
-        super(x,y,Math.atan2(yDest-y, xDest-x),speed, image);
-        this.isMoving = true;
-    }
-
-    public Isaac_Shot(double x, double y, double xDest, double yDest)
-    {
-        super(x,y,Math.atan2(yDest-y, xDest-x),500,4,Color.YELLOW);
-        this.isMoving = true;
-    }
-
-    public Isaac_Shot(double x, double y, double a, double s, double time, BufferedImage image)
-    { super(x,y,a,s,image);
-        lifeTime = time;
-        this.isMoving = true;
-    }
-
-    public Isaac_Shot(double x, double y, double a, double s, double time)
-    { super(x,y,a,s,4,Color.YELLOW);
-        lifeTime = time;
+        super(x,y,Math.atan2(yDest-y, xDest-x),speed, textures);
         this.isMoving = true;
     }
 
 
     public void tick(double diffSeconds)
     {
+        super.tick(diffSeconds);
         lifeTime -= diffSeconds;
         if(lifeTime<=0)
         { this.isLiving=false;

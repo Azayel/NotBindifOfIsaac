@@ -30,6 +30,10 @@ public final class Const
     public static final int TYPE_HEART = 9;
     public static final int TYPE_WORLD_BORDER = 10;
 
+    //Level Room
+    public static final int STARTING_ROOMS = 5;
+    public static final double DIFFICULTY_FACTOR = 1.5;
+
 
 
 }

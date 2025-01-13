@@ -1,8 +1,11 @@
 package game.map;
 
 import game.engine.objects.GameObjectList;
+import game.level.Isaac_Level;
 import game.objects.Isaac_SpiderAI;
 import game.objects.Isaac_Teleporter;
+import game.objects.items.Isaac_Chest;
+import game.utils.Const;
 import game.utils.Isaac_TextureEnemy;
 
 import java.awt.image.BufferedImage;
@@ -35,7 +38,10 @@ public class Isaac_Room {
     GameObjectList gameObjectsEnemyList = new GameObjectList();
 
     //Doors List
-    GameObjectList doorList=new GameObjectList();
+    GameObjectList teleporterList =new GameObjectList();
+
+    //Item List
+    GameObjectList itemList =new GameObjectList();
 
     private boolean clearedRoom = false;
 
@@ -64,12 +70,20 @@ public class Isaac_Room {
     }
 
     private void setRoomToRoomType(Isaac_RoomType roomType) {
+        int enemySpawnNormalMin=5+ (int) (Isaac_Level.instance.getLevel()* Const.DIFFICULTY_FACTOR);
+        int enemySpawnNormalMax=10+(int) (Isaac_Level.instance.getLevel()* Const.DIFFICULTY_FACTOR);
+        int enemySpawnBossMin=10+(int) (Isaac_Level.instance.getLevel()* Const.DIFFICULTY_FACTOR);
+        int enemySpawnBossMax=15+(int) (Isaac_Level.instance.getLevel()* Const.DIFFICULTY_FACTOR);
+
+        int enemySpawnNormal = (int)(Math.random() * ((enemySpawnNormalMax - enemySpawnNormalMin) + 1)) + enemySpawnNormalMin;
+        int enemySpawnBoss = (int)(Math.random()* ((enemySpawnBossMax - enemySpawnBossMin) + 1)) + enemySpawnBossMin;
+
         switch (roomType) {
             case BOSS:
                 //ToDo
-                creategameObjectsEnemyList((int)(Math.random()* ((15 - 10) + 1)) + 10, 150);
+                creategameObjectsEnemyList(enemySpawnBoss, 150);
                 //add Chest
-
+                itemList.add(new Isaac_Chest(maxXRoomSize/2,maxYRoomSize/4));
                 break;
             case TREASURE:
                 //ToDo Add treasure chest or rewards
@@ -81,7 +95,7 @@ public class Isaac_Room {
 
                 break;
             default:
-                creategameObjectsEnemyList((int)(Math.random()* ((10 - 5) + 1)) + 5, 150);
+                creategameObjectsEnemyList(enemySpawnNormal, 150);
         }
     }
 
@@ -129,7 +143,7 @@ public class Isaac_Room {
         if(leftRoom != null){
             newDoorList.add(new Isaac_Teleporter( 100,maxYRoomSize/2-32,32, TeleporterDestination.LEFT));
         }
-        doorList=newDoorList;
+        teleporterList =newDoorList;
     }
 
     public void setCleared() {

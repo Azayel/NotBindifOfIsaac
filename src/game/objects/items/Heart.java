@@ -1,12 +1,12 @@
 package game.objects.items;
 
 import game.engine.objects.AbstractGameObject;
-import game.engine.objects.AbstractInteractableObject;
+import game.engine.objects.IInteractable;
 import game.objects.player.Isaac_Avatar;
 import game.utils.Const;
 import game.utils.Isaac_TextureItems;
 
-public class Heart extends AbstractInteractableObject {
+public class Heart extends AbstractGameObject implements IInteractable {
     public Heart(double x_, double y_) {
         super(x_, y_, 100, 0, Isaac_TextureItems.HEART);
     }

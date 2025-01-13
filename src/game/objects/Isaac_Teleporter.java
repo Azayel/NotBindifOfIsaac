@@ -1,13 +1,13 @@
 package game.objects;
 
 import game.engine.objects.AbstractGameObject;
-import game.engine.objects.AbstractInteractableObject;
+import game.engine.objects.IInteractable;
 import game.level.Isaac_Level;
 import game.map.TeleporterDestination;
 import game.utils.Const;
 import game.utils.Isaac_TextureEnvironment;
 
-public class Isaac_Teleporter extends AbstractInteractableObject {
+public class Isaac_Teleporter extends AbstractGameObject  implements IInteractable {
 
 
     TeleporterDestination dest;

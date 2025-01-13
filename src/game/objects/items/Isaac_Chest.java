@@ -1,21 +1,26 @@
 package game.objects.items;
 
+import game.engine.objects.AbstractAnimatedGameObject;
 import game.engine.objects.AbstractGameObject;
-import game.engine.objects.AbstractInteractableObject;
+import game.engine.objects.GameObjectList;
+import game.engine.objects.IInteractable;
+import game.level.Isaac_Level;
+import game.utils.Isaac_TextureItems;
 
-import java.awt.*;
-import java.awt.image.BufferedImage;
-
-public class Isaac_Chest extends AbstractInteractableObject {
+public class Isaac_Chest extends AbstractAnimatedGameObject implements IInteractable {
 
 
-    public Isaac_Chest(double x_, double y_, double a_, double s_, int radius_, Color color_) {
-        super(x_, y_, a_, s_, radius_, color_);
+    public Isaac_Chest(double x_, double y_) {
+        super(x_, y_, 0, 0, Isaac_TextureItems.CHEST, true);
     }
 
     @Override
     public void interact(AbstractGameObject avatar) {
-
+        //Generate new Level
+        if(Isaac_Level.instance.getCurrentRoom().isCleared()) {
+            Isaac_Level.instance.CreateLevel();
+            Isaac_Level.instance.getIsaacWorld().LoadNewRoom=true;
+        }
     }
 
     @Override

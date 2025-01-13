@@ -55,7 +55,7 @@ public class Isaac_SpiderAI extends AbstractGameObject
         double dist = world.getPhysicsSystem()
                 .distance(x,y,world.avatar.x,world.avatar.y);
 
-        if(dist > 800)
+        if(dist > 8000)
         { this.isMoving=false;
             return;
         }

@@ -12,9 +12,7 @@ import game.engine.sound.SoundEngine;
 import game.objects.*;
 import game.objects.items.Heart;
 import game.objects.player.Isaac_Avatar;
-import game.sound.Isaac_Sounds;
 import game.utils.Const;
-import game.utils.Isaac_TextureRoom;
 import game.utils.Isaac_TextureSpells;
 
 import java.awt.*;
@@ -47,7 +45,7 @@ public class Isaac_World extends AbstractWorld
     public void init()
     {
         level = new Isaac_Level(this);
-        Isaac_Level.instance.CreateLevel(5,1);
+        Isaac_Level.instance.CreateLevel();
         CreateRoom(Isaac_Level.instance.getCurrentRoom());
         //CreateRoom(new Isaac_Room(RoomTexture.mapDefault,1920,1080,Sounds.MainMusic,Isacc_RoomType.NORMAL) );
         var liveDisplay = new AbstractTextObject(50, 80, Color.GRAY) {
@@ -57,6 +55,13 @@ public class Isaac_World extends AbstractWorld
             }
         };
         this.textObjects.add(liveDisplay);
+        var levelDisplay = new AbstractTextObject(50, 110, Color.GRAY) {
+            @Override
+            public String toString() {
+                return "Level: " + level.getLevel();
+            }
+        };
+        this.textObjects.add(levelDisplay);
     }
 
 
@@ -97,7 +102,9 @@ public class Isaac_World extends AbstractWorld
         gameObjects.add(background);
         //CreateDoors
         room.CreateDoors();
-        gameObjects.addAll(room.doorList);
+        gameObjects.addAll(room.teleporterList);
+        //Spawn Items
+        gameObjects.addAll(room.itemList);
         //Set Avatar only if it never existed before
         if(avatar==null)
             avatar = new Isaac_Avatar(0,0);
@@ -150,7 +157,7 @@ public class Isaac_World extends AbstractWorld
                 timeSinceLastShot = 0;
 
                 Isaac_Shot shot = new Isaac_Shot(
-                        avatar.x,avatar.y,userInput.mouseMovedX+worldPartX,userInput.mouseMovedY+worldPartY,750, Isaac_TextureSpells.defaultSpell);
+                        avatar.x,avatar.y,userInput.mouseMovedX+worldPartX,userInput.mouseMovedY+worldPartY,750, Isaac_TextureSpells.waterSpell);
                 this.gameObjects.add(shot);
             }
         }
@@ -195,24 +202,6 @@ public class Isaac_World extends AbstractWorld
         score+=addedScore;
     }
 
-    private void throwGrenade(double x, double y)
-    {
-        if(grenades<=0) return;
-
-        // throw grenade
-        for(int i=0; i<2000; i++)
-        {
-            double alfa = Math.random()*Math.PI*2;
-            double speed = 50+Math.random()*200;
-            double time  = 0.2+Math.random()*0.4;
-            Isaac_Shot shot = new Isaac_Shot(x,y,alfa,speed,time);
-            this.gameObjects.add(shot);
-        }
-
-        // inform counter
-        grenades--;
-        counterG.setNumber(grenades);
-    }
 
 
 

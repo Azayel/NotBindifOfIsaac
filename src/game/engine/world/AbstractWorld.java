@@ -4,13 +4,12 @@ package game.engine.world;
 import game.engine.input.*;
 import game.engine.graphics.IGraphicSystem;
 import game.engine.objects.AbstractGameObject;
-import game.engine.objects.AbstractInteractableObject;
+import game.engine.objects.IInteractable;
 import game.engine.objects.AbstractTextObject;
 import game.engine.objects.GameObjectList;
 import game.engine.physics.AbstractPhysicsSystem;
 import game.engine.physics.PhysicsSystem;
 import game.engine.sound.SoundEngine;
-import game.level.Isaac_Level;
 import game.utils.Const;
 
 import java.util.ArrayList;
@@ -139,7 +138,7 @@ public abstract class AbstractWorld
 
             //check for interactable Items
             for(var obj : physicsSystem.getCollisions(avatar)){
-                if(obj instanceof AbstractInteractableObject interactableObject){
+                if(obj instanceof IInteractable interactableObject){
                     interactableObject.interact(avatar);
                 }
             }
