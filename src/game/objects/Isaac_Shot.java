@@ -5,14 +5,27 @@ import game.engine.objects.GameObjectList;
 import game.utils.Const;
 
 import java.awt.Color;
+import java.awt.image.BufferedImage;
 
 public class Isaac_Shot extends AbstractGameObject
 {
     private double lifeTime = 1.2;
 
+    public Isaac_Shot(double x, double y, double xDest, double yDest, int speed ,BufferedImage image)
+    {
+        super(x,y,Math.atan2(yDest-y, xDest-x),speed,16, image);
+        this.isMoving = true;
+    }
+
     public Isaac_Shot(double x, double y, double xDest, double yDest)
     {
         super(x,y,Math.atan2(yDest-y, xDest-x),500,4,Color.YELLOW);
+        this.isMoving = true;
+    }
+
+    public Isaac_Shot(double x, double y, double a, double s, double time, BufferedImage image)
+    { super(x,y,a,s,4,image);
+        lifeTime = time;
         this.isMoving = true;
     }
 

@@ -5,6 +5,7 @@ import game.engine.objects.GameObjectList;
 import game.utils.Const;
 
 import java.awt.Color;
+import java.awt.image.BufferedImage;
 
 
 public class Isaac_ZombieAI extends AbstractGameObject
@@ -20,6 +21,18 @@ public class Isaac_ZombieAI extends AbstractGameObject
     // life of a zombie
     private double life = 1.0;
 
+    public Isaac_ZombieAI(double x, double y,int radius,int speed, BufferedImage image)
+    {
+        super(x,y,0,speed,radius, image);
+        this.isMoving = false;
+
+        state = HUNTING;
+
+        // turn left or right to clear
+        alfaClear = Math.PI;
+        if(Math.random()<0.5) alfaClear = -alfaClear;
+
+    }
 
     public Isaac_ZombieAI(double x, double y)
     {

@@ -7,6 +7,7 @@ import game.utils.BoundingBox;
 import game.utils.Const;
 
 import java.awt.*;
+import java.awt.image.BufferedImage;
 
 public abstract class AbstractGameObject
 {
@@ -56,6 +57,19 @@ public abstract class AbstractGameObject
         radius=radius_;
         color = color_;
         hasTexture = false;
+        boundingBox = new BoundingBox(x, y, radius*2.0, radius*2.0);
+    }
+
+    public AbstractGameObject(double x_, double y_,
+                              double a_, double s_,
+                              int radius_, BufferedImage texture_)
+    {
+        x=x_;    y=y_;
+        xOld=x;  yOld=y;
+        alfa=a_; speed=s_;
+        radius=radius_;
+        texture=texture_;
+        hasTexture = true;
         boundingBox = new BoundingBox(x, y, radius*2.0, radius*2.0);
     }
 

@@ -13,6 +13,7 @@ import game.objects.player.Isaac_Avatar;
 import game.sound.Isaac_Sounds;
 import game.utils.Const;
 import game.utils.Isaac_TextureRoom;
+import game.utils.Isaac_TextureSpells;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -113,7 +114,7 @@ public class Isaac_World extends AbstractWorld
                 timeSinceLastShot = 0;
 
                 Isaac_Shot shot = new Isaac_Shot(
-                        avatar.x,avatar.y,userInput.mouseMovedX+worldPartX,userInput.mouseMovedY+worldPartY);
+                        avatar.x,avatar.y,userInput.mouseMovedX+worldPartX,userInput.mouseMovedY+worldPartY,750, Isaac_TextureSpells.defaultSpell);
                 this.gameObjects.add(shot);
             }
         }

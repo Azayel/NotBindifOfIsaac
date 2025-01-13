@@ -3,11 +3,16 @@ package game.map;
 import game.engine.objects.GameObjectList;
 import game.objects.Isaac_Door;
 import game.objects.Isaac_ZombieAI;
+import game.utils.Isaac_TextureEnemy;
 
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
+import java.util.Random;
 
 public class Isaac_Room {
+
+    public static int minEnemySpeed = 100;
+    public static int maxEnemySpeed = 150;
 
     //to Not spawn in Walls
     public static int xMinSpawnSize = 50;
@@ -64,7 +69,9 @@ public class Isaac_Room {
         switch (roomType) {
             case BOSS:
                 //ToDo
-                creategameObjectsEnemyList(10, 150);
+                creategameObjectsEnemyList((int)(Math.random()* ((15 - 10) + 1)) + 10, 150);
+                //add Chest
+
                 break;
             case TREASURE:
                 //ToDo Add treasure chest or rewards
@@ -76,7 +83,7 @@ public class Isaac_Room {
 
                 break;
             default:
-                creategameObjectsEnemyList(5, 100);
+                creategameObjectsEnemyList((int)(Math.random()* ((10 - 5) + 1)) + 5, 150);
         }
     }
 
@@ -84,24 +91,24 @@ public class Isaac_Room {
 
         for (int i = 0; i < enemysCount; i++) {
             boolean validPosition = false;
-            int zombieX = 0;
-            int zombieY = 0;
+            int enemyX = 0;
+            int enemyY = 0;
 
             while (!validPosition) {
-                zombieX = (int) (Math.random() * maxXRoomSize);
-                zombieY = (int) (Math.random() * maxYRoomSize);
-                double distance = Math.sqrt(Math.pow(zombieX - playerStartX, 2) + Math.pow(zombieY - playerStartY, 2));
+                enemyX = (int) (Math.random() * maxXRoomSize);
+                enemyY = (int) (Math.random() * maxYRoomSize);
+                double distance = Math.sqrt(Math.pow(enemyX - playerStartX, 2) + Math.pow(enemyY - playerStartY, 2));
 
                 // Validate position: far enough from player and away from walls
                 if (distance >= minDistanceAwayFromPlayer &&
-                        zombieX >= xMinSpawnSize && zombieX <= maxXRoomSize - xMinSpawnSize &&
-                        zombieY >= yMinSpawnSize && zombieY <= maxYRoomSize - yMinSpawnSize) {
+                        enemyX >= xMinSpawnSize && enemyX <= maxXRoomSize - xMinSpawnSize &&
+                        enemyY >= yMinSpawnSize && enemyY <= maxYRoomSize - yMinSpawnSize) {
                     validPosition = true;
                 }
             }
 
             // Add the zombie to the game objects list
-            gameObjectsEnemyList.add(new Isaac_ZombieAI(zombieX, zombieY));
+            gameObjectsEnemyList.add(new Isaac_ZombieAI(enemyX, enemyY,32, (int)(Math.random() * ((maxEnemySpeed - minEnemySpeed) + 1)) + minEnemySpeed, Isaac_TextureEnemy.enemySpider));
         }
 
     }
