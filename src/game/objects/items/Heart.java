@@ -8,7 +8,7 @@ import game.utils.Isaac_TextureItems;
 
 public class Heart extends AbstractInteractableObject {
     public Heart(double x_, double y_) {
-        super(x_, y_, 100, 0, 16, Isaac_TextureItems.HEART);
+        super(x_, y_, 100, 0, Isaac_TextureItems.HEART);
     }
 
     @Override

@@ -9,7 +9,7 @@ import java.awt.Color;
 import java.awt.image.BufferedImage;
 
 
-public class Isaac_ZombieAI extends AbstractGameObject
+public class Isaac_SpiderAI extends AbstractGameObject
 {
     private static final int HUNTING  = 1;
     private static final int STUCK    = 2;
@@ -22,9 +22,9 @@ public class Isaac_ZombieAI extends AbstractGameObject
     // life of a zombie
     private double life = 1.0;
 
-    public Isaac_ZombieAI(double x, double y,int radius,int speed, BufferedImage image)
+    public Isaac_SpiderAI(double x, double y,int radius,int speed, BufferedImage image)
     {
-        super(x,y,0,speed,radius, image);
+        super(x,y,0,speed, image);
         this.isMoving = false;
 
         state = HUNTING;
@@ -35,7 +35,7 @@ public class Isaac_ZombieAI extends AbstractGameObject
 
     }
 
-    public Isaac_ZombieAI(double x, double y)
+    public Isaac_SpiderAI(double x, double y)
     {
         super(x,y,0,60,15,new Color(160,80,40));
         this.isMoving = false;

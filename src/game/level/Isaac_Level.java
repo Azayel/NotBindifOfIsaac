@@ -1,6 +1,6 @@
 package game.level;
 
-import game.map.DoorDirection;
+import game.map.TeleporterDestination;
 import game.map.Isaac_Room;
 import game.map.Isaac_RoomType;
 import game.map.Isaac_World;
@@ -85,7 +85,7 @@ public class Isaac_Level {
         currentRoom = startingRoom;
     }
 
-    public void goThroughRoom(DoorDirection direction) {
+    public void goThroughRoom(TeleporterDestination direction) {
         switch (direction) {
             case TOP:
                 if (currentRoom.topRoom!=null) {

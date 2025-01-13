@@ -13,7 +13,7 @@ public class Isaac_Shot extends AbstractGameObject
 
     public Isaac_Shot(double x, double y, double xDest, double yDest, int speed ,BufferedImage image)
     {
-        super(x,y,Math.atan2(yDest-y, xDest-x),speed,16, image);
+        super(x,y,Math.atan2(yDest-y, xDest-x),speed, image);
         this.isMoving = true;
     }
 
@@ -24,7 +24,7 @@ public class Isaac_Shot extends AbstractGameObject
     }
 
     public Isaac_Shot(double x, double y, double a, double s, double time, BufferedImage image)
-    { super(x,y,a,s,4,image);
+    { super(x,y,a,s,image);
         lifeTime = time;
         this.isMoving = true;
     }
@@ -60,7 +60,7 @@ public class Isaac_Shot extends AbstractGameObject
             // Zombie: inform Zombie it is hit
             else if(type==Const.TYPE_ZOMBIE && obj.isLiving)
             {
-                Isaac_ZombieAI zombie = (Isaac_ZombieAI)obj;
+                var zombie = (Isaac_SpiderAI)obj;
                 zombie.hasBeenShot();
                 this.isLiving=false;
             }

@@ -29,7 +29,6 @@ public abstract class AbstractWorld
 
     // defines maximum frame rate
     private static final int FRAME_MINIMUM_MILLIS = 10;
-    public boolean LoadNewRoom=false;
 
     // if game is over
     public boolean gameOver = false;
@@ -39,9 +38,6 @@ public abstract class AbstractWorld
     public AbstractGameObject avatar;
     public AbstractGameObject background;
     public ArrayList<AbstractTextObject> textObjects = new ArrayList<AbstractTextObject>();
-
-    //Counter of Enemys
-    int currentEnemys=0;
 
     public AbstractWorld() {
         physicsSystem = new PhysicsSystem(this);
@@ -137,32 +133,8 @@ public abstract class AbstractWorld
             // create new objects if needed
             //createNewObjects(millisDiff/1000.0);
 
-            //ToDo Check if Doors Needs tho be added?
-            //TODO this should go in the Isaac world, here is the wrong place for that
-            //One could add an abstract tick(double diffSeconds) method to this class implement that in the Isaac world and call it here with:
-            //tick(millisDiff / 1000.0);
-            currentEnemys = 0;
-            for(AbstractGameObject obj : gameObjects){
-                if(obj.type()==Const.TYPE_ZOMBIE){
-                    currentEnemys++;
-                }
-            }
-            //System.out.println("Enemys: "+currentEnemys);
-            if(currentEnemys<=0){
-                if (!Isaac_Level.instance.getCurrentRoom().isCleared()) {
-                    System.out.println("Changed to Clear: " + currentEnemys);
-                    Isaac_Level.instance.getCurrentRoom().setCleared();
-                }
-            }
-            else {
-                Isaac_Level.instance.getCurrentRoom().setCleared(false);
-            }
 
-            if(LoadNewRoom){
-                Isaac_Level.instance.LoadRoom();
-                LoadNewRoom=false;
-            }
-
+            tick(millisDiff/1000.0);
             //End of wrong code
 
             //check for interactable Items
@@ -173,6 +145,8 @@ public abstract class AbstractWorld
             }
         }
     }
+
+    public abstract void tick(double timediff);
 
 
     // adjust the displayed pane of the world according to Avatar and Bounds

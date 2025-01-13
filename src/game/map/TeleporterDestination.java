@@ -1,5 +1,5 @@
 package game.map;
 
-public enum DoorDirection {
+public enum TeleporterDestination {
     TOP, RIGHT, BOTTOM, LEFT;
 }

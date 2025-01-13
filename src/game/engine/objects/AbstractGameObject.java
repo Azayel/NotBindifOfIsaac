@@ -2,7 +2,7 @@ package game.engine.objects;
 
 
 import game.engine.world.AbstractWorld;
-import game.map.DoorDirection;
+import game.map.TeleporterDestination;
 import game.utils.BoundingBox;
 import game.utils.Const;
 
@@ -42,10 +42,6 @@ public abstract class AbstractGameObject
     public static AbstractWorld world;
 
 
-    //Doors
-    private DoorDirection doorDirection;
-
-
     // construct GameObject
     public AbstractGameObject(double x_, double y_,
                               double a_, double s_,
@@ -61,61 +57,15 @@ public abstract class AbstractGameObject
     }
 
     public AbstractGameObject(double x_, double y_,
-                              double a_, double s_,
-                              int radius_, BufferedImage texture_)
+                              double a_, double s_, BufferedImage texture_)
     {
         x=x_;    y=y_;
         xOld=x;  yOld=y;
         alfa=a_; speed=s_;
-        radius=radius_;
         texture=texture_;
         hasTexture = true;
-        boundingBox = new BoundingBox(x, y, radius*2.0, radius*2.0);
+        boundingBox = new BoundingBox(x, y, texture_.getWidth(), texture_.getHeight());
     }
-
-    public AbstractGameObject(double x_, double y_,
-                              double a_, double s_,
-                              int radius_, Image texture_)
-    {
-        x=x_;    y=y_;
-        xOld=x;  yOld=y;
-        alfa=a_; speed=s_;
-        radius=radius_;
-        texture=texture_;
-        hasTexture = true;
-        boundingBox = new BoundingBox(x, y, radius*2.0, radius*2.0);
-    }
-
-    //TODO this should not exist here, why should this abstract object know what doors are???
-    public AbstractGameObject(double x_, double y_,
-                              double a_, double s_,
-                              int radius_, Image texture_,
-                              DoorDirection doorDirection)
-    {
-        x=x_;    y=y_;
-        xOld=x;  yOld=y;
-        alfa=a_; speed=s_;
-        radius=radius_;
-        texture=texture_;
-        hasTexture = true;
-        this.doorDirection = doorDirection;
-        boundingBox = new BoundingBox(x, y, radius, radius);
-        System.out.println("Bounding Box Created for door : " + boundingBox.x + " " + boundingBox.y + " " + boundingBox.width + " " + boundingBox.height);
-    }
-
-    public AbstractGameObject(Image texture_){
-        x=0;    y=0;
-        xOld=x;  yOld=y;
-        alfa=0; speed=0;
-        radius = 0;
-        texture=texture_;
-        hasTexture = true;
-        isbackgroundImage=true;
-        boundingBox = new BoundingBox(-99999, -99999, Const.WORLDPART_WIDTH, Const.WORLDPART_HEIGHT);
-    }
-
-
-
 
     // move one step to direction <alfa>
 //    public void move(double diffSeconds)
@@ -212,7 +162,5 @@ public abstract class AbstractGameObject
     public abstract int type();
     public static void setWorld(AbstractWorld w) {world=w;}
     public BoundingBox getBoundingBox() {return boundingBox;}
-
-    public DoorDirection getDoorDirection() {return doorDirection;}
 
 }

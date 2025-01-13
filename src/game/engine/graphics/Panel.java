@@ -67,7 +67,7 @@ class Panel extends JPanel implements IGraphicSystem
                 int yAdjustment=0;
                 graphics.drawImage(dot.texture, -xAdjustment, -yAdjustment, dot.texture.getWidth(null)-xAdjustment,dot.texture.getHeight(null)-yAdjustment,null);
             }else {
-                graphics.drawImage(dot.texture, x,y,d,d,null);
+                graphics.drawImage(dot.texture, x,y,(int) dot.getBoundingBox().width, (int) dot.getBoundingBox().height,null);
             }
         }else {
             graphics.setColor(dot.color);

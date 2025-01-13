@@ -4,12 +4,13 @@ import game.engine.objects.AbstractGameObject;
 import game.utils.Const;
 
 import java.awt.*;
+import java.awt.image.BufferedImage;
 
 public class RoomBackgroundGameObject extends AbstractGameObject {
 
 
-    public RoomBackgroundGameObject(Image texture_) {
-        super(texture_);
+    public RoomBackgroundGameObject(BufferedImage texture_) {
+        super(0,0,0, 0, texture_);
     }
 
     @Override

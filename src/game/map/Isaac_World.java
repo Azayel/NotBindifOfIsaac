@@ -2,6 +2,7 @@ package game.map;
 
 
 import game.engine.input.UserInput;
+import game.engine.objects.AbstractGameObject;
 import game.engine.objects.AbstractTextObject;
 import game.engine.objects.GameObjectList;
 import game.engine.world.AbstractWorld;
@@ -41,6 +42,8 @@ public class Isaac_World extends AbstractWorld
     public List<Isaac_Room> rooms = new ArrayList<Isaac_Room>();
     public Isaac_Room currentRoom;
 
+    public boolean LoadNewRoom=false;
+
     public void init()
     {
         level = new Isaac_Level(this);
@@ -57,9 +60,32 @@ public class Isaac_World extends AbstractWorld
     }
 
 
+    @Override
+    public void tick(double timediff) {
+        var currentEnemys = 0;
+        for(AbstractGameObject obj : gameObjects){
+            if(obj.type()==Const.TYPE_ZOMBIE){
+                currentEnemys++;
+            }
+        }
+        //System.out.println("Enemys: "+currentEnemys);
+        if(currentEnemys<=0){
+            if (!Isaac_Level.instance.getCurrentRoom().isCleared()) {
+                System.out.println("Changed to Clear: " + currentEnemys);
+                Isaac_Level.instance.getCurrentRoom().setCleared();
+            }
+        }
+        else {
+            Isaac_Level.instance.getCurrentRoom().setCleared(false);
+        }
 
+        if(LoadNewRoom){
+            if(currentEnemys==0)
+                Isaac_Level.instance.LoadRoom();
+            LoadNewRoom=false;
+        }
 
-
+    }
 
     //Create a Room
     public void CreateRoom(Isaac_Room room){
@@ -269,15 +295,15 @@ public class Isaac_World extends AbstractWorld
 
 
             // if too close to Avatar, cancel
-            double dx = x-avatar.x;
-            double dy = y-avatar.y;
+            var dx = x-avatar.x;
+            var dy = y-avatar.y;
             if(dx*dx+dy*dy < 400*400)
             { timePassed = INTERVAL;
                 return;
             }
 
             // if collisions occur, cancel
-            Isaac_ZombieAI zombie = new Isaac_ZombieAI(x,y);
+            var zombie = new Isaac_SpiderAI(x,y);
             GameObjectList list = getPhysicsSystem().getCollisions(zombie);
             if(list.size()!=0)
             { timePassed = INTERVAL;
