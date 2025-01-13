@@ -1,5 +1,6 @@
 package game.objects.enemy;
 
+import game.engine.objects.AbstractAnimatedGameObject;
 import game.engine.objects.AbstractGameObject;
 import game.engine.objects.GameObjectList;
 import game.map.Isaac_World;
@@ -9,7 +10,7 @@ import java.awt.Color;
 import java.awt.image.BufferedImage;
 
 
-public class Isaac_SpiderAI extends AbstractGameObject implements IEnemy
+public class Isaac_SpiderAI extends AbstractAnimatedGameObject implements IEnemy
 {
     private static final int HUNTING  = 1;
     private static final int STUCK    = 2;
@@ -22,22 +23,9 @@ public class Isaac_SpiderAI extends AbstractGameObject implements IEnemy
     // life of a zombie
     private int life = 20;
 
-    public Isaac_SpiderAI(double x, double y,int radius,int speed, BufferedImage image)
+    public Isaac_SpiderAI(double x, double y,int radius,int speed, BufferedImage[] image)
     {
-        super(x,y,0,speed, image);
-        this.isMoving = false;
-
-        state = HUNTING;
-
-        // turn left or right to clear
-        alfaClear = Math.PI;
-        if(Math.random()<0.5) alfaClear = -alfaClear;
-
-    }
-
-    public Isaac_SpiderAI(double x, double y)
-    {
-        super(x,y,0,60,15,new Color(160,80,40));
+        super(x,y,0,speed, image,true);
         this.isMoving = false;
 
         state = HUNTING;
@@ -51,6 +39,7 @@ public class Isaac_SpiderAI extends AbstractGameObject implements IEnemy
 
     public void tick(double diffSeconds)
     {
+        super.tick(diffSeconds);
         // if avatar is too far away: stop
         double dist = world.getPhysicsSystem()
                 .distance(x,y,world.avatar.x,world.avatar.y);

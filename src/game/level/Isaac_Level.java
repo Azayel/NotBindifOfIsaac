@@ -35,6 +35,7 @@ public class Isaac_Level {
     //Create a Level
     public void CreateLevel() {
         int maxRooms = Const.STARTING_ROOMS + (int)(level*Const.DIFFICULTY_FACTOR);
+        rooms.clear();
         //Init Starting Room and add to list
         startingRoom = new Isaac_Room(Isaac_TextureRoom.mapDefault, 1920, 1080, Isaac_Sounds.StartingLevelMusic, Isaac_RoomType.START);
         rooms.add(startingRoom);
@@ -99,24 +100,30 @@ public class Isaac_Level {
                 if (currentRoom.topRoom!=null) {
                     currentRoom = currentRoom.topRoom;
 
+                    currentRoom.playerStartX=currentRoom.maxXRoomSize/2-32;
+                    currentRoom.playerStartY=currentRoom.maxYRoomSize-150-32;
                 }
                 break;
             case RIGHT:
                 if (currentRoom.rightRoom!=null) {
                     currentRoom = currentRoom.rightRoom;
-
+                    currentRoom.playerStartX=150+32;
+                    currentRoom.playerStartY=currentRoom.maxYRoomSize/2-32;
                 }
                 break;
             case BOTTOM:
                 if (currentRoom.bottomRoom!=null) {
                     currentRoom = currentRoom.bottomRoom;
+                    currentRoom.playerStartX=currentRoom.maxXRoomSize/2-32;
+                    currentRoom.playerStartY=150+32;
 
                 }
                 break;
             case LEFT:
                 if (currentRoom.leftRoom!=null) {
                     currentRoom = currentRoom.leftRoom;
-
+                    currentRoom.playerStartX=currentRoom.maxXRoomSize-32-150;
+                    currentRoom.playerStartY=currentRoom.maxYRoomSize/2-32;
                 }
                 break;
         }

@@ -204,6 +204,5 @@ public abstract class AbstractWorld
 
     public abstract void init();
     public abstract void processUserInput(UserInput input, double diffSec);
-    public abstract void createNewObjects(double diffSeconds);
 
 }

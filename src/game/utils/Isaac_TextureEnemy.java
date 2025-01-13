@@ -7,12 +7,32 @@ import java.io.IOException;
 import static javax.imageio.ImageIO.read;
 
 public class Isaac_TextureEnemy {
-    public static BufferedImage enemySpider;
+    public static BufferedImage[] enemySpider;
 
     static {
         try {
             // Load the player avatar image
-            enemySpider = read(new File("src/assets/Enemy/enemy_spider.png"));
+            enemySpider = new BufferedImage[] {
+                    read(new File("src/assets/Enemy/Spider/spider0.png")),
+                    read(new File("src/assets/Enemy/Spider/spider1.png")),
+                    read(new File("src/assets/Enemy/Spider/spider2.png")),
+                    read(new File("src/assets/Enemy/Spider/spider3.png")),
+                    read(new File("src/assets/Enemy/Spider/spider4.png")),
+                    read(new File("src/assets/Enemy/Spider/spider5.png")),
+                    read(new File("src/assets/Enemy/Spider/spider6.png")),
+                    read(new File("src/assets/Enemy/Spider/spider7.png")),
+                    read(new File("src/assets/Enemy/Spider/spider8.png")),
+                    read(new File("src/assets/Enemy/Spider/spider9.png")),
+                    read(new File("src/assets/Enemy/Spider/spider8.png")),
+                    read(new File("src/assets/Enemy/Spider/spider7.png")),
+                    read(new File("src/assets/Enemy/Spider/spider6.png")),
+                    read(new File("src/assets/Enemy/Spider/spider5.png")),
+                    read(new File("src/assets/Enemy/Spider/spider4.png")),
+                    read(new File("src/assets/Enemy/Spider/spider3.png")),
+                    read(new File("src/assets/Enemy/Spider/spider2.png")),
+                    read(new File("src/assets/Enemy/Spider/spider1.png")),
+                    read(new File("src/assets/Enemy/Spider/spider0.png")),
+            };
 
         } catch (IOException e) {
             e.printStackTrace();

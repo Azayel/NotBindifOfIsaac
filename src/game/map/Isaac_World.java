@@ -87,8 +87,9 @@ public class Isaac_World extends AbstractWorld
         }
 
         if(LoadNewRoom){
-            if(currentEnemys==0)
+            if(currentEnemys==0) {
                 Isaac_Level.instance.LoadRoom();
+            }
             LoadNewRoom=false;
         }
 
@@ -202,26 +203,6 @@ public class Isaac_World extends AbstractWorld
     }
 
 
-
-
-    public void createNewObjects(double diffSeconds)
-    {
-        createZombie(diffSeconds);
-        createGrenade(diffSeconds);
-
-        // delete HelpText after ... seconds
-        if(helpText!=null)
-        {
-            lifeHelpText -= diffSeconds;
-            if(lifeHelpText < 0)
-            {
-                textObjects.remove(helpText);
-                helpText = null;
-            }
-        }
-    }
-
-
     private void createGrenade(double diffSeconds)
     {
         final double INTERVAL = Const.SPAWN_GRENADE;
@@ -258,106 +239,5 @@ public class Isaac_World extends AbstractWorld
         }
 
     }
-
-
-
-    private void createZombie(double diffSeconds)
-    {
-        final double INTERVAL = Const.SPAWN_INTERVAL;
-
-        timePassed += diffSeconds;
-        if(timePassed>INTERVAL)
-        {
-            timePassed -= INTERVAL;
-
-            // create new Zombie; preference to current screen
-            double x,y;
-            if(Math.random() < 0.7)
-            { x = Math.random()*Const.WORLD_WIDTH;
-                y = Math.random()*Const.WORLD_HEIGHT;
-            }
-            else
-            { x = worldPartX+Math.random()*Const.WORLDPART_WIDTH;
-                y = worldPartY+Math.random()*Const.WORLDPART_HEIGHT;
-            }
-
-
-            // if too close to Avatar, cancel
-            var dx = x-avatar.x;
-            var dy = y-avatar.y;
-            if(dx*dx+dy*dy < 400*400)
-            { timePassed = INTERVAL;
-                return;
-            }
-
-            // if collisions occur, cancel
-            var zombie = new Isaac_SpiderAI(x,y);
-            GameObjectList list = getPhysicsSystem().getCollisions(zombie);
-            if(list.size()!=0)
-            { timePassed = INTERVAL;
-                return;
-            }
-
-            // else add zombie to world
-            this.gameObjects.add(zombie);
-            zombie.setDestination(avatar);
-            Isaac_Counter counter = (Isaac_Counter)textObjects.get(0);
-            counter.increment();
-        }
-
-    }
-
-
-    public void addGrenade()
-    {
-        if(grenades<999) { grenades++; }
-        counterG.setNumber(grenades);
-    }
-
-    //ToDo Old stuff
-    /*
-    protected void init()
-    {
-        // add the Avatar
-        avatar = new Isaac_Avatar(2500,2000);
-        gameObjects.add(avatar);
-
-        // set WorldPart position
-        worldPartX = 1500;
-        worldPartY = 1500;
-
-        // add a little forrest
-
-        for(int x=0; x<5000; x+=1000)
-        {
-
-            for(int y=0; y<4000; y+=800)
-            {
-                gameObjects.add(new Isaac_Tree(x+300,y+200,80));
-                gameObjects.add(new Isaac_Tree(x+600,y+370,50));
-                gameObjects.add(new Isaac_Tree(x+200,y+600,50));
-                gameObjects.add(new Isaac_Tree(x+500,y+800,40));
-                gameObjects.add(new Isaac_Tree(x+900,y+500,100));
-                gameObjects.add(new Isaac_Tree(x+760,y+160,40));
-            }
-        }
-
-
-
-        // add one zombie
-        gameObjects.add(new Isaac_ZombieAI(100,100));
-
-
-        counterZ = new Isaac_Counter(20,40);
-        counterG = new Isaac_CounterGrenades(770,40);
-        helpText = new Isaac_HelpText(100,400);
-
-        counterG.setNumber(grenades);
-        textObjects.add(counterZ);
-        textObjects.add(counterG);
-        textObjects.add(helpText);
-    }
-    */
-
 
 }

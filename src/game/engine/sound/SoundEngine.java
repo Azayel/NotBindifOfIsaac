@@ -8,6 +8,7 @@ public class SoundEngine {
     private Clip musicClip;
     private Thread musicThread;
     private boolean looping;
+    private String currentFilePath;
 
     public static SoundEngine instance;
 
@@ -20,6 +21,10 @@ public class SoundEngine {
     public void playMusic(String filePath, boolean looping) {
         this.looping = looping;
 
+        if (filePath.equals(currentFilePath)) {
+            return;
+        }
+        currentFilePath = filePath;
         stopMusic(); // Stop any currently playing music
 
         musicThread = new Thread(() -> {
@@ -48,6 +53,7 @@ public class SoundEngine {
         });
 
         musicThread.start();
+
     }
 
     public void stopMusic() {
@@ -98,9 +104,9 @@ public class SoundEngine {
             AudioInputStream audioStream = AudioSystem.getAudioInputStream(audioFile);
             musicClip = AudioSystem.getClip();
             musicClip.open(audioStream);
-        } catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {
-            System.err.println("Error loading music: " + e.getMessage());
-        }
+            } catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {
+                System.err.println("Error loading music: " + e.getMessage());
+            }
     }
 
 
