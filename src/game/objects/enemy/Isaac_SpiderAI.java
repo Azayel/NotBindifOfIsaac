@@ -4,6 +4,7 @@ import game.engine.objects.AbstractAnimatedGameObject;
 import game.engine.objects.AbstractGameObject;
 import game.engine.objects.GameObjectList;
 import game.engine.sound.SoundEngine;
+import game.map.Isaac_Room;
 import game.map.Isaac_World;
 import game.objects.Healthbar.EnemyHealthBar;
 import game.objects.items.Heart;
@@ -11,6 +12,7 @@ import game.sound.Isaac_Sounds;
 import game.utils.DroppableList;
 
 import java.awt.image.BufferedImage;
+import java.util.Random;
 
 
 public class Isaac_SpiderAI extends AbstractAnimatedGameObject implements IEnemy
@@ -45,10 +47,22 @@ public class Isaac_SpiderAI extends AbstractAnimatedGameObject implements IEnemy
 
     }
 
-
+    double timer=0;
+    double goal = 1.5;
     public void tick(double diffSeconds)
     {
         super.tick(diffSeconds);
+        timer+=diffSeconds;
+
+        if(timer>=goal){
+            timer=0;
+            speed=new Random().nextInt(Isaac_Room.maxEnemySpeed-Isaac_Room.minEnemySpeed)+Isaac_Room.minEnemySpeed;
+            goal=new Random().nextDouble(10);
+            if(Math.random()<0.1) {
+                speed = 800;
+                goal = 0.5;
+            }
+        }
         if(!world.gameObjects.contains(healthBar))
             world.gameObjects.add(healthBar);
 

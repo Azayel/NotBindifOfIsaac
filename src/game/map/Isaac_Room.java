@@ -12,8 +12,8 @@ import java.awt.image.BufferedImage;
 
 public class Isaac_Room {
 
-    public static int minEnemySpeed = 100;
-    public static int maxEnemySpeed = 150;
+    public static int minEnemySpeed = 20;
+    public static int maxEnemySpeed = 250;
 
     //to Not spawn in Walls
     public static int xMinSpawnSize = 50;
