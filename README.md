@@ -6,7 +6,7 @@ Gruppen Teilnehmer:
 Marcel Otto
 Max Wenzel
 Ilyas
-Silva
+Fabian Fila (Silva Fila)
 
 
 Beschreibung.
@@ -57,4 +57,19 @@ Max Wenzel:
 
 Ilyas:
 
-Silva:
+
+Fabian Fila (Silva Fila):
+
+Im Rahmen meiner Arbeit habe ich eine Vielzahl an Refactoring-Maßnahmen durchgeführt,
+um den Code besser wartbar und performanter zu gestalten.
+Dabei konnte ich die allgemeine Codequalität deutlich verbessern und zahlreiche Bugs beheben,
+was zu einer stabileren und angenehmeren Benutzererfahrung führt.
+
+Zusätzlich habe ich zusammen mit Marcel in einer intensiven Peer-Programming-Session an mehreren zentralen Spielmechaniken gearbeitet.
+Wir haben gemeinsam das Konzept für das Score-System entworfen und implementiert, Levels entwickelt,
+interaktive Objekte sowie animierte Objekte integriert und eine API für die Gegner-Logik entworfen.
+Dieser kollaborative Entwicklungsprozess ermöglichte es uns, diese Features effizient umzusetzen und aufeinander abzustimmen.
+
+Neben der Zusammenarbeit habe ich eigenverantwortlich das Gesundheitssystem im Spiel entwickelt.
+Dies umfasst nicht nur das Herz-Item, welches dem Spieler ermöglicht sein Leben aufzufüllen,
+sondern auch die Healthbar der Gegner.
