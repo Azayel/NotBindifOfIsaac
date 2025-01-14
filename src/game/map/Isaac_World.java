@@ -117,7 +117,7 @@ public class Isaac_World extends AbstractWorld
         gameObjects.add(avatar);
         //add all living Enemys
         gameObjects.addAll(room.gameObjectsEnemyList.stream()
-                .filter((enemy)->!enemy.isLiving)
+                .filter((enemy)->enemy.isLiving)
                 .toList());
         //add all Enviorment stuff
 

@@ -104,6 +104,10 @@ public class SoundEngine {
             AudioInputStream audioStream = AudioSystem.getAudioInputStream(audioFile);
             musicClip = AudioSystem.getClip();
             musicClip.open(audioStream);
+            FloatControl gainControl =
+                    (FloatControl) musicClip.getControl(FloatControl.Type.MASTER_GAIN);
+            // lower Music gain 8db
+            gainControl.setValue(-8.0f);
             } catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {
                 System.err.println("Error loading music: " + e.getMessage());
             }
