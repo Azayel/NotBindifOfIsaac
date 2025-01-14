@@ -25,6 +25,8 @@ public class Isaac_World extends AbstractWorld
 {
     private double timePassed = 0;
     private double timeSinceLastShot = 0;
+    private double shooting_speed_barrier = 0.7;
+    private double baseDmg = 5;
 
     // for grenades
     private int grenades = 500;
@@ -126,6 +128,13 @@ public class Isaac_World extends AbstractWorld
         SoundEngine.instance.playMusic(room.backgroundMusic,true);
     }
 
+    public void mod_speed(){
+        shooting_speed_barrier *= 0.99f; // 1% Speed Increase
+    }
+
+    public void mod_damage(){
+        baseDmg *= 0.99f; // 1% DMG Increase
+    }
 
     public void processUserInput(UserInput userInput, double diffSeconds)
     {
@@ -155,12 +164,12 @@ public class Isaac_World extends AbstractWorld
         {
             // only 1 shot every ... seconds:
             timeSinceLastShot += diffSeconds;
-            if(timeSinceLastShot > 0.2)
+            if(timeSinceLastShot > shooting_speed_barrier)
             {
                 timeSinceLastShot = 0;
 
                 Isaac_Shot shot = new Isaac_Shot(
-                        avatar.x,avatar.y,userInput.mouseMovedX+worldPartX,userInput.mouseMovedY+worldPartY,750, Isaac_TextureSpells.waterSpell, 5);
+                        avatar.x,avatar.y,userInput.mouseMovedX+worldPartX,userInput.mouseMovedY+worldPartY,750, Isaac_TextureSpells.waterSpell, this.baseDmg);
                 this.gameObjects.add(shot);
             }
         }

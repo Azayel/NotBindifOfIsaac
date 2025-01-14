@@ -12,9 +12,9 @@ import java.awt.image.BufferedImage;
 public class Isaac_Shot extends AbstractAnimatedGameObject
 {
     private double lifeTime = 2.4;
-    private int damage;
+    private double damage;
 
-    public Isaac_Shot(double x, double y, double xDest, double yDest, int speed, BufferedImage[] textures, int damage)
+    public Isaac_Shot(double x, double y, double xDest, double yDest, int speed, BufferedImage[] textures, double damage)
     {
         super(x,y,Math.atan2(yDest-y, xDest-x),speed, textures);
         this.isMoving = true;

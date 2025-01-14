@@ -8,6 +8,7 @@ import game.map.Isaac_World;
 import game.objects.Healthbar.EnemyHealthBar;
 import game.objects.items.Heart;
 import game.sound.Isaac_Sounds;
+import game.utils.DroppableList;
 
 import java.awt.image.BufferedImage;
 
@@ -24,9 +25,10 @@ public class Isaac_SpiderAI extends AbstractAnimatedGameObject implements IEnemy
 
     // life of a zombie
     private final int INITIAL_LIFE = 20;
-    private int life = INITIAL_LIFE;
+    private double life = INITIAL_LIFE;
 
     private EnemyHealthBar healthBar;
+    private DroppableList droplist;
 
     public Isaac_SpiderAI(double x, double y,int radius,int speed, BufferedImage[] image)
     {
@@ -39,6 +41,7 @@ public class Isaac_SpiderAI extends AbstractAnimatedGameObject implements IEnemy
         // turn left or right to clear
         alfaClear = Math.PI;
         if(Math.random()<0.5) alfaClear = -alfaClear;
+        droplist = new DroppableList();
 
     }
 
@@ -124,7 +127,7 @@ public class Isaac_SpiderAI extends AbstractAnimatedGameObject implements IEnemy
     }
 
     @Override
-    public void hit(int damageAmount) {
+    public void hit(double damageAmount) {
         // every shot decreases life
         life -= damageAmount;
         healthBar.setHealth(((double) life/INITIAL_LIFE));
@@ -136,8 +139,11 @@ public class Isaac_SpiderAI extends AbstractAnimatedGameObject implements IEnemy
             ((Isaac_World)world).addScore(10);
             this.isLiving=false;
             SoundEngine.instance.playSound(Isaac_Sounds.SpiderDeath);
-            if(Math.random()<=0.15)
-                world.gameObjects.add(new Heart(x,y));
+            if(Math.random()<=0.15){
+                AbstractGameObject item = droplist.getItem(x,y);
+                if(item!=null)
+                    world.gameObjects.add(droplist.getItem(x,y));
+            }
             return;
         }
     }

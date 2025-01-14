@@ -41,6 +41,7 @@ public class Isaac_Avatar extends AbstractGameObject {
         this.health += health;
     }
 
+
     public void tick(double diffSeconds)
     {
 

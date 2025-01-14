@@ -10,6 +10,10 @@ import static javax.imageio.ImageIO.read;
 public class Isaac_TextureItems {
     public static BufferedImage HEART;
     public static BufferedImage[] CHEST;
+    public static BufferedImage[] Y_BOOSTER;
+    public static BufferedImage[] R_BOOSTER;
+
+
 
     static {
         try {
@@ -31,7 +35,23 @@ public class Isaac_TextureItems {
                     read(new File("src/assets/Items/Chest/chest2.png")),
                     read(new File("src/assets/Items/Chest/chest1.png")),
                     read(new File("src/assets/Items/Chest/chest0.png"))};
+            Y_BOOSTER = new BufferedImage[]{
+                    read(new File("src/assets/Items/YellowBooster/Y_Booster1.png")),
+                    read(new File("src/assets/Items/YellowBooster/Y_Booster2.png")),
+                    read(new File("src/assets/Items/YellowBooster/Y_Booster3.png")),
+                    read(new File("src/assets/Items/YellowBooster/Y_Booster4.png")),
+                    read(new File("src/assets/Items/YellowBooster/Y_Booster5.png")),
+                    read(new File("src/assets/Items/YellowBooster/Y_Booster6.png")),
+            };
 
+            R_BOOSTER = new BufferedImage[]{
+                    read(new File("src/assets/Items/RedBooster/R_Booster1.png")),
+                    read(new File("src/assets/Items/RedBooster/R_Booster2.png")),
+                    read(new File("src/assets/Items/RedBooster/R_Booster3.png")),
+                    read(new File("src/assets/Items/RedBooster/R_Booster4.png")),
+                    read(new File("src/assets/Items/RedBooster/R_Booster5.png")),
+                    read(new File("src/assets/Items/RedBooster/R_Booster6.png")),
+            };
 
 
         } catch (IOException e) {
