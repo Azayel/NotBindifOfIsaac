@@ -9,7 +9,6 @@ import game.objects.Healthbar.EnemyHealthBar;
 import game.objects.items.Heart;
 import game.sound.Isaac_Sounds;
 
-import java.awt.Color;
 import java.awt.image.BufferedImage;
 
 
@@ -184,7 +183,7 @@ public class Isaac_SpiderAI extends AbstractAnimatedGameObject implements IEnemy
             healthBar.remove();
             ((Isaac_World)world).addScore(10);
             this.isLiving=false;
-            SoundEngine.instance.playSound(Isaac_Sounds.EnemyDeath);
+            SoundEngine.instance.playSound(Isaac_Sounds.SpiderDeath);
             if(Math.random()<=0.15)
                 world.gameObjects.add(new Heart(x,y));
             return;

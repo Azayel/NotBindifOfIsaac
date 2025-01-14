@@ -3,7 +3,9 @@ package game.objects.player;
 import game.engine.objects.AbstractGameObject;
 import game.engine.objects.AbstractTextObject;
 import game.engine.objects.GameObjectList;
+import game.engine.sound.SoundEngine;
 import game.objects.enemy.IEnemy;
+import game.sound.Isaac_Sounds;
 import game.utils.Const;
 import game.utils.Isaac_TextureAvatar;
 
@@ -58,6 +60,7 @@ public class Isaac_Avatar extends AbstractGameObject {
             if(obj instanceof IEnemy enemy && invincibletime == 0)
             {
                 health-=enemy.getDamage();
+                SoundEngine.instance.playSound(Isaac_Sounds.AvatarDamage);
                 invincibletime=Const.INVINCIBILITY_AFTER_HIT;
                 debugPrintLive();
                 if(health <= 0){

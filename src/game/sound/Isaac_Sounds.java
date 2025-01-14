@@ -3,9 +3,7 @@ package game.sound;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
-import javax.sound.sampled.LineUnavailableException;
 import java.io.File;
-import java.io.IOException;
 
 public class Isaac_Sounds {
     public static String[] MainMusic=new String[]{
@@ -23,7 +21,10 @@ public class Isaac_Sounds {
 
 
     public static Clip WaterSpell;
-    public static Clip EnemyDeath;
+    public static Clip SpiderDeath;
+    public static Clip AvatarDamage;
+    public static Clip Teleport;
+    public static Clip HeartPickup;
     static {
         try {
             File audioFile = new File("src/assets/Sound/Effect/pop-268648.wav");
@@ -31,10 +32,25 @@ public class Isaac_Sounds {
             WaterSpell = AudioSystem.getClip();
             WaterSpell.open(audioStream);
 
-            File audioFile2 = new File("src/assets/Sound/Effect/slow-wind-sound-effect-108401.wav");
+            File audioFile2 = new File("src/assets/Sound/Effect/slap-hurt-pain-sound-effect-262618.wav");
             AudioInputStream audioStream2 = AudioSystem.getAudioInputStream(audioFile2);
-            EnemyDeath = AudioSystem.getClip();
-            EnemyDeath.open(audioStream2);
+            SpiderDeath = AudioSystem.getClip();
+            SpiderDeath.open(audioStream2);
+
+            File audioFile3 = new File("src/assets/Sound/Effect/ough-47202.wav");
+            AudioInputStream audioStream3 = AudioSystem.getAudioInputStream(audioFile3);
+            AvatarDamage = AudioSystem.getClip();
+            AvatarDamage.open(audioStream3);
+
+            File audioFile4 = new File("src/assets/Sound/Effect/warp-sfx-6897.wav");
+            AudioInputStream audioStream4 = AudioSystem.getAudioInputStream(audioFile4);
+            Teleport = AudioSystem.getClip();
+            Teleport.open(audioStream4);
+
+            File audioFile5 = new File("src/assets/Sound/Effect/coin-collect-retro-8-bit-sound-effect-145251.wav");
+            AudioInputStream audioStream5 = AudioSystem.getAudioInputStream(audioFile5);
+            HeartPickup = AudioSystem.getClip();
+            HeartPickup.open(audioStream5);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
