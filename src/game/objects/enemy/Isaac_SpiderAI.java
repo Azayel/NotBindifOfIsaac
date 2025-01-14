@@ -72,43 +72,7 @@ public class Isaac_SpiderAI extends AbstractAnimatedGameObject implements IEnemy
             this.setDestination(world.avatar);
 
             this.processMovement(diffSeconds);
-
-            // handle collisions of the zombie
-            GameObjectList collisions = world.getPhysicsSystem().getCollisions(this);
-            for(int i=0; i<collisions.size(); i++)
-            {
-                AbstractGameObject obj = collisions.get(i);
-                // if object is avatar, game over
-                //if(type== Const.TYPE_AVATAR)
-                //{ this.moveBack();
-                //    world.gameOver=true;
-                //}
-
-                // if object is zombie, step back
-                if(obj instanceof IEnemy)
-                {
-                    moveBack();
-                    state = STUCK;
-                    return;
-                }
-            }
         }
-
-        // state STUCK
-        //
-
-        else if(state==STUCK)
-        {
-            // seconds left for clearing
-            secondsClear = 1.0+Math.random()*0.5;
-            // turn and hope to get clear
-            alfa += alfaClear*diffSeconds;
-
-            // try to clear
-            state = CLEARING;
-        }
-
-
         // state CLEARING
         //
         else if(state==CLEARING)
@@ -124,18 +88,6 @@ public class Isaac_SpiderAI extends AbstractAnimatedGameObject implements IEnemy
 
             // try step in this direction
             this.processMovement(diffSeconds);
-
-            // check if path was unblocked
-            GameObjectList collisions = world.getPhysicsSystem().getCollisions(this);
-            if(collisions.size()>0)
-            {
-                moveBack();
-
-                // stuck again
-                this.state=STUCK;
-                return;
-            }
-
         }
 
     }
