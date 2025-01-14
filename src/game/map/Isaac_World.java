@@ -133,7 +133,7 @@ public class Isaac_World extends AbstractWorld
     }
 
     public void mod_damage(){
-        baseDmg *= 0.99f; // 1% DMG Increase
+        baseDmg *= 1.01f; // 1% DMG Increase
     }
 
     public void processUserInput(UserInput userInput, double diffSeconds)
