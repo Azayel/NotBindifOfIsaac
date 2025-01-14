@@ -18,7 +18,8 @@ public class Isaac_Teleporter extends AbstractGameObject  implements IInteractab
 
     @Override
     public void interact(AbstractGameObject avatar) {
-        System.out.println(dest);
+        if(Const.DEBUG_PRINTS)
+            System.out.println(dest);
         Isaac_Level.instance.goThroughRoom(dest);
         Isaac_Level.instance.getIsaacWorld().LoadNewRoom=true;
     }

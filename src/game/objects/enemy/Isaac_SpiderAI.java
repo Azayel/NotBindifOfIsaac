@@ -3,8 +3,11 @@ package game.objects.enemy;
 import game.engine.objects.AbstractAnimatedGameObject;
 import game.engine.objects.AbstractGameObject;
 import game.engine.objects.GameObjectList;
+import game.engine.sound.SoundEngine;
 import game.map.Isaac_World;
+import game.objects.Healthbar.EnemyHealthBar;
 import game.objects.items.Heart;
+import game.sound.Isaac_Sounds;
 
 import java.awt.Color;
 import java.awt.image.BufferedImage;
@@ -21,11 +24,15 @@ public class Isaac_SpiderAI extends AbstractAnimatedGameObject implements IEnemy
     private double secondsClear;
 
     // life of a zombie
-    private int life = 20;
+    private final int INITIAL_LIFE = 20;
+    private int life = INITIAL_LIFE;
+
+    private EnemyHealthBar healthBar;
 
     public Isaac_SpiderAI(double x, double y,int radius,int speed, BufferedImage[] image)
     {
         super(x,y,0,speed, image,true);
+        healthBar = new EnemyHealthBar(x,y);
         this.isMoving = false;
 
         state = HUNTING;
@@ -40,6 +47,11 @@ public class Isaac_SpiderAI extends AbstractAnimatedGameObject implements IEnemy
     public void tick(double diffSeconds)
     {
         super.tick(diffSeconds);
+        if(!world.gameObjects.contains(healthBar))
+            world.gameObjects.add(healthBar);
+
+        healthBar.setX(x);
+        healthBar.setY(y-32);
         // if avatar is too far away: stop
         double dist = world.getPhysicsSystem()
                 .distance(x,y,world.avatar.x,world.avatar.y);
@@ -164,12 +176,15 @@ public class Isaac_SpiderAI extends AbstractAnimatedGameObject implements IEnemy
     public void hit(int damageAmount) {
         // every shot decreases life
         life -= damageAmount;
+        healthBar.setHealth(((double) life/INITIAL_LIFE));
 
         // if Zombie is dead (haha), delete it
         if(life<=0)
         {
+            healthBar.remove();
             ((Isaac_World)world).addScore(10);
             this.isLiving=false;
+            SoundEngine.instance.playSound(Isaac_Sounds.EnemyDeath);
             if(Math.random()<=0.15)
                 world.gameObjects.add(new Heart(x,y));
             return;

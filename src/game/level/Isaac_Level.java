@@ -6,12 +6,13 @@ import game.map.Isaac_RoomType;
 import game.map.Isaac_World;
 import game.sound.Isaac_Sounds;
 import game.utils.Const;
+import game.utils.Isaac_TextureItems;
 import game.utils.Isaac_TextureRoom;
 import jdk.jshell.execution.Util;
 
 import java.util.ArrayList;
 import java.util.List;
-
+import java.util.Random;
 
 
 public class Isaac_Level {
@@ -36,8 +37,10 @@ public class Isaac_Level {
     public void CreateLevel() {
         int maxRooms = Const.STARTING_ROOMS + (int)(level*Const.DIFFICULTY_FACTOR);
         rooms.clear();
+        var mapBackground = Isaac_TextureRoom.maps[level%Isaac_TextureRoom.maps.length];
+        var music = level==0 ? Isaac_Sounds.StartingLevelMusic : Isaac_Sounds.MainMusic[new Random().nextInt(Isaac_Sounds.MainMusic.length)];
         //Init Starting Room and add to list
-        startingRoom = new Isaac_Room(Isaac_TextureRoom.mapDefault, 1920, 1080, Isaac_Sounds.StartingLevelMusic, Isaac_RoomType.START);
+        startingRoom = new Isaac_Room(mapBackground, 1920, 1080, music, Isaac_RoomType.START);
         rooms.add(startingRoom);
 
         while (rooms.size() < maxRooms - 1) {
@@ -49,22 +52,22 @@ public class Isaac_Level {
 
             //Direction
             if (randomDirection == 0 && currentRoom.topRoom == null) {
-                Isaac_Room newRoom = new Isaac_Room(Isaac_TextureRoom.mapNormal, 1920, 1080, Isaac_Sounds.MainMusic, Isaac_RoomType.NORMAL);
+                Isaac_Room newRoom = new Isaac_Room(mapBackground, 1920, 1080, music, Isaac_RoomType.NORMAL);
                 currentRoom.topRoom = newRoom;
                 newRoom.bottomRoom = currentRoom;
                 rooms.add(newRoom);
             } else if (randomDirection == 1 && currentRoom.rightRoom == null) {
-                Isaac_Room newRoom = new Isaac_Room(Isaac_TextureRoom.mapNormal, 1920, 1080, Isaac_Sounds.MainMusic, Isaac_RoomType.NORMAL);
+                Isaac_Room newRoom = new Isaac_Room(mapBackground, 1920, 1080, music, Isaac_RoomType.NORMAL);
                 currentRoom.rightRoom = newRoom;
                 newRoom.leftRoom = currentRoom;
                 rooms.add(newRoom);
             } else if (randomDirection == 2 && currentRoom.bottomRoom == null) {
-                Isaac_Room newRoom = new Isaac_Room(Isaac_TextureRoom.mapNormal, 1920, 1080, Isaac_Sounds.MainMusic, Isaac_RoomType.NORMAL);
+                Isaac_Room newRoom = new Isaac_Room(mapBackground, 1920, 1080, music, Isaac_RoomType.NORMAL);
                 currentRoom.bottomRoom = newRoom;
                 newRoom.topRoom = currentRoom;
                 rooms.add(newRoom);
             } else if (randomDirection == 3 && currentRoom.leftRoom == null) {
-                Isaac_Room newRoom = new Isaac_Room(Isaac_TextureRoom.mapNormal, 1920, 1080, Isaac_Sounds.MainMusic, Isaac_RoomType.NORMAL);
+                Isaac_Room newRoom = new Isaac_Room(mapBackground, 1920, 1080, music, Isaac_RoomType.NORMAL);
                 currentRoom.leftRoom = newRoom;
                 newRoom.rightRoom = currentRoom;
                 rooms.add(newRoom);

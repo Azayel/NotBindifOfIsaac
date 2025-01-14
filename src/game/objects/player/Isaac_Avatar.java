@@ -31,7 +31,8 @@ public class Isaac_Avatar extends AbstractGameObject {
     }
 
     void debugPrintLive(){
-        System.out.println("Current lives: " + health);
+        if(Const.DEBUG_PRINTS)
+            System.out.println("Current lives: " + health);
     }
 
     public void addHealth(int health){
@@ -54,9 +55,9 @@ public class Isaac_Avatar extends AbstractGameObject {
         {
             AbstractGameObject obj = collisions.get(i);
             // collode with zombies
-            if(obj instanceof IEnemy && invincibletime == 0)
+            if(obj instanceof IEnemy enemy && invincibletime == 0)
             {
-                health-=10;
+                health-=enemy.getDamage();
                 invincibletime=Const.INVINCIBILITY_AFTER_HIT;
                 debugPrintLive();
                 if(health <= 0){
@@ -90,7 +91,8 @@ public class Isaac_Avatar extends AbstractGameObject {
         inertX /= slipperiness;
         inertY /= slipperiness;
 
-        System.out.println(x);
+        if(Const.DEBUG_PRINTS)
+            System.out.println(x);
 
         if(x + step_x + 45 < Const.WORLD_WIDTH && x + step_x - 45 > 0)
             x += step_x;

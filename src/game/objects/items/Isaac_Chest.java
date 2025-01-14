@@ -5,6 +5,7 @@ import game.engine.objects.AbstractGameObject;
 import game.engine.objects.GameObjectList;
 import game.engine.objects.IInteractable;
 import game.level.Isaac_Level;
+import game.map.Isaac_World;
 import game.utils.Isaac_TextureItems;
 
 public class Isaac_Chest extends AbstractAnimatedGameObject implements IInteractable {
@@ -20,6 +21,7 @@ public class Isaac_Chest extends AbstractAnimatedGameObject implements IInteract
         if(Isaac_Level.instance.getCurrentRoom().isCleared()) {
             Isaac_Level.instance.CreateLevel();
             Isaac_Level.instance.getIsaacWorld().LoadNewRoom=true;
+            ((Isaac_World)world).addScore(1000);
         }
     }
 }

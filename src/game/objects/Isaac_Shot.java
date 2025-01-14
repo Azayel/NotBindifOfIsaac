@@ -3,7 +3,9 @@ package game.objects;
 import game.engine.objects.AbstractAnimatedGameObject;
 import game.engine.objects.AbstractGameObject;
 import game.engine.objects.GameObjectList;
+import game.engine.sound.SoundEngine;
 import game.objects.enemy.IEnemy;
+import game.sound.Isaac_Sounds;
 
 import java.awt.image.BufferedImage;
 
@@ -19,9 +21,12 @@ public class Isaac_Shot extends AbstractAnimatedGameObject
         this.damage=damage;
     }
 
-
+    boolean lol = true;
     public void tick(double diffSeconds)
     {
+        if(lol)
+            SoundEngine.instance.playSound(Isaac_Sounds.WaterSpell);
+        lol = false;
         super.tick(diffSeconds);
         lifeTime -= diffSeconds;
         if(lifeTime<=0)

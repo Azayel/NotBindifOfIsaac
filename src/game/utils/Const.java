@@ -23,6 +23,8 @@ public final class Const
     public static final int STARTING_ROOMS = 5;
     public static final double DIFFICULTY_FACTOR = 1.5;
 
+    public static final boolean DEBUG_PRINTS = false;
+
 
 
 }

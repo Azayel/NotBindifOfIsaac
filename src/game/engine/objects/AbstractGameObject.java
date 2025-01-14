@@ -145,7 +145,12 @@ public abstract class AbstractGameObject
 
 
     // move back to the position BEFORE the move Method was called
-    public void moveBack() { x=xOld; y=yOld; }
+    public void moveBack() {
+        x=xOld;
+        y=yOld;
+        this.boundingBox.x = x;
+        this.boundingBox.y = y;
+    }
 
     public void setX(double x) {
         this.x = x;

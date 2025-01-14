@@ -80,6 +80,7 @@ public class Isaac_World extends AbstractWorld
             if (!Isaac_Level.instance.getCurrentRoom().isCleared()) {
                 System.out.println("Changed to Clear: " + currentEnemys);
                 Isaac_Level.instance.getCurrentRoom().setCleared();
+                addScore(500);
             }
         }
         else {

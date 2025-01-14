@@ -3,6 +3,8 @@ package game.engine.sound;
 import javax.sound.sampled.*;
 import java.io.File;
 import java.io.IOException;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ThreadPoolExecutor;
 
 public class SoundEngine {
     private Clip musicClip;
@@ -70,13 +72,11 @@ public class SoundEngine {
         }
     }
 
-    public void playSound(String filePath) {
-        new Thread(() -> {
+    ThreadPoolExecutor executer = (ThreadPoolExecutor) Executors.newCachedThreadPool();
+    public void playSound(Clip soundClip) {
+        executer.execute(() -> {
             try {
-                File audioFile = new File(filePath);
-                AudioInputStream audioStream = AudioSystem.getAudioInputStream(audioFile);
-                Clip soundClip = AudioSystem.getClip();
-                soundClip.open(audioStream);
+                soundClip.setFramePosition(0);
 
                 soundClip.start();
 
@@ -85,11 +85,11 @@ public class SoundEngine {
                     Thread.sleep(50);
                 }
 
-                soundClip.close();
-            } catch (UnsupportedAudioFileException | IOException | LineUnavailableException | InterruptedException e) {
+                //soundClip.close();
+            } catch (InterruptedException e) {
                 System.err.println("Error playing sound: " + e.getMessage());
             }
-        }).start();
+        });
     }
 
     private void loadMusic(String filePath) {

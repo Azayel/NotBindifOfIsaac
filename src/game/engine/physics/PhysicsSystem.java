@@ -3,6 +3,7 @@ package game.engine.physics;
 import game.engine.objects.AbstractGameObject;
 import game.engine.objects.GameObjectList;
 import game.engine.world.AbstractWorld;
+import game.utils.Const;
 
 public class PhysicsSystem extends AbstractPhysicsSystem
 {
@@ -38,8 +39,8 @@ public class PhysicsSystem extends AbstractPhysicsSystem
 
             if(object.getBoundingBox().intersects(obj2.getBoundingBox())){
                 result.add(obj2);
-                System.out.println(object.getClass().getSimpleName() + " detected collission with object: " + obj2.getClass().getSimpleName());
-                System.out.println("a");
+                if(Const.DEBUG_PRINTS)
+                    System.out.println(object.getClass().getSimpleName() + " detected collission with object: " + obj2.getClass().getSimpleName());
             }
         }
 
