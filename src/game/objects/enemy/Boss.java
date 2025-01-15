@@ -49,7 +49,7 @@ public class Boss extends AbstractAnimatedGameObject implements IEnemy {
 
     public Boss(double x, double y) {
         super(x,y,0, 0, Isaac_TextureBoss.agis, true);
-        current = State.SHOOTING;
+        current = State.SLEEPING;
 
         healthBar = new EnemyHealthBar(x,y);
 
@@ -194,6 +194,14 @@ public class Boss extends AbstractAnimatedGameObject implements IEnemy {
                     this.current = State.FOLLOWING;
                     this.timer = 0;
                 }
+                break;
+            case SLEEPING:
+                this.speed = 0;
+                if(this.timer > 3) {
+                    this.current = State.FOLLOWING;
+                    this.timer = 0;
+                }
+                break;
         }
 
     }
@@ -235,7 +243,7 @@ public class Boss extends AbstractAnimatedGameObject implements IEnemy {
 
     private void shootLaser() {
         double r = 20;
-        double rotationSpeed = 1.3;
+        double rotationSpeed = 0.4 * Math.pow((Isaac_Level.instance.getLevel()+1), 2);
         // To Do:
         // - make fly not so far
         world.gameObjects.add(new EnemyShot(this.x, this.y, (r * Math.cos(rotationSpeed*this.timer)*direction) + this.x, r * Math.sin(rotationSpeed*this.timer) + this.y,2000, Isaac_TextureBoss.laser, 5));
