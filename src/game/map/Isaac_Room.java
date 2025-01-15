@@ -36,13 +36,13 @@ public class Isaac_Room {
     public Isaac_RoomType isaacRoomType = null;
 
     //Enemy List
-    GameObjectList gameObjectsEnemyList = new GameObjectList();
+    public GameObjectList gameObjectsEnemyList = new GameObjectList();
 
     //Doors List
-    GameObjectList teleporterList =new GameObjectList();
+    public GameObjectList teleporterList =new GameObjectList();
 
     //Item List
-    GameObjectList itemList =new GameObjectList();
+    public GameObjectList itemList =new GameObjectList();
 
     private boolean clearedRoom = false;
 

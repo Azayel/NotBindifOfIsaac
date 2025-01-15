@@ -40,17 +40,11 @@ public class Isaac_World extends AbstractWorld
     public Isaac_Level level;
     public int score = 0;
 
-    public Isaac_Room startingRoom;
-    public List<Isaac_Room> rooms = new ArrayList<Isaac_Room>();
-    public Isaac_Room currentRoom;
-
-    public boolean LoadNewRoom=false;
-
     public void init()
     {
         level = new Isaac_Level(this);
         Isaac_Level.instance.CreateLevel();
-        CreateRoom(Isaac_Level.instance.getCurrentRoom());
+        level.LoadRoom();
         //CreateRoom(new Isaac_Room(RoomTexture.mapDefault,1920,1080,Sounds.MainMusic,Isacc_RoomType.NORMAL) );
         var liveDisplay = new AbstractTextObject(50, 80, Color.GRAY) {
             @Override
@@ -71,61 +65,8 @@ public class Isaac_World extends AbstractWorld
 
     @Override
     public void tick(double timediff) {
-        var currentEnemys = 0;
-        for(AbstractGameObject obj : gameObjects){
-            if(obj instanceof IEnemy){
-                currentEnemys++;
-            }
-        }
-        //System.out.println("Enemys: "+currentEnemys);
-        if(currentEnemys<=0){
-            if (!Isaac_Level.instance.getCurrentRoom().isCleared()) {
-                System.out.println("Changed to Clear: " + currentEnemys);
-                Isaac_Level.instance.getCurrentRoom().setCleared();
-                addScore(500);
-            }
-        }
-        else {
-            Isaac_Level.instance.getCurrentRoom().setCleared(false);
-        }
+        level.tick(timediff);
 
-        if(LoadNewRoom){
-            if(currentEnemys==0) {
-                Isaac_Level.instance.LoadRoom();
-            }
-            LoadNewRoom=false;
-        }
-
-    }
-
-    //Create a Room
-    public void CreateRoom(Isaac_Room room){
-        //Clear gameObjects
-        gameObjects.clear();
-
-        //Set Background Image
-        background = new RoomBackgroundGameObject(room.backgroundRoomImage);
-        gameObjects.add(background);
-        //CreateDoors
-        room.CreateDoors();
-        gameObjects.addAll(room.teleporterList);
-        //Spawn Items
-        gameObjects.addAll(room.itemList);
-        //Set Avatar only if it never existed before
-        if(avatar==null)
-            avatar = new Isaac_Avatar(0,0);
-        avatar.setX(room.playerStartX);
-        avatar.setY(room.playerStartY);
-        gameObjects.add(avatar);
-        //add all living Enemys
-        gameObjects.addAll(room.gameObjectsEnemyList.stream()
-                .filter((enemy)->enemy.isLiving)
-                .toList());
-        //add all Enviorment stuff
-
-
-        //Sound System
-        SoundEngine.instance.playMusic(room.backgroundMusic,true);
     }
 
     public void mod_speed(){

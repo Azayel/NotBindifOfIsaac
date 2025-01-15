@@ -20,7 +20,7 @@ public class Isaac_Chest extends AbstractAnimatedGameObject implements IInteract
         //Generate new Level
         if(Isaac_Level.instance.getCurrentRoom().isCleared()) {
             Isaac_Level.instance.CreateLevel();
-            Isaac_Level.instance.getIsaacWorld().LoadNewRoom=true;
+            Isaac_Level.instance.LoadNewRoom=true;
             ((Isaac_World)world).addScore(1000);
         }
     }

@@ -1,9 +1,14 @@
 package game.level;
 
+import game.engine.objects.AbstractGameObject;
+import game.engine.sound.SoundEngine;
 import game.map.TeleporterDestination;
 import game.map.Isaac_Room;
 import game.map.Isaac_RoomType;
 import game.map.Isaac_World;
+import game.objects.RoomBackgroundGameObject;
+import game.objects.enemy.IEnemy;
+import game.objects.player.Isaac_Avatar;
 import game.sound.Isaac_Sounds;
 import game.utils.Const;
 import game.utils.Isaac_TextureItems;
@@ -24,6 +29,10 @@ public class Isaac_Level {
     private Isaac_World isaacWorld;
     private int level=0;
 
+    private boolean roomActive=false;
+
+    public boolean LoadNewRoom=false;
+
 
     public Isaac_Level(Isaac_World isaacWorld) {
         if (instance == null) {
@@ -31,7 +40,6 @@ public class Isaac_Level {
             instance = this;
         }
     }
-
 
     //Create a Level
     public void CreateLevel() {
@@ -132,15 +140,65 @@ public class Isaac_Level {
         }
     }
 
-    public void LoadRoom() {
-        isaacWorld.CreateRoom(currentRoom);
+    public void LoadRoom(){
+        roomActive=false;
+        //Clear gameObjects
+        isaacWorld.gameObjects.clear();
+
+        //Set Background Image
+        isaacWorld.background = new RoomBackgroundGameObject(currentRoom.backgroundRoomImage);
+        isaacWorld.gameObjects.add(isaacWorld.background);
+        //CreateDoors
+        currentRoom.CreateDoors();
+        isaacWorld.gameObjects.addAll(currentRoom.teleporterList);
+        //Spawn Items
+        isaacWorld.gameObjects.addAll(currentRoom.itemList);
+        //Set Avatar only if it never existed before
+        if(isaacWorld.avatar==null)
+            isaacWorld.avatar = new Isaac_Avatar(0,0);
+        isaacWorld.avatar.setX(currentRoom.playerStartX);
+        isaacWorld.avatar.setY(currentRoom.playerStartY);
+        isaacWorld.gameObjects.add(isaacWorld.avatar);
+        //add all living Enemys
+        isaacWorld.gameObjects.addAll(currentRoom.gameObjectsEnemyList.stream()
+                .filter((enemy)->enemy.isLiving)
+                .toList());
+        //add all Enviorment stuff
+
+
+        //Sound System
+        SoundEngine.instance.playMusic(currentRoom.backgroundMusic,true);
+        roomActive=true;
     }
 
-    public void UpdateDoorRoom(){
-        isaacWorld.avatar.setDestination(isaacWorld.avatar.x, isaacWorld.avatar.y);
-        isaacWorld.CreateRoom(currentRoom);
-    }
+    public void tick(double timediff) {
+        if(!roomActive)
+            return;
 
+        var currentEnemys = 0;
+        for(AbstractGameObject obj : isaacWorld.gameObjects){
+            if(obj instanceof IEnemy){
+                currentEnemys++;
+            }
+        }
+        if(currentEnemys<=0){
+            if (!Isaac_Level.instance.getCurrentRoom().isCleared()) {
+                System.out.println("Changed to Clear: " + currentEnemys);
+                Isaac_Level.instance.getCurrentRoom().setCleared();
+                isaacWorld.addScore(500);
+            }
+        }
+        else {
+            Isaac_Level.instance.getCurrentRoom().setCleared(false);
+        }
+
+        if(LoadNewRoom){
+            if(currentEnemys==0) {
+                Isaac_Level.instance.LoadRoom();
+            }
+            LoadNewRoom=false;
+        }
+    }
 
     public int getLevel() {
         return level;
