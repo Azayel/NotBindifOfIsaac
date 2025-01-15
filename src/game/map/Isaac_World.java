@@ -43,7 +43,7 @@ public class Isaac_World extends AbstractWorld
 
     public void init()
     {
-        if(Const.CHEAT_DAMAGE){
+        if(Const.CHEAT_MODE){
             shooting_speed_barrier = 0;
             baseDmg = 1000;
         }
