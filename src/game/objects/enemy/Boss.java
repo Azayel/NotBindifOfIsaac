@@ -6,6 +6,7 @@ import game.engine.objects.GameObjectList;
 import game.engine.sound.SoundEngine;
 import game.map.Isaac_Room;
 import game.map.Isaac_World;
+import game.objects.EnemyShot;
 import game.objects.Healthbar.EnemyHealthBar;
 import game.objects.Isaac_Shot;
 import game.objects.items.Heart;
@@ -34,10 +35,15 @@ public class Boss extends AbstractAnimatedGameObject implements IEnemy {
     private double shootingRad = 350;
 
     private double timer;
+    private EnemyHealthBar healthBar;
+    private double initialHealth = 500;
+    private double health = initialHealth;
 
     public Boss(double x, double y, int radius) {
         super(x,y,0, 0, Isaac_TextureBoss.agis, true);
         current = State.FOLLOWING;
+
+        healthBar = new EnemyHealthBar(x,y);
 
         this.inertX = 0;
         this.inertY = 0;
@@ -53,6 +59,13 @@ public class Boss extends AbstractAnimatedGameObject implements IEnemy {
         this.processState();
         this.processMovement(diffSeconds);
         this.timer += diffSeconds;
+
+
+        if(!world.gameObjects.contains(healthBar))
+            world.gameObjects.add(healthBar);
+
+        healthBar.setX(x);
+        healthBar.setY(y-128);
     }
 
 
@@ -63,7 +76,18 @@ public class Boss extends AbstractAnimatedGameObject implements IEnemy {
 
     @Override
     public void hit(double damageAmount) {
+        // every shot decreases life
+        health -= damageAmount;
+        healthBar.setHealth(((double) health/initialHealth));
 
+        if(health<=0)
+        {
+            healthBar.remove();
+            ((Isaac_World)world).addScore(1000);
+            this.isLiving=false;
+            SoundEngine.instance.playSound(Isaac_Sounds.BossDeath);
+            return;
+        }
     }
 
     private void processMovement(double diffSeconds) {
@@ -83,17 +107,17 @@ public class Boss extends AbstractAnimatedGameObject implements IEnemy {
             if(y + step_y + 45 < Const.WORLD_HEIGHT && y + step_y - 45 > 0) // calculate world borders
                 y += step_y;
 
-            // this.boundingBox.setPosition(x, y);
+            this.boundingBox.setPosition(x-this.boundingBox.width/2, y-this.boundingBox.height/2);
     }
 
     private void processState() {
         switch(this.current) {
-            case State.FOLLOWING:
-            case State.CHARGING:
+            case FOLLOWING:
+            case CHARGING:
                 this.inertX = (world.avatar.x - this.x) / this.distanceToPlayer();
                 this.inertY = (world.avatar.y - this.y) / this.distanceToPlayer();
                 break;
-            case State.SHOOTING:
+            case SHOOTING:
                 double d = this.distanceToPlayer();
                 // System.out.println(d);
                 double dirX = 0;
@@ -112,28 +136,28 @@ public class Boss extends AbstractAnimatedGameObject implements IEnemy {
                 this.shootLaser();
 
                 break;
-            case State.RUSHING:
+            case RUSHING:
                 break;
         }
     }
 
     private void makeDesicion() {
         switch (this.current) {
-            case State.SHOOTING:
+            case SHOOTING:
                 this.speed = 170;
                 if(this.timer > 10) {
                     this.current = State.CHARGING;
                     this.timer = 0;
                 }
                 break;
-            case State.FOLLOWING:
+            case FOLLOWING:
                 this.speed = 90;
                 if(this.timer > 10) {
                     this.current = State.SHOOTING;
                     this.timer = 0;
                 }
                 break;
-            case State.CHARGING:
+            case CHARGING:
                 this.speed = 10;
                 if(this.timer > 3) {
                     this.current = State.RUSHING;
@@ -142,7 +166,7 @@ public class Boss extends AbstractAnimatedGameObject implements IEnemy {
                     this.timer = 0;
                 }
                 break;
-            case State.RUSHING:
+            case RUSHING:
                 this.speed = 600;
                 if(this.timer > 1.5) {
                     this.current = State.FOLLOWING;
@@ -159,14 +183,12 @@ public class Boss extends AbstractAnimatedGameObject implements IEnemy {
     private void shootFire() {
         // To Do:
         // - make fly not so far
-        // - implement collision logic
-        world.gameObjects.add(new Isaac_Shot(this.x, this.y, world.avatar.x,world.avatar.y,400, Isaac_TextureBoss.fire, 0));
+        world.gameObjects.add(new EnemyShot(this.x, this.y, world.avatar.x,world.avatar.y,400, Isaac_TextureBoss.fire, 0));
     }
     private void shootLaser() {
         double r = 20;
         // To Do:
         // - make fly not so far
-        // - implement collision logic
-        world.gameObjects.add(new Isaac_Shot(this.x, this.y, r * Math.cos(this.timer) + this.x, r * Math.sin(this.timer) + this.y,2000, Isaac_TextureBoss.laser, 0));
+        world.gameObjects.add(new EnemyShot(this.x, this.y, r * Math.cos(this.timer) + this.x, r * Math.sin(this.timer) + this.y,2000, Isaac_TextureBoss.laser, 0));
     }
 }

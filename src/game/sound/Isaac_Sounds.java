@@ -22,6 +22,7 @@ public class Isaac_Sounds {
 
     public static Clip WaterSpell;
     public static Clip SpiderDeath;
+    public static Clip BossDeath;
     public static Clip AvatarDamage;
     public static Clip Teleport;
     public static Clip HeartPickup;
@@ -51,6 +52,11 @@ public class Isaac_Sounds {
             AudioInputStream audioStream5 = AudioSystem.getAudioInputStream(audioFile5);
             HeartPickup = AudioSystem.getClip();
             HeartPickup.open(audioStream5);
+
+            File audioFile6 = new File("src/assets/Sound/Effect/slow-wind-sound-effect-108401.wav");
+            AudioInputStream audioStream6 = AudioSystem.getAudioInputStream(audioFile6);
+            BossDeath = AudioSystem.getClip();
+            BossDeath.open(audioStream6);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
