@@ -20,7 +20,7 @@ public class Isaac_Avatar extends AbstractGameObject {
 
     public Isaac_Avatar(double x, double y)
     {
-        super(x,y,0,200,Isaac_TextureAvatar.avatarDefault);
+        super(x,y,0,200, Isaac_TextureAvatar.avatarDefault);
         this.isMoving = false;
 
         var liveDisplay = new AbstractTextObject(50, 50, Color.GRAY) {

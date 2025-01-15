@@ -6,6 +6,7 @@ import game.engine.objects.GameObjectList;
 import game.engine.sound.SoundEngine;
 import game.objects.enemy.IEnemy;
 import game.sound.Isaac_Sounds;
+import game.utils.Const;
 
 import java.awt.image.BufferedImage;
 
@@ -74,8 +75,18 @@ public class Isaac_Shot extends AbstractAnimatedGameObject
         // move one step
         double step_x = Math.cos(alfa)*speed*diffSeconds;
         double step_y = Math.sin(alfa)*speed*diffSeconds;
-        x += step_x;
-        y += step_y;
+        if(x + step_x + 10 < Const.WORLD_WIDTH && x + step_x - 10 > 0) {
+            x += step_x;
+        } else {
+            this.isLiving=false;
+            return;
+        }
+        if(y + step_y + 10 < Const.WORLD_HEIGHT && y + step_y - 10 > 0) {
+            y += step_y;
+        } else {
+            this.isLiving=false;
+            return;
+        }
         this.boundingBox.move(step_x, step_y);
 //        double step_x = speed*diffSeconds*inertX;
 //

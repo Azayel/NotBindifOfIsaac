@@ -9,6 +9,9 @@ import game.utils.Const;
 import java.awt.*;
 import java.awt.image.*;
 import javax.swing.*;
+import java.awt.geom.AffineTransform;
+
+
 
 class Panel extends JPanel implements IGraphicSystem
 {
@@ -61,6 +64,9 @@ class Panel extends JPanel implements IGraphicSystem
             int x = (int)(dot.x-dot.getBoundingBox().width/2-world.worldPartX);
             int y = (int)(dot.y-dot.getBoundingBox().height/2-world.worldPartY);
             int d = (int)(dot.radius*2);
+            // double rotationRequired = Math.toRadians (45);
+            // AffineTransform tx = AffineTransform.getRotateInstance(rotationRequired, x, y);
+            // AffineTransformOp op = new AffineTransformOp(tx, AffineTransformOp.TYPE_BILINEAR);
             graphics.drawImage(dot.texture, x,y,(int) dot.getBoundingBox().width, (int) dot.getBoundingBox().height,null);
         }else {
             int x = (int)(dot.x-dot.radius-world.worldPartX);

@@ -2,6 +2,7 @@ package game.map;
 
 import game.engine.objects.GameObjectList;
 import game.level.Isaac_Level;
+import game.objects.enemy.Boss;
 import game.objects.enemy.Isaac_SpiderAI;
 import game.objects.Isaac_Teleporter;
 import game.objects.items.Isaac_Chest;
@@ -92,7 +93,7 @@ public class Isaac_Room {
                 //ToDo Add shopkeeper or items
                 break;
             case START:
-
+                gameObjectsEnemyList.add(new Boss(maxXRoomSize/2, 100,32));
                 break;
             default:
                 creategameObjectsEnemyList(enemySpawnNormal, 150);
