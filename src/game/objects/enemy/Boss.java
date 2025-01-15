@@ -135,8 +135,11 @@ public class Boss extends AbstractAnimatedGameObject implements IEnemy {
     private void processState() {
         switch(this.current) {
             case FOLLOWING:
-                this.setDestination(Isaac_Level.instance.getCurrentRoom().maxXRoomSize/2,Isaac_Level.instance.getCurrentRoom().maxYRoomSize/2);
+
+                this.inertX=(Isaac_Level.instance.getCurrentRoom().maxXRoomSize/2- this.x);
+                this.inertY=(Isaac_Level.instance.getCurrentRoom().maxYRoomSize/2- this.y);
                 this.shootLaser();
+                break;
             case CHARGING:
                 this.inertX = (world.avatar.x - this.x) / this.distanceToPlayer();
                 this.inertY = (world.avatar.y - this.y) / this.distanceToPlayer();
@@ -254,4 +257,5 @@ public class Boss extends AbstractAnimatedGameObject implements IEnemy {
         world.gameObjects.add(new EnemyShot(this.x, this.y, (r * Math.cos(rotationSpeed*this.timer+3*Math.PI/2)*direction) + this.x, r * Math.sin(rotationSpeed*this.timer+3*Math.PI/2) + this.y,2000, Isaac_TextureBoss.laser, 5));
 
     }
+
 }
