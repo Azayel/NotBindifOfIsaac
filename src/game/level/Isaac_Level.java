@@ -183,9 +183,9 @@ public class Isaac_Level {
         }
         if(currentEnemys<=0){
             if (!Isaac_Level.instance.getCurrentRoom().isCleared()) {
-                System.out.println("Changed to Clear: " + currentEnemys);
+                //System.out.println("Changed to Clear: " + currentEnemys);
                 Isaac_Level.instance.getCurrentRoom().setCleared();
-                isaacWorld.addScore(500);
+                //isaacWorld.addScore(500);
             }
         }
         else {

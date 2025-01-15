@@ -99,6 +99,6 @@ public class EnemyShot extends AbstractAnimatedGameObject implements IEnemy
 
     @Override
     public void hit(double damageAmount) {
-        isLiving = false;
+        //isLiving = false;
     }
 }

@@ -7,7 +7,7 @@ import game.level.Isaac_Level;
 import game.map.Isaac_World;
 import game.objects.EnemyShot;
 import game.objects.Healthbar.EnemyHealthBar;
-import game.objects.Isaac_Shot;
+import game.objects.player.Isaac_Shot;
 import game.objects.items.Heart;
 import game.objects.items.RedBooster;
 import game.objects.items.YellowBooster;
@@ -37,7 +37,7 @@ public class Boss extends AbstractAnimatedGameObject implements IEnemy {
     private double timer;
     private double shootingTimer;
     private EnemyHealthBar healthBar;
-    private double initialHealth = (Isaac_Level.instance.getLevel()+1)*100;
+    private double initialHealth = 100 * Math.pow(2, Isaac_Level.instance.getLevel());
     private double health = initialHealth;
     private DroppableList droplist;
     int direction=1;
@@ -49,7 +49,7 @@ public class Boss extends AbstractAnimatedGameObject implements IEnemy {
 
     public Boss(double x, double y) {
         super(x,y,0, 0, Isaac_TextureBoss.agis, true);
-        current = State.SLEEPING;
+        current = State.CHARGING;
 
         healthBar = new EnemyHealthBar(x,y);
 
@@ -173,6 +173,7 @@ public class Boss extends AbstractAnimatedGameObject implements IEnemy {
             case SHOOTING:
                 this.speed = 170;
                 if(this.timer > 10) {
+                    SoundEngine.instance.playSound(Isaac_Sounds.BossLazer);
                     this.current = State.SLEEPING;
                     this.timer = 0;
                 }
@@ -181,6 +182,7 @@ public class Boss extends AbstractAnimatedGameObject implements IEnemy {
                 this.setDestination(Isaac_Level.instance.getCurrentRoom().maxXRoomSize/2,Isaac_Level.instance.getCurrentRoom().maxYRoomSize/2);
                 this.speed = 90;
                 if(this.timer > 10) {
+                    SoundEngine.instance.playSound(Isaac_Sounds.BossFire);
                     direction*=-1;
                     this.current = State.SHOOTING;
                     this.timer = 0;
@@ -198,13 +200,14 @@ public class Boss extends AbstractAnimatedGameObject implements IEnemy {
             case RUSHING:
                 this.speed = 800;
                 if(this.timer > 1.5) {
+                    SoundEngine.instance.playSound(Isaac_Sounds.BossLazerBallzs);
                     this.current = State.FOLLOWING;
                     this.timer = 0;
                 }
                 break;
             case SLEEPING:
                 this.speed = 0;
-                if(this.timer > 3) {
+                if(this.timer > 5) {
                     this.current = State.CHARGING;
                     this.timer = 0;
                 }
@@ -223,11 +226,11 @@ public class Boss extends AbstractAnimatedGameObject implements IEnemy {
         // - make fly not so far
         // - implement collision logic
         // - implement timings
-        if (this.shootingTimer > 0.4/ Math.pow((Isaac_Level.instance.getLevel()+1), 2)) {
+        if (this.shootingTimer > 0.4/ Isaac_Level.instance.getLevel()) {
             double rL = randomizer.nextDouble(0.8, 1.5);
             double rX = randomizer.nextDouble(-280, 280);
             double rY = randomizer.nextDouble(-280, 280);
-            world.gameObjects.add(new EnemyShot(this.x, this.y, world.avatar.x + this.inertX + rX,  world.avatar.y + this.inertY + rY, (int) (450 * rL), Isaac_TextureBoss.fire, 1));
+            world.gameObjects.add(new EnemyShot(this.x, this.y, world.avatar.x + this.inertX + rX,  world.avatar.y + this.inertY + rY, (int) (450 * rL), Isaac_TextureBoss.fire, 5));
             this.shootingTimer = 0;
         }
     }
@@ -253,17 +256,17 @@ public class Boss extends AbstractAnimatedGameObject implements IEnemy {
         double rotationSpeed = 1;
         // To Do:
         // - make fly not so far
-        world.gameObjects.add(new EnemyShot(this.x, this.y, (r * Math.cos(rotationSpeed*this.timer)*direction) + this.x, r * Math.sin(rotationSpeed*this.timer) + this.y,2000, Isaac_TextureBoss.laser, 5));
-        world.gameObjects.add(new EnemyShot(this.x, this.y, (r * Math.cos(rotationSpeed*this.timer+Math.PI/2)*direction) + this.x, r * Math.sin(rotationSpeed*this.timer+Math.PI/2) + this.y,2000, Isaac_TextureBoss.laser, 5));
-        world.gameObjects.add(new EnemyShot(this.x, this.y, (r * Math.cos(rotationSpeed*this.timer+Math.PI)*direction) + this.x, r * Math.sin(rotationSpeed*this.timer+Math.PI) + this.y,2000, Isaac_TextureBoss.laser, 5));
-        world.gameObjects.add(new EnemyShot(this.x, this.y, (r * Math.cos(rotationSpeed*this.timer+3*Math.PI/2)*direction) + this.x, r * Math.sin(rotationSpeed*this.timer+3*Math.PI/2) + this.y,2000, Isaac_TextureBoss.laser, 5));
+        world.gameObjects.add(new EnemyShot(this.x, this.y, (r * Math.cos(rotationSpeed*this.timer)*direction) + this.x, r * Math.sin(rotationSpeed*this.timer) + this.y,2000, Isaac_TextureBoss.laser, 10));
+        world.gameObjects.add(new EnemyShot(this.x, this.y, (r * Math.cos(rotationSpeed*this.timer+Math.PI/2)*direction) + this.x, r * Math.sin(rotationSpeed*this.timer+Math.PI/2) + this.y,2000, Isaac_TextureBoss.laser, 10));
+        world.gameObjects.add(new EnemyShot(this.x, this.y, (r * Math.cos(rotationSpeed*this.timer+Math.PI)*direction) + this.x, r * Math.sin(rotationSpeed*this.timer+Math.PI) + this.y,2000, Isaac_TextureBoss.laser, 10));
+        world.gameObjects.add(new EnemyShot(this.x, this.y, (r * Math.cos(rotationSpeed*this.timer+3*Math.PI/2)*direction) + this.x, r * Math.sin(rotationSpeed*this.timer+3*Math.PI/2) + this.y,2000, Isaac_TextureBoss.laser, 10));
 
     }
 
     private void shootRailgun(){
         if(this.shootingTimer >= 0.1){
-            world.gameObjects.add(new EnemyShot(this.x, this.y, this.x-1000, this.y,500, Isaac_TextureBoss.laserSpell, 10000, 5));
-            world.gameObjects.add(new EnemyShot(this.x, this.y, this.x+1000, this.y,500, Isaac_TextureBoss.laserSpell, 10000,5));
+            world.gameObjects.add(new EnemyShot(this.x, this.y, this.x-1000, this.y,500, Isaac_TextureBoss.laserSpell, 50, 5));
+            world.gameObjects.add(new EnemyShot(this.x, this.y, this.x+1000, this.y,500, Isaac_TextureBoss.laserSpell, 50,5));
             this.shootingTimer = 0.0;
         }
 

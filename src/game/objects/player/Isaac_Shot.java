@@ -1,9 +1,10 @@
-package game.objects;
+package game.objects.player;
 
 import game.engine.objects.AbstractAnimatedGameObject;
 import game.engine.objects.AbstractGameObject;
 import game.engine.objects.GameObjectList;
 import game.engine.sound.SoundEngine;
+import game.map.Isaac_World;
 import game.objects.enemy.IEnemy;
 import game.sound.Isaac_Sounds;
 import game.utils.Const;
@@ -47,6 +48,7 @@ public class Isaac_Shot extends AbstractAnimatedGameObject
             {
                 var enemy = (IEnemy)obj;
                 enemy.hit(damage);
+                ((Isaac_World)world).addScore(1);
                 this.isLiving=false;
             }
         }

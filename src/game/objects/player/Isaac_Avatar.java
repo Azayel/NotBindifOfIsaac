@@ -4,6 +4,7 @@ import game.engine.objects.AbstractGameObject;
 import game.engine.objects.AbstractTextObject;
 import game.engine.objects.GameObjectList;
 import game.engine.sound.SoundEngine;
+import game.level.Isaac_Level;
 import game.objects.enemy.IEnemy;
 import game.sound.Isaac_Sounds;
 import game.utils.Const;
@@ -14,6 +15,7 @@ import java.awt.*;
 public class Isaac_Avatar extends AbstractGameObject {
 
     int health = Const.INITIAL_HEALTH;
+    int maxHealth = Const.INITIAL_HEALTH + (Isaac_Level.instance.getLevel()-1) * 10;
     double invincibletime=0;
     private double inertX = 0.0, inertY = 0.0;
     private double slipperiness = 1.6;  // shows how slippery GameObject would move, should be value between ]1.0. 2.0[
@@ -26,7 +28,7 @@ public class Isaac_Avatar extends AbstractGameObject {
         var liveDisplay = new AbstractTextObject(50, 50, Color.GRAY) {
             @Override
             public String toString() {
-                return "Health: " + health;
+                return "Health: " + health+ " / " + maxHealth;
             }
         };
         world.textObjects.add(liveDisplay);
@@ -43,13 +45,16 @@ public class Isaac_Avatar extends AbstractGameObject {
 
     public void addHealth(int health){
         this.health += health;
+        if(this.health > maxHealth)
+            this.health = maxHealth;
+
     }
 
 
     public void tick(double diffSeconds)
     {
 
-
+        maxHealth = Const.INITIAL_HEALTH + (Isaac_Level.instance.getLevel()-1) * 10;
         if(invincibletime > 0)
             invincibletime -= diffSeconds;
         else if(invincibletime < 0)

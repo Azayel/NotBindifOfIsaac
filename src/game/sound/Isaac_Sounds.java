@@ -22,7 +22,11 @@ public class Isaac_Sounds {
 
     public static Clip WaterSpell;
     public static Clip SpiderDeath;
+    public static Clip SpiderAttack;
     public static Clip BossDeath;
+    public static Clip BossLazer;
+    public static Clip BossLazerBallzs;
+    public static Clip BossFire;
     public static Clip AvatarDamage;
     public static Clip Teleport;
     public static Clip HeartPickup;
@@ -57,6 +61,26 @@ public class Isaac_Sounds {
             AudioInputStream audioStream6 = AudioSystem.getAudioInputStream(audioFile6);
             BossDeath = AudioSystem.getClip();
             BossDeath.open(audioStream6);
+
+            File audioFile7 = new File("src/assets/Sound/Effect/fizzy-water-bottle-open-001-93570.wav");
+            AudioInputStream audioStream7 = AudioSystem.getAudioInputStream(audioFile7);
+            SpiderAttack = AudioSystem.getClip();
+            SpiderAttack.open(audioStream7);
+
+            File audioFile8 = new File("src/assets/Sound/Effect/11-105697.wav");
+            AudioInputStream audioStream8 = AudioSystem.getAudioInputStream(audioFile8);
+            BossLazer = AudioSystem.getClip();
+            BossLazer.open(audioStream8);
+
+            File audioFile9 = new File("src/assets/Sound/Effect/fireball-whoosh-7-201453.wav");
+            AudioInputStream audioStream9 = AudioSystem.getAudioInputStream(audioFile9);
+            BossFire = AudioSystem.getClip();
+            BossFire.open(audioStream9);
+
+            File audioFile10 = new File("src/assets/Sound/Effect/laser-beam-76426.wav");
+            AudioInputStream audioStream10 = AudioSystem.getAudioInputStream(audioFile10);
+            BossLazerBallzs = AudioSystem.getClip();
+            BossLazerBallzs.open(audioStream10);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }

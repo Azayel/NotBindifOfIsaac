@@ -2,25 +2,18 @@ package game.map;
 
 
 import game.engine.input.UserInput;
-import game.engine.objects.AbstractGameObject;
 import game.engine.objects.AbstractTextObject;
 import game.engine.objects.GameObjectList;
-import game.objects.enemy.IEnemy;
 import game.engine.world.AbstractWorld;
 import game.level.Isaac_Level;
-import game.objects.RoomBackgroundGameObject;
-import game.engine.sound.SoundEngine;
 import game.objects.*;
-import game.objects.enemy.Isaac_SpiderAI;
-import game.objects.items.Heart;
 import game.objects.player.Isaac_Avatar;
+import game.objects.player.Isaac_Shot;
 import game.utils.Const;
 import game.utils.Isaac_TextureSpells;
 
 import java.awt.*;
 import java.text.DecimalFormat;
-import java.util.ArrayList;
-import java.util.List;
 
 public class Isaac_World extends AbstractWorld
 {

@@ -64,6 +64,7 @@ public class Isaac_SpiderAI extends AbstractAnimatedGameObject implements IEnemy
             speed=new Random().nextInt(Isaac_Room.maxEnemySpeed-Isaac_Room.minEnemySpeed)+Isaac_Room.minEnemySpeed;
             goal=new Random().nextDouble(10);
             if(Math.random()<0.1) {
+                SoundEngine.instance.playSound(Isaac_Sounds.SpiderAttack);
                 speed = 800;
                 goal = 0.5;
             }

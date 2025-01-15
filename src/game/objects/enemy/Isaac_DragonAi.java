@@ -7,10 +7,7 @@ import game.level.Isaac_Level;
 import game.map.Isaac_World;
 import game.objects.EnemyShot;
 import game.objects.Healthbar.EnemyHealthBar;
-import game.objects.Isaac_Shot;
-import game.objects.items.Heart;
 import game.objects.items.RedBooster;
-import game.objects.items.YellowBooster;
 import game.sound.Isaac_Sounds;
 import game.utils.Const;
 import game.utils.DroppableList;
@@ -214,7 +211,7 @@ public class Isaac_DragonAi extends AbstractAnimatedGameObject implements IEnemy
             double rL = randomizer.nextDouble(0.8, 1.5);
             double rX = randomizer.nextDouble(-140, 140);
             double rY = randomizer.nextDouble(-140, 140);
-            world.gameObjects.add(new EnemyShot(this.x, this.y, world.avatar.x + this.inertX + rX, world.avatar.y + this.inertY + rY, (int) (450 * rL), Isaac_TextureBoss.fire, 1));
+            world.gameObjects.add(new EnemyShot(this.x, this.y, world.avatar.x + this.inertX + rX, world.avatar.y + this.inertY + rY, (int) (450 * rL), Isaac_TextureBoss.fire, 5));
             this.shootingTimer = 0;
         }
     }
