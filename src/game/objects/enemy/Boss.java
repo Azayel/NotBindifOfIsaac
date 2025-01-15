@@ -41,7 +41,7 @@ public class Boss extends AbstractAnimatedGameObject implements IEnemy {
     private double health = initialHealth;
     private DroppableList droplist;
     int direction=1;
-
+    
     private Random randomizer;
 
     private double oldAvatarX = 0;
@@ -159,6 +159,8 @@ public class Boss extends AbstractAnimatedGameObject implements IEnemy {
                 break;
             case RUSHING:
                 break;
+            case SLEEPING:
+                this.shootRailgun();
         }
     }
 
@@ -167,7 +169,7 @@ public class Boss extends AbstractAnimatedGameObject implements IEnemy {
             case SHOOTING:
                 this.speed = 170;
                 if(this.timer > 10) {
-                    this.current = State.CHARGING;
+                    this.current = State.SLEEPING;
                     this.timer = 0;
                 }
                 break;
@@ -198,7 +200,7 @@ public class Boss extends AbstractAnimatedGameObject implements IEnemy {
             case SLEEPING:
                 this.speed = 0;
                 if(this.timer > 3) {
-                    this.current = State.FOLLOWING;
+                    this.current = State.CHARGING;
                     this.timer = 0;
                 }
                 break;
@@ -250,6 +252,15 @@ public class Boss extends AbstractAnimatedGameObject implements IEnemy {
         world.gameObjects.add(new EnemyShot(this.x, this.y, (r * Math.cos(rotationSpeed*this.timer+Math.PI/2)*direction) + this.x, r * Math.sin(rotationSpeed*this.timer+Math.PI/2) + this.y,2000, Isaac_TextureBoss.laser, 5));
         world.gameObjects.add(new EnemyShot(this.x, this.y, (r * Math.cos(rotationSpeed*this.timer+Math.PI)*direction) + this.x, r * Math.sin(rotationSpeed*this.timer+Math.PI) + this.y,2000, Isaac_TextureBoss.laser, 5));
         world.gameObjects.add(new EnemyShot(this.x, this.y, (r * Math.cos(rotationSpeed*this.timer+3*Math.PI/2)*direction) + this.x, r * Math.sin(rotationSpeed*this.timer+3*Math.PI/2) + this.y,2000, Isaac_TextureBoss.laser, 5));
+
+    }
+
+    private void shootRailgun(){
+        if(this.shootingTimer >= 0.1){
+            world.gameObjects.add(new EnemyShot(this.x, this.y, this.x-1000, this.y,500, Isaac_TextureBoss.laserSpell, 10000, 5));
+            world.gameObjects.add(new EnemyShot(this.x, this.y, this.x+1000, this.y,500, Isaac_TextureBoss.laserSpell, 10000,5));
+            this.shootingTimer = 0.0;
+        }
 
     }
 }

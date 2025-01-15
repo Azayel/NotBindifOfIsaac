@@ -10,6 +10,9 @@ public class Isaac_TextureBoss {
     public static BufferedImage[] agis;
     public static BufferedImage[] fire;
     public static BufferedImage[] laser;
+    public static BufferedImage[] laserSpell;
+
+
 
     static {
         try {
@@ -33,7 +36,24 @@ public class Isaac_TextureBoss {
 
             };
 
-        } catch (IOException e) {
+            laserSpell = new BufferedImage[]{
+                    read(new File("src/assets/Spells/LaserSpell/tile000.png")),
+                    read(new File("src/assets/Spells/LaserSpell/tile001.png")),
+                    read(new File("src/assets/Spells/LaserSpell/tile002.png")),
+                    read(new File("src/assets/Spells/LaserSpell/tile003.png")),
+                    read(new File("src/assets/Spells/LaserSpell/tile004.png")),
+                    read(new File("src/assets/Spells/LaserSpell/tile005.png")),
+                    read(new File("src/assets/Spells/LaserSpell/tile006.png")),
+                    read(new File("src/assets/Spells/LaserSpell/tile007.png")),
+                    read(new File("src/assets/Spells/LaserSpell/tile008.png")),
+                    read(new File("src/assets/Spells/LaserSpell/tile009.png")),
+                    read(new File("src/assets/Spells/LaserSpell/tile010.png")),
+                    read(new File("src/assets/Spells/LaserSpell/tile011.png")),
+
+            };
+
+
+            } catch (IOException e) {
             e.printStackTrace();
             System.err.println("Error loading textures!");
         }

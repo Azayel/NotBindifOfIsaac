@@ -22,6 +22,14 @@ public class EnemyShot extends AbstractAnimatedGameObject implements IEnemy
         this.damage=damage;
     }
 
+    public EnemyShot(double x, double y, double xDest, double yDest, int speed, BufferedImage[] textures, double damage, double time)
+    {
+        super(x,y,Math.atan2(yDest-y, xDest-x),speed, textures);
+        this.isMoving = true;
+        this.damage=damage;
+        this.lifeTime = time;
+    }
+
     public void tick(double diffSeconds)
     {
         super.tick(diffSeconds);
