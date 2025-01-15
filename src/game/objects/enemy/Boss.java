@@ -2,10 +2,8 @@ package game.objects.enemy;
 
 import game.engine.objects.AbstractAnimatedGameObject;
 import game.engine.objects.AbstractGameObject;
-import game.engine.objects.GameObjectList;
 import game.engine.sound.SoundEngine;
 import game.level.Isaac_Level;
-import game.map.Isaac_Room;
 import game.map.Isaac_World;
 import game.objects.EnemyShot;
 import game.objects.Healthbar.EnemyHealthBar;
@@ -16,7 +14,6 @@ import game.objects.items.YellowBooster;
 import game.sound.Isaac_Sounds;
 import game.utils.*;
 
-import java.awt.image.BufferedImage;
 import java.util.Random;
 
 public class Boss extends AbstractAnimatedGameObject implements IEnemy {
@@ -52,7 +49,7 @@ public class Boss extends AbstractAnimatedGameObject implements IEnemy {
 
     public Boss(double x, double y) {
         super(x,y,0, 0, Isaac_TextureBoss.agis, true);
-        current = State.FOLLOWING;
+        current = State.SHOOTING;
 
         healthBar = new EnemyHealthBar(x,y);
 
@@ -73,7 +70,7 @@ public class Boss extends AbstractAnimatedGameObject implements IEnemy {
 
     public void tick(double diffSeconds) {
         super.tick(diffSeconds);
-        this.makeDesicion();
+        this.makeDecision();
         this.processState();
         this.processMovement(diffSeconds);
         this.timer += diffSeconds;
@@ -165,7 +162,7 @@ public class Boss extends AbstractAnimatedGameObject implements IEnemy {
         }
     }
 
-    private void makeDesicion() {
+    private void makeDecision() {
         switch (this.current) {
             case SHOOTING:
                 this.speed = 170;
@@ -211,11 +208,11 @@ public class Boss extends AbstractAnimatedGameObject implements IEnemy {
         // - make fly not so far
         // - implement collision logic
         // - implement timings
-        if (this.shootingTimer > 0.02) {
+        if (this.shootingTimer > 0.4/ Math.pow((Isaac_Level.instance.getLevel()+1), 2)) {
             double rL = randomizer.nextDouble(0.8, 1.5);
             double rX = randomizer.nextDouble(-280, 280);
             double rY = randomizer.nextDouble(-280, 280);
-            world.gameObjects.add(new EnemyShot(this.x, this.y, world.avatar.x + this.inertX + rX,  world.avatar.y + this.inertY + rY, (int) (450 * rL), Isaac_TextureBoss.fire, 0));
+            world.gameObjects.add(new EnemyShot(this.x, this.y, world.avatar.x + this.inertX + rX,  world.avatar.y + this.inertY + rY, (int) (450 * rL), Isaac_TextureBoss.fire, 1));
             this.shootingTimer = 0;
         }
     }
@@ -228,13 +225,10 @@ public class Boss extends AbstractAnimatedGameObject implements IEnemy {
         // - implement timings
         System.out.println((this.timer * 10) % 7);
         if((this.timer * 10) % 7 > 6.6) {
-            for(int i = 0; i < 8; i++) {
-
-            }
-            world.gameObjects.add(new Isaac_Shot(this.x, this.y, Const.WORLD_WIDTH, this.y,250, Isaac_TextureBoss.fire, 0));
-            world.gameObjects.add(new Isaac_Shot(this.x, this.y, 0, this.y,250, Isaac_TextureBoss.fire, 0));
-            world.gameObjects.add(new Isaac_Shot(this.x, this.y, this.x, Const.WORLD_HEIGHT,250, Isaac_TextureBoss.fire, 0));
-            world.gameObjects.add(new Isaac_Shot(this.x, this.y, this.x, 0,250, Isaac_TextureBoss.fire, 0));
+            world.gameObjects.add(new Isaac_Shot(this.x, this.y, Const.WORLD_WIDTH, this.y,250, Isaac_TextureBoss.fire, 1));
+            world.gameObjects.add(new Isaac_Shot(this.x, this.y, 0, this.y,250, Isaac_TextureBoss.fire, 1));
+            world.gameObjects.add(new Isaac_Shot(this.x, this.y, this.x, Const.WORLD_HEIGHT,250, Isaac_TextureBoss.fire, 1));
+            world.gameObjects.add(new Isaac_Shot(this.x, this.y, this.x, 0,250, Isaac_TextureBoss.fire, 1));
         }
 
     }
