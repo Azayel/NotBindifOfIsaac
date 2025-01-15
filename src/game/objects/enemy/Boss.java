@@ -39,7 +39,7 @@ public class Boss extends AbstractAnimatedGameObject implements IEnemy {
     private double initialHealth = 500;
     private double health = initialHealth;
 
-    public Boss(double x, double y, int radius) {
+    public Boss(double x, double y) {
         super(x,y,0, 0, Isaac_TextureBoss.agis, true);
         current = State.FOLLOWING;
 
@@ -71,7 +71,7 @@ public class Boss extends AbstractAnimatedGameObject implements IEnemy {
 
     @Override
     public int getDamage() {
-        return 0;
+        return 10;
     }
 
     @Override
@@ -183,12 +183,12 @@ public class Boss extends AbstractAnimatedGameObject implements IEnemy {
     private void shootFire() {
         // To Do:
         // - make fly not so far
-        world.gameObjects.add(new EnemyShot(this.x, this.y, world.avatar.x,world.avatar.y,400, Isaac_TextureBoss.fire, 0));
+        world.gameObjects.add(new EnemyShot(this.x, this.y, world.avatar.x,world.avatar.y,400, Isaac_TextureBoss.fire, 10));
     }
     private void shootLaser() {
         double r = 20;
         // To Do:
         // - make fly not so far
-        world.gameObjects.add(new EnemyShot(this.x, this.y, r * Math.cos(this.timer) + this.x, r * Math.sin(this.timer) + this.y,2000, Isaac_TextureBoss.laser, 0));
+        world.gameObjects.add(new EnemyShot(this.x, this.y, r * Math.cos(this.timer) + this.x, r * Math.sin(this.timer) + this.y,2000, Isaac_TextureBoss.laser, 5));
     }
 }

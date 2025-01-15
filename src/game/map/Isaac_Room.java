@@ -83,6 +83,7 @@ public class Isaac_Room {
             case BOSS:
                 //ToDo
                 creategameObjectsEnemyList(enemySpawnBoss, 150);
+                gameObjectsEnemyList.add(new Boss(maxXRoomSize/2, maxYRoomSize/2));
                 //add Chest
                 itemList.add(new Isaac_Chest(maxXRoomSize/2,maxYRoomSize/4));
                 break;
@@ -93,7 +94,7 @@ public class Isaac_Room {
                 //ToDo Add shopkeeper or items
                 break;
             case START:
-                gameObjectsEnemyList.add(new Boss(maxXRoomSize/2, 100,32));
+                //gameObjectsEnemyList.add(new Boss(maxXRoomSize/2, 100,32));
                 break;
             default:
                 creategameObjectsEnemyList(enemySpawnNormal, 150);
