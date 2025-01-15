@@ -8,6 +8,7 @@ import static javax.imageio.ImageIO.read;
 
 public class Isaac_TextureEnemy {
     public static BufferedImage[] enemySpider;
+    public static BufferedImage[] enemyDragon;
 
     static {
         try {
@@ -33,7 +34,13 @@ public class Isaac_TextureEnemy {
                     read(new File("src/assets/Enemy/Spider/spider1.png")),
                     read(new File("src/assets/Enemy/Spider/spider0.png")),
             };
-
+            enemyDragon = new BufferedImage[] {
+                    read(new File("src/assets/Enemy/Dragon/dragon0.png")),
+                    read(new File("src/assets/Enemy/Dragon/dragon1.png")),
+                    read(new File("src/assets/Enemy/Dragon/dragon2.png")),
+                    read(new File("src/assets/Enemy/Dragon/dragon1.png")),
+                    read(new File("src/assets/Enemy/Dragon/dragon0.png")),
+            };
         } catch (IOException e) {
             e.printStackTrace();
             System.err.println("Error loading textures!");
