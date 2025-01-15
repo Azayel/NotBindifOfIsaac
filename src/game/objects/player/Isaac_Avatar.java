@@ -30,6 +30,10 @@ public class Isaac_Avatar extends AbstractGameObject {
             }
         };
         world.textObjects.add(liveDisplay);
+
+        if(Const.CHEAT_MODE){
+            health = Integer.MAX_VALUE;
+        }
     }
 
     void debugPrintLive(){

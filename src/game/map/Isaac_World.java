@@ -43,6 +43,11 @@ public class Isaac_World extends AbstractWorld
 
     public void init()
     {
+        if(Const.CHEAT_DAMAGE){
+            shooting_speed_barrier = 0;
+            baseDmg = 1000;
+        }
+
         level = new Isaac_Level(this);
         Isaac_Level.instance.CreateLevel();
         level.LoadRoom();

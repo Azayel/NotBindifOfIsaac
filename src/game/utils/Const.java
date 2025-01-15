@@ -25,6 +25,8 @@ public final class Const
 
     public static final boolean DEBUG_PRINTS = false;
 
+    public static final boolean CHEAT_MODE = true;
+
 
 
 }
