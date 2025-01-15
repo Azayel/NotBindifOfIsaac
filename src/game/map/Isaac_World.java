@@ -45,7 +45,7 @@ public class Isaac_World extends AbstractWorld
     {
         if(Const.CHEAT_MODE){
             shooting_speed_barrier = 0;
-            baseDmg = 1000;
+            baseDmg = Double.POSITIVE_INFINITY;
         }
 
         level = new Isaac_Level(this);
