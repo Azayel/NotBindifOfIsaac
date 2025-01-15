@@ -8,6 +8,8 @@ import game.map.Isaac_Room;
 import game.map.Isaac_World;
 import game.objects.Healthbar.EnemyHealthBar;
 import game.objects.items.Heart;
+import game.objects.items.RedBooster;
+import game.objects.items.YellowBooster;
 import game.sound.Isaac_Sounds;
 import game.utils.DroppableList;
 
@@ -44,6 +46,9 @@ public class Isaac_SpiderAI extends AbstractAnimatedGameObject implements IEnemy
         alfaClear = Math.PI;
         if(Math.random()<0.5) alfaClear = -alfaClear;
         droplist = new DroppableList();
+        droplist.addItem(Heart.class);
+        droplist.addItem(YellowBooster.class);
+        droplist.addItem(RedBooster.class);
 
     }
 
@@ -159,7 +164,7 @@ public class Isaac_SpiderAI extends AbstractAnimatedGameObject implements IEnemy
             if(Math.random()<=0.15){
                 AbstractGameObject item = droplist.getItem(x,y);
                 if(item!=null)
-                    world.gameObjects.add(droplist.getItem(x,y));
+                    world.gameObjects.add(item);
             }
             return;
         }

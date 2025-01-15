@@ -4,12 +4,15 @@ import game.engine.objects.AbstractAnimatedGameObject;
 import game.engine.objects.AbstractGameObject;
 import game.engine.objects.GameObjectList;
 import game.engine.sound.SoundEngine;
+import game.level.Isaac_Level;
 import game.map.Isaac_Room;
 import game.map.Isaac_World;
 import game.objects.EnemyShot;
 import game.objects.Healthbar.EnemyHealthBar;
 import game.objects.Isaac_Shot;
 import game.objects.items.Heart;
+import game.objects.items.RedBooster;
+import game.objects.items.YellowBooster;
 import game.sound.Isaac_Sounds;
 import game.utils.*;
 
@@ -36,8 +39,10 @@ public class Boss extends AbstractAnimatedGameObject implements IEnemy {
 
     private double timer;
     private EnemyHealthBar healthBar;
-    private double initialHealth = 500;
+    private double initialHealth = (Isaac_Level.instance.getLevel()+1)*100;
     private double health = initialHealth;
+    private DroppableList droplist;
+    int direction=1;
 
     public Boss(double x, double y) {
         super(x,y,0, 0, Isaac_TextureBoss.agis, true);
@@ -51,6 +56,11 @@ public class Boss extends AbstractAnimatedGameObject implements IEnemy {
         this.slipperiness = 1.8;
 
         this.timer = 0;
+
+        droplist = new DroppableList();
+        droplist.addItem(Heart.class);
+        droplist.addItem(YellowBooster.class);
+        droplist.addItem(RedBooster.class);
     }
 
     public void tick(double diffSeconds) {
@@ -86,7 +96,13 @@ public class Boss extends AbstractAnimatedGameObject implements IEnemy {
             ((Isaac_World)world).addScore(1000);
             this.isLiving=false;
             SoundEngine.instance.playSound(Isaac_Sounds.BossDeath);
-            return;
+            for (int xOff = -1; xOff < 2; xOff+=2) {
+                for (int yOff = -1; yOff < 2; yOff+=2) {
+                    AbstractGameObject item = droplist.getItem(x+(xOff*20),y+(yOff*20));
+                    if(item!=null)
+                        world.gameObjects.add(item);
+                }
+            }
         }
     }
 
@@ -153,6 +169,7 @@ public class Boss extends AbstractAnimatedGameObject implements IEnemy {
             case FOLLOWING:
                 this.speed = 90;
                 if(this.timer > 10) {
+                    direction*=-1;
                     this.current = State.SHOOTING;
                     this.timer = 0;
                 }
@@ -189,6 +206,11 @@ public class Boss extends AbstractAnimatedGameObject implements IEnemy {
         double r = 20;
         // To Do:
         // - make fly not so far
-        world.gameObjects.add(new EnemyShot(this.x, this.y, r * Math.cos(this.timer) + this.x, r * Math.sin(this.timer) + this.y,2000, Isaac_TextureBoss.laser, 5));
+        world.gameObjects.add(new EnemyShot(this.x, this.y, (r * Math.cos(this.timer)*direction) + this.x, r * Math.sin(this.timer) + this.y,2000, Isaac_TextureBoss.laser, 5));
+        world.gameObjects.add(new EnemyShot(this.x, this.y, (r * Math.cos(this.timer+Math.PI/2)*direction) + this.x, r * Math.sin(this.timer+Math.PI/2) + this.y,2000, Isaac_TextureBoss.laser, 5));
+        world.gameObjects.add(new EnemyShot(this.x, this.y, (r * Math.cos(this.timer+Math.PI)*direction) + this.x, r * Math.sin(this.timer+Math.PI) + this.y,2000, Isaac_TextureBoss.laser, 5));
+        world.gameObjects.add(new EnemyShot(this.x, this.y, (r * Math.cos(this.timer+3*Math.PI/2)*direction) + this.x, r * Math.sin(this.timer+3*Math.PI/2) + this.y,2000, Isaac_TextureBoss.laser, 5));
+
+
     }
 }

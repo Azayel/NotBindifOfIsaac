@@ -16,11 +16,10 @@ public class DroppableList {
 
     public DroppableList(){
         this.list = new ArrayList<>();
-        list.add(Heart.class);
-        list.add(YellowBooster.class);
-        list.add(RedBooster.class);
+    }
 
-
+    public void addItem(Class<? extends AbstractGameObject> item){
+        this.list.add(item);
     }
 
     public AbstractGameObject getItem(double x, double y){

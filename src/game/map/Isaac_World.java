@@ -18,6 +18,7 @@ import game.utils.Const;
 import game.utils.Isaac_TextureSpells;
 
 import java.awt.*;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -60,6 +61,21 @@ public class Isaac_World extends AbstractWorld
             }
         };
         this.textObjects.add(levelDisplay);
+
+        var dmgDisplay = new AbstractTextObject(level.getCurrentRoom().maxXRoomSize - 200, 80, Color.GRAY) {
+            @Override
+            public String toString() {
+                return "Damage: " + new DecimalFormat("#00.00").format(baseDmg);
+            }
+        };
+        this.textObjects.add(dmgDisplay);
+        var shootingSpeedDisplay = new AbstractTextObject(level.getCurrentRoom().maxXRoomSize - 200, 110, Color.GRAY) {
+            @Override
+            public String toString() {
+                return "Speed:    " + new DecimalFormat("#00.00").format(0.7/shooting_speed_barrier);
+            }
+        };
+        this.textObjects.add(shootingSpeedDisplay);
     }
 
 
@@ -70,11 +86,11 @@ public class Isaac_World extends AbstractWorld
     }
 
     public void mod_speed(){
-        shooting_speed_barrier *= 0.99f; // 1% Speed Increase
+        shooting_speed_barrier *= 0.95f; // 1% Speed Increase
     }
 
     public void mod_damage(){
-        baseDmg *= 1.01f; // 1% DMG Increase
+        baseDmg *= 1.05f; // 1% DMG Increase
     }
 
     public void processUserInput(UserInput userInput, double diffSeconds)
@@ -101,10 +117,10 @@ public class Isaac_World extends AbstractWorld
         // Mouse still pressed?
         //
 
+        // only 1 shot every ... seconds:
+        timeSinceLastShot += diffSeconds;
         if(userInput.isMousePressed && button==3)
         {
-            // only 1 shot every ... seconds:
-            timeSinceLastShot += diffSeconds;
             if(timeSinceLastShot > shooting_speed_barrier)
             {
                 timeSinceLastShot = 0;
