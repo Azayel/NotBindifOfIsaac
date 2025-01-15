@@ -146,6 +146,9 @@ public class Isaac_SpiderAI extends AbstractAnimatedGameObject implements IEnemy
         life -= damageAmount;
         healthBar.setHealth(((double) life/INITIAL_LIFE));
 
+        // Slow down
+        speed=35;
+        goal=1;
         // if Zombie is dead (haha), delete it
         if(life<=0)
         {
