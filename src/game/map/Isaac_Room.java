@@ -3,6 +3,7 @@ package game.map;
 import game.engine.objects.GameObjectList;
 import game.level.Isaac_Level;
 import game.objects.enemy.Boss;
+import game.objects.enemy.Isaac_DragonAi;
 import game.objects.enemy.Isaac_SpiderAI;
 import game.objects.Isaac_Teleporter;
 import game.objects.items.Isaac_Chest;
@@ -10,6 +11,7 @@ import game.utils.Const;
 import game.utils.Isaac_TextureEnemy;
 
 import java.awt.image.BufferedImage;
+import java.util.Random;
 
 public class Isaac_Room {
 
@@ -83,6 +85,7 @@ public class Isaac_Room {
             case BOSS:
                 //ToDo
                 creategameObjectsEnemyList(enemySpawnBoss, 150);
+                setSpawnDragon(150);
                 gameObjectsEnemyList.add(new Boss(maxXRoomSize/2, maxYRoomSize/2));
                 //add Chest
                 itemList.add(new Isaac_Chest(maxXRoomSize/2,maxYRoomSize/4));
@@ -94,10 +97,42 @@ public class Isaac_Room {
                 //ToDo Add shopkeeper or items
                 break;
             case START:
-                //gameObjectsEnemyList.add(new Boss(maxXRoomSize/2, 100,32));
+                //gameObjectsEnemyList.add(new Isaac_DragonAi(maxXRoomSize/2, 100));
+
+
+
                 break;
             default:
                 creategameObjectsEnemyList(enemySpawnNormal, 150);
+                setSpawnDragon(150);
+                break;
+        }
+    }
+
+    private void setSpawnDragon(int minDistanceAwayFromPlayer){
+        //Spawn Dragons at Level 3 or above 25%
+        if(Isaac_Level.instance.getLevel()>2){
+            for (int i = 0; i < Isaac_Level.instance.getLevel(); i++) {
+                if (Math.random()<0.25){
+                    boolean validPosition = false;
+                    int enemyX = 0;
+                    int enemyY = 0;
+
+                    while (!validPosition) {
+                        enemyX = (int) (Math.random() * maxXRoomSize);
+                        enemyY = (int) (Math.random() * maxYRoomSize);
+                        double distance = Math.sqrt(Math.pow(enemyX - playerStartX, 2) + Math.pow(enemyY - playerStartY, 2));
+
+                        // Validate position: far enough from player and away from walls
+                        if (distance >= minDistanceAwayFromPlayer &&
+                                enemyX >= xMinSpawnSize && enemyX <= maxXRoomSize - xMinSpawnSize &&
+                                enemyY >= yMinSpawnSize && enemyY <= maxYRoomSize - yMinSpawnSize) {
+                            validPosition = true;
+                        }
+                    }
+                    gameObjectsEnemyList.add(new Isaac_DragonAi(enemyX,enemyY));
+                }
+            }
         }
     }
 
@@ -124,6 +159,9 @@ public class Isaac_Room {
             // Add the zombie to the game objects list
             gameObjectsEnemyList.add(new Isaac_SpiderAI(enemyX, enemyY,32, (int)(Math.random() * ((maxEnemySpeed - minEnemySpeed) + 1)) + minEnemySpeed, Isaac_TextureEnemy.enemySpider));
         }
+
+
+
 
     }
 

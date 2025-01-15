@@ -26,7 +26,7 @@ public class Isaac_World extends AbstractWorld
 {
     private double timePassed = 0;
     private double timeSinceLastShot = 0;
-    private double shooting_speed_barrier = 0.7;
+    private double shooting_speed_barrier = 0.5;
     private double baseDmg = 5;
 
     // for grenades
@@ -77,7 +77,7 @@ public class Isaac_World extends AbstractWorld
         var shootingSpeedDisplay = new AbstractTextObject(level.getCurrentRoom().maxXRoomSize - 200, 110, Color.GRAY) {
             @Override
             public String toString() {
-                return "Speed:    " + new DecimalFormat("#00.00").format(0.7/shooting_speed_barrier);
+                return "Speed:    " + new DecimalFormat("#00.00").format(0.5/shooting_speed_barrier);
             }
         };
         this.textObjects.add(shootingSpeedDisplay);

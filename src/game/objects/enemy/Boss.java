@@ -135,6 +135,7 @@ public class Boss extends AbstractAnimatedGameObject implements IEnemy {
     private void processState() {
         switch(this.current) {
             case FOLLOWING:
+                this.setDestination(Isaac_Level.instance.getCurrentRoom().maxXRoomSize/2,Isaac_Level.instance.getCurrentRoom().maxYRoomSize/2);
                 this.shootLaser();
             case CHARGING:
                 this.inertX = (world.avatar.x - this.x) / this.distanceToPlayer();
@@ -172,6 +173,7 @@ public class Boss extends AbstractAnimatedGameObject implements IEnemy {
                 }
                 break;
             case FOLLOWING:
+                this.setDestination(Isaac_Level.instance.getCurrentRoom().maxXRoomSize/2,Isaac_Level.instance.getCurrentRoom().maxYRoomSize/2);
                 this.speed = 90;
                 if(this.timer > 10) {
                     direction*=-1;
@@ -243,7 +245,7 @@ public class Boss extends AbstractAnimatedGameObject implements IEnemy {
 
     private void shootLaser() {
         double r = 20;
-        double rotationSpeed = 0.4 * Math.pow((Isaac_Level.instance.getLevel()+1), 2);
+        double rotationSpeed = 1;
         // To Do:
         // - make fly not so far
         world.gameObjects.add(new EnemyShot(this.x, this.y, (r * Math.cos(rotationSpeed*this.timer)*direction) + this.x, r * Math.sin(rotationSpeed*this.timer) + this.y,2000, Isaac_TextureBoss.laser, 5));
