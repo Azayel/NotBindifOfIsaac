@@ -32,12 +32,18 @@ public class Boss extends AbstractAnimatedGameObject implements IEnemy {
 
     private double slipperiness;
 
-    private double shootingRad = 350;
+    private double shootingRad = 700;
 
     private double timer;
+    private double shootingTimer;
     private EnemyHealthBar healthBar;
     private double initialHealth = 500;
     private double health = initialHealth;
+
+    private Random randomizer;
+
+    private double oldAvatarX = 0;
+    private double oldAvatarY = 0;
 
     public Boss(double x, double y) {
         super(x,y,0, 0, Isaac_TextureBoss.agis, true);
@@ -51,6 +57,9 @@ public class Boss extends AbstractAnimatedGameObject implements IEnemy {
         this.slipperiness = 1.8;
 
         this.timer = 0;
+        this.shootingTimer = 0;
+
+        randomizer = new Random();
     }
 
     public void tick(double diffSeconds) {
@@ -59,6 +68,7 @@ public class Boss extends AbstractAnimatedGameObject implements IEnemy {
         this.processState();
         this.processMovement(diffSeconds);
         this.timer += diffSeconds;
+        this.shootingTimer += diffSeconds;
 
 
         if(!world.gameObjects.contains(healthBar))
@@ -102,9 +112,9 @@ public class Boss extends AbstractAnimatedGameObject implements IEnemy {
             if(Const.DEBUG_PRINTS)
                 System.out.println(x);
 
-            if(x + step_x + 45 < Const.WORLD_WIDTH && x + step_x - 45 > 0)
+            if((this.x +  this.boundingBox.width / 2) + step_x  < Const.WORLD_WIDTH && (this.x -  this.boundingBox.width / 2) + step_x > 0)
                 x += step_x;
-            if(y + step_y + 45 < Const.WORLD_HEIGHT && y + step_y - 45 > 0) // calculate world borders
+            if((this.y +  this.boundingBox.height / 2) + step_y < Const.WORLD_HEIGHT && (this.y -  this.boundingBox.height / 2) + step_y > 0) // calculate world borders
                 y += step_y;
 
             this.boundingBox.setPosition(x-this.boundingBox.width/2, y-this.boundingBox.height/2);
@@ -113,6 +123,7 @@ public class Boss extends AbstractAnimatedGameObject implements IEnemy {
     private void processState() {
         switch(this.current) {
             case FOLLOWING:
+                this.shootLaser();
             case CHARGING:
                 this.inertX = (world.avatar.x - this.x) / this.distanceToPlayer();
                 this.inertY = (world.avatar.y - this.y) / this.distanceToPlayer();
@@ -132,9 +143,7 @@ public class Boss extends AbstractAnimatedGameObject implements IEnemy {
                 }
                 this.inertX = dirX / this.distanceToPlayer();
                 this.inertY = dirY / this.distanceToPlayer();
-
-                this.shootLaser();
-
+                this.shootFire();
                 break;
             case RUSHING:
                 break;
@@ -167,7 +176,7 @@ public class Boss extends AbstractAnimatedGameObject implements IEnemy {
                 }
                 break;
             case RUSHING:
-                this.speed = 600;
+                this.speed = 800;
                 if(this.timer > 1.5) {
                     this.current = State.FOLLOWING;
                     this.timer = 0;
@@ -181,14 +190,49 @@ public class Boss extends AbstractAnimatedGameObject implements IEnemy {
     }
 
     private void shootFire() {
+
         // To Do:
         // - make fly not so far
-        world.gameObjects.add(new EnemyShot(this.x, this.y, world.avatar.x,world.avatar.y,400, Isaac_TextureBoss.fire, 10));
+        // - implement collision logic
+        // - implement timings
+        if (this.shootingTimer > 0.02) {
+            double rL = randomizer.nextDouble(0.8, 1.5);
+            double rX = randomizer.nextDouble(-280, 280);
+            double rY = randomizer.nextDouble(-280, 280);
+            world.gameObjects.add(new EnemyShot(this.x, this.y, world.avatar.x + this.inertX + rX,  world.avatar.y + this.inertY + rY, (int) (450 * rL), Isaac_TextureBoss.fire, 0));
+            this.shootingTimer = 0;
+        }
     }
+    private void shootFireCircle() {
+        double r = 2000;
+        double t = 5;
+        // To Do:
+        // - make fly not so far
+        // - implement collision logic
+        // - implement timings
+        System.out.println((this.timer * 10) % 7);
+        if((this.timer * 10) % 7 > 6.6) {
+            for(int i = 0; i < 8; i++) {
+
+            }
+            world.gameObjects.add(new Isaac_Shot(this.x, this.y, Const.WORLD_WIDTH, this.y,250, Isaac_TextureBoss.fire, 0));
+            world.gameObjects.add(new Isaac_Shot(this.x, this.y, 0, this.y,250, Isaac_TextureBoss.fire, 0));
+            world.gameObjects.add(new Isaac_Shot(this.x, this.y, this.x, Const.WORLD_HEIGHT,250, Isaac_TextureBoss.fire, 0));
+            world.gameObjects.add(new Isaac_Shot(this.x, this.y, this.x, 0,250, Isaac_TextureBoss.fire, 0));
+        }
+
+    }
+
     private void shootLaser() {
         double r = 20;
+        double rotationSpeed = 1.3;
         // To Do:
         // - make fly not so far
-        world.gameObjects.add(new EnemyShot(this.x, this.y, r * Math.cos(this.timer) + this.x, r * Math.sin(this.timer) + this.y,2000, Isaac_TextureBoss.laser, 5));
+        world.gameObjects.add(new EnemyShot(this.x, this.y, - r * Math.cos(rotationSpeed * this.timer) + this.x, - r * Math.sin(rotationSpeed * this.timer) + this.y,2000, Isaac_TextureBoss.laser, 5));
+        world.gameObjects.add(new EnemyShot(this.x, this.y, r * Math.cos(rotationSpeed * this.timer) + this.x, r * Math.sin(rotationSpeed * this.timer) + this.y,2000, Isaac_TextureBoss.laser, 5));
+        world.gameObjects.add(new EnemyShot(this.x, this.y, r * Math.sin(rotationSpeed * this.timer) + this.x, - r * Math.cos(rotationSpeed * this.timer) + this.y,2000, Isaac_TextureBoss.laser, 5));
+        world.gameObjects.add(new EnemyShot(this.x, this.y, - r * Math.sin(rotationSpeed * this.timer) + this.x, r * Math.cos(rotationSpeed * this.timer) + this.y,2000, Isaac_TextureBoss.laser, 5));
+
+        // Add random bullets in direction of player
     }
 }

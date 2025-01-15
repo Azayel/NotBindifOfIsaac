@@ -98,9 +98,9 @@ public class Isaac_Avatar extends AbstractGameObject {
         if(Const.DEBUG_PRINTS)
             System.out.println(x);
 
-        if(x + step_x + 45 < Const.WORLD_WIDTH && x + step_x - 45 > 0)
+        if(x + step_x + 40 < Const.WORLD_WIDTH && x + step_x - 40 > 0)
             x += step_x;
-        if(y + step_y + 45 < Const.WORLD_HEIGHT && y + step_y - 45 > 0) // calculate world borders
+        if(y + step_y + 40 < Const.WORLD_HEIGHT && y + step_y - 40 > 0) // calculate world borders
             y += step_y;
 
         this.boundingBox.setPosition(x, y);
