@@ -55,7 +55,19 @@ Texturen gekümmert.
 
 Max Wenzel:
 
-Ilyas:
+Ilyas Sharifgaliev:
+
+Meine Erste Aufgabe war die Refactoring code base zu machen. Ich habe es aufgeräumt und ein bisschen strukturiert.
+
+Meine Zweite Aufgabe war, das neue Bewegungssystem zu implementieren. Ich habe es abstrakt gemacht und für verschiedene AbstractGameObjects eigene Implementation gemacht.
+
+Spider_Enemy hat das gleiche 'Direction' basiert Bewegungssystem. Movement-system von Isaac_Avatar ist basiert auf Idee von Trägheit oder Inertia. 
+Bei jedem 'Keyboard press' wird Isaac_Avatar ein bisschen Inertia in eine zugehörige Richtung zugewiesen. Und dann jedes Frame 
+wird Inertia konsumiert und Isaac_Avatar wird bewegt abhängig von Geschwindigkeit.
+
+Meine letzte Aufgabe war den Boss zu implementieren. Der Boss ist basiert auf die Idee von Zuständen oder States. 
+Ich habe auch verschiedene Attacks implementiert, wie LaserAttack und FireAttack. Beim Zustandswechsel änder der Boss seine Geschwindigkeit, Verhalten und Attack-pattern. 
+In State.FOLLOWING folgt der Boss Isaac_Avatar und schießt Laser. In State.SHOOTING kreisst der Boss um Isaac_Avatar und schießt Feuer.
 
 
 Fabian Fila (Silva Fila):
