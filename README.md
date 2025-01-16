@@ -1,11 +1,11 @@
 # NotBindingOfIsaac
-
+https://github.com/Azayel/NotBindingOfIsaac
 NotBindingOfIsaac
 
 Gruppen Teilnehmer:
 Marcel Otto
 Max Wenzel
-Ilyas
+Ilyas Sharifgaliev
 Fabian Fila (Silva Fila)
 
 
@@ -54,6 +54,18 @@ Desweiteren hab ich mich um die Stnadard einlesung von BufferedImages für den A
 Texturen gekümmert.
 
 Max Wenzel:
+
+Ich habe das collision system vom radius basierend auf bounding box basierend umgeschrieben,
+bei der eine neue Boundingbox klasse erzeugt wird zu jedem existierenden Game Object. 
+
+Weiter habe ich Powerups hinzugefuegt. Wie Attack-Speed modifier and Damage-Modifier,
+bei der die Attribute um 5% ins positive erhoeht werden. Dazu habe ich eine klasse Droplist geschrieben.
+Dise ermoeglicht es Klassen vom typen AbstractGameObject (e.g. Dropable Items) in die liste
+hinzuzufuegen, bei der dan eine neue zufeallige instanz eines Dropitems zuruckgegeben wird, bei einem kill eines gegners.
+
+Drittens habe ich eine neue Attacke bei dem Boss hinzugefuegt, welche getriggert wird in dem Sleeping-State. Diese ist eine Railgun
+attacke welche dazu dient das spielfeld in kleiner zeit zu zerteilen.
+
 
 Ilyas Sharifgaliev:
 
