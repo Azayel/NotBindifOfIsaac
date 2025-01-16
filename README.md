@@ -64,7 +64,7 @@ Dise ermoeglicht es Klassen vom typen AbstractGameObject (e.g. Dropable Items) i
 hinzuzufuegen, bei der dan eine neue zufeallige instanz eines Dropitems zuruckgegeben wird, bei einem kill eines gegners.
 
 Drittens habe ich eine neue Attacke bei dem Boss hinzugefuegt, welche getriggert wird in dem Sleeping-State. Diese ist eine Railgun
-attacke welche dazu dient das spielfeld in kleiner zeit zu zerteilen.
+attacke welche dazu dient das spielfeld in kleinere teile zu zerteilen.
 
 
 Ilyas Sharifgaliev:
